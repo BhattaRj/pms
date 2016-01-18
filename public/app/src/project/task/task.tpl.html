@@ -1,0 +1,40 @@
+<md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
+
+
+<div flex="25" flex-xs="100" layout="column" ng-repeat="task in dataList" draggable="true">
+    <md-card>
+
+    <md-card-title>
+    <md-card-title-text>
+    <span class="md-headline">[[ task.title ]]</span>
+    </md-card-title-text>
+    </md-card-title>
+    
+    <md-card-content>
+
+    <p>[[ task.description ]]</p>
+
+    </md-card-content>
+
+    <md-card-actions layout="row" layout-align="end start">
+
+    <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="remove(task.id,$index,$event)">
+    <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="CreateForm($event,task)">
+    <md-icon md-svg-icon="img/icons/edit26.svg"></md-icon>
+    </md-button>
+
+    </md-card-actions>
+    </md-card>
+</div>
+
+</md-content>
+
+<br>
+<br>
+<br>
+ <div layout="row">
+      <md-button class="md-accent md-fab md-fab-bottom-right" ng-click="CreateForm($event)">Add</md-button>
+</div>

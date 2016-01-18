@@ -1,0 +1,50 @@
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak flex="40">
+<md-toolbar>
+<div class="md-toolbar-tools">
+
+    <h4 ng-show="mode=='add'">Add User Story</h4>
+    <h4 ng-show="mode=='edit'">Edit User Story</h4>
+
+    <span flex></span>
+    <md-button class="md-icon-button" ng-click="cancel()">
+    <md-icon  aria-label="Close dialog">
+    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </md-icon>
+    </md-button>
+</div>
+</md-toolbar>
+<md-dialog-content>
+<div layout="column" ng-cloak>
+    <md-content layout-padding>
+    <form name="Form">
+
+        <md-input-container class="md-block">
+        <label>Title</label>
+        <input md-maxlength="150" required name="title" ng-model="dataModel.title" ng-blur="makeSlug(dataModel.title)">
+        <div ng-messages="Form.title.$error">
+            <div ng-message="required">This is required.</div>
+            <div ng-message="md-maxlength">The title has to be less than 150 characters long.</div>
+        </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+        <label>Description</label>
+        <input md-maxlength="200" required name="description" ng-model="dataModel.description" ng-blur="makeSlug(dataModel.description)">
+        <div ng-messages="Form.description.$error">
+            <div ng-message="required">This is required.</div>
+            <div ng-message="md-maxlength">The description has to be less than 200 characters long.</div>
+        </div>
+        </md-input-container>
+
+
+    </form>
+    </md-content>
+</div>
+
+</md-dialog-content>
+
+    <form-button></form-button>
+
+</md-dialog>
+
+
