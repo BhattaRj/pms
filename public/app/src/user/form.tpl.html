@@ -1,0 +1,76 @@
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak flex="40">
+<md-toolbar>
+<div class="md-toolbar-tools">
+
+    <h4>[[ title ]]</h4>
+
+    <span flex></span>
+    <md-button class="md-icon-button" ng-click="cancel()">
+    <md-icon  aria-label="Close dialog">
+    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </md-icon>
+    </md-button>
+</div>
+</md-toolbar>
+<md-dialog-content>
+<div layout="column" ng-cloak>
+    <md-content layout-padding>
+    <form name="Form">
+
+        <md-input-container class="md-block">
+        <label>Name</label>
+        <input required name="name" ng-model="dataModel.name">
+        <div ng-messages="Form.name.$error">
+            <div ng-message="required">This is required.</div>        
+        </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+        <label>Email</label>
+        <input required type="email" name="email" ng-model="dataModel.email">
+        <div ng-messages="Form.email.$error">
+            <div ng-message="required">This is required.</div>
+            <div ng-message="email">Eamil is not valid.</div>            
+        </div>
+
+
+        </md-input-container>
+        <label>Profile Pic</label>
+        <input type="text" name="image_url" ng-model="dataModel.image_url" ng-hide="true">
+
+        <md-input-container class="md-block">
+
+        <input type="file" ngf-select ng-model="dataModel.file" name="file" accept="image/*" ngf-max-size="2MB">
+
+        <div ng-messages="Form.file.$error" ng-hide="true">
+            <div ng-message="maxSize">File too large [[picFile.size / 1000000|number:1]]MB: max 2M</div>
+        </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+        <label>Password</label>
+        <input type="password" name="password" ng-model="dataModel.password">
+        <div ng-messages="Form.password.$error">
+            <div ng-message="required">This is required.</div>                        
+        </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+        <label>Confirm Password</label>
+        <input type="password" name="confirm_password" ng-model="dataModel.confirm_password">
+        <div ng-messages="Form.confirm_password.$error">
+            <div ng-message="required">This is required.</div>
+        </div>
+        </md-input-container>
+
+    </form>
+    </md-content>
+</div>
+
+</md-dialog-content>
+
+    <form-button></form-button>
+
+</md-dialog>
+
+

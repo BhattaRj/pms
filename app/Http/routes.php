@@ -34,6 +34,7 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::resource('project', 'ProjectsController');
 Route::resource('task', 'TasksController');
+Route::resource('user', 'UsersController');
 
 Route::controller('auth/password', 'Auth\PasswordController', [
     'getEmail' => 'auth.password.email',

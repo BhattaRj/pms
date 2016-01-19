@@ -3,15 +3,18 @@
 
     angular.module('app', [
         'ngMaterial',
+        'ngSanitize',
         'ui.router',
         'project',
         'rjDirective',
         'ngResource',
         'ui.bootstrap',
+        'user',
+       'ngFileUpload',
     ]);
 
 
-    angular.module('app').controller('BaseController', ['$scope',BaseController]);
+    angular.module('app').controller('BaseController', ['$scope', BaseController]);
 
     angular.module('app').config(function($mdThemingProvider, $mdIconProvider, $interpolateProvider, $stateProvider, $urlRouterProvider) {
 
@@ -31,7 +34,7 @@
         $mdThemingProvider.theme('default')
             .primaryPalette('green')
             .accentPalette('red');
-            
+
         // $urlRouterProvider.otherwise('/main');
 
         $stateProvider
@@ -49,16 +52,11 @@
                 url: '/task',
                 templateUrl: '/app/src/project/task/task.tpl.html',
                 controller: 'TaskController'
-            })            
-            .state('main.dashboard', {
-                url: '/dashboard',
-                templateUrl: '/admins/src/app/dashboard/dashboard.tpl.html',
-                controller: 'DashboardController',
             })
-            .state('main.company', {
-                url: '/company',
-                templateUrl: '/admins/src/app/company/company.tpl.html',
-                controller: 'CompanyController',
+            .state('people', {
+                url: '/people',
+                templateUrl: '/app/src/user/user-list.tpl.html',
+                controller: 'UserListController',
             });
 
     });

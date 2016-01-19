@@ -36,7 +36,9 @@ if (!Auth::guest()) {
     <body ng-app="app" layout="column" ng-controller="BaseController as ctrl">
 
         <header></header>
+
         <div flex layout="row" ui-view>
+
         </div>
 
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -48,6 +50,10 @@ if (!Auth::guest()) {
         <script src="/bower_components/angular-resource/angular-resource.js"></script>
         <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="/bower_components/angular-messages/angular-messages.min.js"></script>
+        <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
+
 
 
         <script type="text/javascript" src="./app/src/app.js"></script>
@@ -60,9 +66,11 @@ if (!Auth::guest()) {
 
         <script type="text/javascript" src="./app/common/resources/project.js"></script>
         <script type="text/javascript" src="./app/common/resources/task.js"></script>
+        <script type="text/javascript" src="./app/common/resources/user.js"></script>
 
         <script type="text/javascript" src="./app/src/project/project.js"></script>
         <script type="text/javascript" src="./app/src/project/task/task.js"></script>
+        <script type="text/javascript" src="./app/src/user/user.js"></script>
 
     </body>
 </html>

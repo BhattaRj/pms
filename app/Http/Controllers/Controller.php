@@ -22,4 +22,18 @@ abstract class Controller extends BaseController
     protected $current_page = 1;
 
     use DispatchesJobs, ValidatesRequests;
+
+    protected function uploadImage($destinationPath, $file)
+    {
+
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+        }
+
+        $filename = $destinationPath . '/' . round(microtime(true)) . $file->getClientOriginalName();
+
+        $file->move($destinationPath, $filename);
+
+        return $filename;
+    }
 }
