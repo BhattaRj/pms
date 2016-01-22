@@ -4,15 +4,15 @@
 <div flex="30" flex-xs="100" layout="column">
     <label>Backlog</label>
     <md-input-container class="md-block">
-        <label>Add Issue in Backlog</label>
-        <input name="clientName" ng-model="data.title" my-enter="save($event,data)">
+        <label>Add Issue</label>
+        <input name="clientName" ng-model="backlog.title" my-enter="addBacklog($event,backlog)">
     </md-input-container>
 
-    <md-card ng-repeat="task in dataList" draggable="true" ng-dblclick="CreateForm($event,task)">
+    <md-card ng-repeat="task in backlogs" draggable="true" ng-dblclick="taskForm($event,task)">
     <md-card-content>
     <p>[[ task.title ]]
     <span class="pull-right">    
-        <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="remove(task.id,$index,$event)">
+        <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeBacklog(task.id,$index,$event)">
         <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
         </md-button>
     </span>
@@ -27,27 +27,28 @@
     <div layout="row">
 
         <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList">
-            <label>[[ sprint.title ]]</label>
+            <label ng-dblclick="sprintForm($event,sprint)">[[ sprint.title ]]</label>
             <md-input-container class="md-block">
-                <label>Add Issue in [[ sprint.title ]]</label>
-                <input name="clientName" ng-model="sprint.task_title" my-enter="save($event,sprint)">
+                <label>Add Issue</label>
+                <input name="clientName" ng-model="sprint.issue_title" my-enter="addSprintTask($event,sprint)">
             </md-input-container>
 
-            <md-card ng-repeat="task in sprint.tasks" draggable="true" ng-dblclick="CreateForm($event,task)">
+            <md-card ng-repeat="task in sprint.tasks" draggable="true" ng-dblclick="taskForm($event,task)">
             <md-card-content>
+
             <p>[[ task.title ]]
-            <span class="pull-right">    
-                <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="remove(task.id,$index,$event)">
-                <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
-                </md-button>
-            </span>
+                <span class="pull-right">    
+                    <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeSprintTask(task,$index,$event,sprint)">
+                    <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
+                    </md-button>
+                </span>
             </p>
             </md-card-content>
             </md-card>
         </div>
 
     </div>
-    <md-button class="md-raised md-primary" ng-click="createSprintForm($event)">Add Sprint</md-button>    
+    <md-button class="md-raised md-primary" ng-click="sprintForm($event)">Add Sprint</md-button>    
 </div>
 
 

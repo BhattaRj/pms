@@ -2,8 +2,7 @@
 
     angular.module('project', [
         'resources.project',
-        'task',
-        'sprint',
+        'task',        
     ]);
 
     angular.module('project').controller('ProjectController', ProjectController);

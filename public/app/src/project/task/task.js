@@ -2,59 +2,85 @@
 
     angular.module('task', [
         'resources.task',
-        'resources.sprint',    
+        'resources.sprint',          
     ]);
 
     angular.module('task').controller('TaskController', TaskController);
     
     function TaskController($scope, TaskFactory, ConfirmFactory, $stateParams, ModalFactory,SprintFactory) {
-        $scope.getData = getData;
-        $scope.save = save;
-        $scope.remove = remove;
-        $scope.CreateForm = CreateForm;
-        $scope.dataLoaded = false;
-        $scope.isOpen=false;
-        $scope.selectedMode = 'md-scale';
+
         $scope.$parent.selectedIndex=1;
-        var param = {
-            project_id: $stateParams.id
-        };
-        $scope.createSprintForm = createSprintForm;
-        getData(param);
 
-        function save($event, task) {   
-            var data={};
-            data.project_id = $stateParams.id;
-            data.title = task.task_title;
+        /**
+         * Functions related to the backlog.
+         */
+        $scope.getBacklogs = getBacklogs;
+        $scope.backlogsLoaded = false;
+        $scope.backlogParam={
+            project_id : $stateParams.id,
+            sprint_id : 'null'
+        }
+        $scope.addBacklog=addBacklog;
+        $scope.removeBacklog=removeBacklog;
+        $scope.taskForm=taskForm;
+        getBacklogs($scope.backlogParam);        
 
-            if(task.id)
-            {
-                data.sprint_id=task.id;
-            }        
-            debugger;
 
-            TaskFactory.save(data).then(function(response) {
-                getData(param);
-                // if($scope.data.title){
-                //     $scope.data.title = "";    
-                // }
-                // if($scope.sprint.task_title){
-                //     $scope.sprint.task_title="";
-                // }
-                
+        function getBacklogs(param){
+            TaskFactory.getDataList(param).then(function(response) {
+                $scope.backlogs = response.data;
+                $scope.totalItems = response.total;
+                $scope.backlogsLoaded = true;
+            });            
+        }
+
+        function addBacklog($event,backlog){            
+            if(backlog && backlog.title){
+                var data={};
+                data.project_id = $stateParams.id;
+                data.title = backlog.title;
+                TaskFactory.save(data).then(function(response) {
+                    $scope.backlogs.push(response);
+                    $scope.backlog.title="";
+                });    
+            }
+        }
+
+        function removeBacklog(id, $index, $event){
+            ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {                    
+                TaskFactory.remove(id).then(function(repsonse) {
+                    $scope.backlogs.splice($index, 1);
+                });
             });
         }
 
-        function getData(param) {
-            param.sprint_id='null';                    
-            debugger;
+        function taskForm($event, dataModel) {
+            var templateUrl = '/app/src/project/task/form.tpl.html',
+                contrl = TaskViewController,
+                data = {
+                    dataModel: dataModel
+                };
+            if (dataModel) {
+                data.title = "Issue";
+                ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
+                    $scope.getBacklogs(param);
+                });
+            } 
+        }
 
-            TaskFactory.getDataList(param).then(function(response) {
-                $scope.dataList = response.data;
-                $scope.totalItems = response.total;
-                $scope.dataLoaded = true;
-            });
-
+        /**
+         * Function related to the sprint
+         */
+        $scope.getSprint=getSprint;        
+        $scope.sprintDataLoaded = true;
+        $scope.sprintParam={
+            project_id: $stateParams.id
+        }  
+        $scope.addSprintTask=addSprintTask;
+        getSprint($scope.sprintParam)
+        $scope.removeSprintTask=removeSprintTask;
+        $scope.sprintForm=sprintForm;
+        function getSprint (param) {            
             SprintFactory.getDataList(param).then(function(response) {
                 $scope.sprintList = response.data;
                 $scope.totalSprintItems = response.total;
@@ -62,62 +88,55 @@
             });            
         }
 
-        // Remove the dataItem form the dataList.
-        function remove(id, $index, $event) {
-            ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {                    
-                TaskFactory.remove(id).then(function(repsonse) {
-                    $scope.dataList.splice($index, 1);
-                });
-            });
-        }
-
-        // Create form for create and Save.
-        function CreateForm($event, dataModel) {
-            var templateUrl = '/app/src/project/sprint/form.tpl.html',
-                contrl = SaveTaskController,
-                data = {
-                    dataModel: dataModel
-                };
-
-            if (dataModel) {
-                data.mode = "edit";
-                ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
-                    $scope.getData(param);
-                });
-            } else {
-                data.mode = "add";
-                ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
-                    $scope.getData(param);
-                });
+        function addSprintTask ($event,task) {            
+            if(task.issue_title){
+                $scope.task = task;
+                var data={};
+                data.project_id = $stateParams.id;
+                data.title = task.issue_title;
+                data.sprint_id=task.id;
+                TaskFactory.save(data).then(function(response) {
+                    $scope.task.tasks.push(response);
+                    $scope.task.issue_title="";
+                });                            
             }
         }
 
-        // Create form for Sprint create and Save.
-        function createSprintForm($event, dataModel) {
-            var templateUrl = '/app/src/project/task/form.tpl.html',
-                contrl = SaveSprintController,
+        function removeSprintTask(task, $index, $event,sprint){
+
+            ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {                    
+                TaskFactory.remove(task.id).then(function(repsonse) {
+                    sprint.tasks.splice($index, 1);
+                });
+            });            
+        }
+
+        
+        function sprintForm($event, dataModel) {
+            var templateUrl = '/app/src/project/task/sprint-form.tpl.html',
+                contrl = SprintViewController,
                 data = {
                     dataModel: dataModel
                 };
 
             if (dataModel) {
-                data.mode = "edit";
+                data.title = "Update Sprint";
                 ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
-                    $scope.getData(param);
+                    $scope.getSprint($scope.sprintParam);
                 });
             } else {
-                data.mode = "add";
+                data.title = "Add Sprint";
                 ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
-                    $scope.getData(param);
+                    $scope.getSprint($scope.sprintParam);
                 });
             }
         }
     }
 
-    function SaveTaskController(data, $scope, $mdDialog, TaskFactory, $mdToast, data, $state) {        
+    function TaskViewController(data, $scope, $mdDialog, TaskFactory, $mdToast, data, $state) {           
         $scope.save = save;
         $scope.dataModel = data.dataModel ? data.dataModel : {};
-        $scope.mode = data.mode;
+        $scope.title = data.title;
         $scope.dataSaved = true;
         function save(data) {        
             data.project_id=$state.params.id;
@@ -129,10 +148,11 @@
         }
     }
 
-    function SaveSprintController(data, $scope, $mdDialog, SprintFactory, $mdToast, data, $state) {        
+    function SprintViewController(data, $scope, $mdDialog, SprintFactory, $mdToast, data, $state) {  
+        debugger;      
         $scope.save = save;
         $scope.dataModel = data.dataModel ? data.dataModel : {};
-        $scope.mode = data.mode;
+        $scope.title = data.title;
         $scope.dataSaved = true;
         function save(data) {            
             data.project_id=$state.params.id;
@@ -143,5 +163,4 @@
             });
         }
     }
-
 })();
