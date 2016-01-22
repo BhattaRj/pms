@@ -40,7 +40,7 @@ class TasksController extends Controller
         }
 
         if ($request->has('sprint_id')) {
-            $query = $query->where('sprint_id', $request->input('sprint_id'));
+            $query = $query->whereNull('sprint_id');
         }
 
         $skip            = ($this->current_page - 1) * $this->per_page;
