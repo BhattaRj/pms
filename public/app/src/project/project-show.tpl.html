@@ -1,13 +1,8 @@
 <div ng-cloak>
-
     <md-content>
-
-    <md-tabs md-dynamic-height md-border-bottom>
-
-
+    <md-tabs md-selected="selectedIndex" md-autoselect md-dynamic-height md-border-bottom >
     <md-tab label="Overview">
 	    <md-content class="md-padding">
-
             <div class="table-responsive-vertical md-whiteframe-z1">
                 <table id="table" class="table table-hover table-bordered">
                     <thead>
@@ -25,25 +20,26 @@
                         <td data-title="Status">[[data.status]]</td>
                         <td data-title="Progress">
                             <md-progress-linear class="table-progress [[data.class]]"
-                                                md-mode="determinate"
-                                                value=[[data.progress]]>
+                                md-mode="determinate"
+                                value=[[data.progress]]>
                             </md-progress-linear>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-
-
-
 	    </md-content>
     </md-tab>
 
-    <md-tab label="User Stories" ui-sref="project.show.task">   
+    <md-tab label="Issues" ui-sref="project.show.task">   
         <div ui-view></div>
     </md-tab>
 
+    <md-tab label="Sprints" ui-sref="project.show.sprint">
+        <div ui-view></div>
+    </md-tab>
 
+    
     <md-tab label="Members">
     <md-content class="md-padding">
 
@@ -65,29 +61,6 @@
 
     </md-tab>
 
-    <md-tab label="SCRUMBoards">
-    <md-content class="md-padding">
-
-    <h1 class="md-display-2">Tab Three</h1>
-    
- 	<md-list>
-
-      <md-list-item class="md-2-line veggie-option"  layout="row" layout-wrap>
-        <div class="md-item-text md-whiteframe-z1" flex>
-          <h3>User Management</h3>
-          <p>uam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu e</p>
-        </div>
-      </md-list-item>
-
-    </md-list>
-
-
-
-    </md-content>
-    </md-tab>
-
     </md-tabs>
-
-
     </md-content>
 </div>

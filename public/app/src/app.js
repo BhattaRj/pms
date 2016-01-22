@@ -10,7 +10,9 @@
         'ngResource',
         'ui.bootstrap',
         'user',
-       'ngFileUpload',
+        'ngFileUpload',
+        'board',
+        
     ]);
 
 
@@ -53,11 +55,21 @@
                 templateUrl: '/app/src/project/task/task.tpl.html',
                 controller: 'TaskController'
             })
+            .state('project.show.sprint', {
+                url: '/sprint',
+                templateUrl: '/app/src/project/sprint/sprint.tpl.html',
+                controller: 'SprintController'
+            })            
             .state('people', {
                 url: '/people',
                 templateUrl: '/app/src/user/user-list.tpl.html',
                 controller: 'UserListController',
-            });
+            })
+            .state('board', {
+                url: '/board',
+                templateUrl: '/app/src/board/board.tpl.html',
+                controller: 'BoardController',
+            });            
 
     });
 

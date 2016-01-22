@@ -6,7 +6,7 @@
     <md-content>
     <md-list>
       <md-subheader class="md-no-sticky">Users</md-subheader>
-      <md-list-item class="md-3-line" ng-repeat="dataModel in dataList" ng-click="CreateForm($event,dataModel)">
+      <md-list-item class="md-3-line" ng-repeat="dataModel in dataList" ng-dblclick="CreateForm($event,dataModel)">
         <img alt="[[ dataModel.name ]]" ng-src="[[ dataModel.image_url ]]" class="md-avatar" />
         <div class="md-list-item-text" layout="column">
           <h3> [[ dataModel.name ]] </h3>

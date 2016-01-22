@@ -12,7 +12,7 @@ angular.module('app')
             templateUrl: '/app/common/directive/header/header.html',
             restrict: 'E',
             replace: true,
-            controller: function($scope, $mdSidenav, $mdBottomSheet) {
+            controller: function($scope, $mdSidenav, $mdBottomSheet, ConfirmFactory) {
                 var originatorEv;
 
                 $scope.openMenu = function($mdOpenMenu, ev) {
@@ -28,6 +28,11 @@ angular.module('app')
                     });
                 }
 
+                $scope.logout = function($event) {
+                    ConfirmFactory.show($event, 'You really want to logout !!').then(function() {
+                        location.replace('auth/logout')
+                    });
+                }
             }
         }
     });

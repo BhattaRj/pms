@@ -2,12 +2,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Task;
+use App\Models\Sprint;
 use Illuminate\Http\Request;
 
-class TasksController extends Controller
+class SprintsController extends Controller
 {
-    protected $taks;
+    protected $sprint;
 
     protected $per_page = 100;
 
@@ -17,9 +17,9 @@ class TasksController extends Controller
      */
     protected $current_page = 1;
 
-    public function __construct(Task $taks)
+    public function __construct(Sprint $sprint)
     {
-        $this->taks = $taks;
+        $this->sprint = $sprint;
     }
 
     /**
@@ -29,7 +29,7 @@ class TasksController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $this->taks;
+        $query = $this->sprint->with('tasks');
 
         if ($request->has('currentPage')) {
             $this->current_page = $request->input('currentPage');
@@ -37,10 +37,6 @@ class TasksController extends Controller
 
         if ($request->has('project_id')) {
             $query = $query->where('project_id', $request->input('project_id'));
-        }
-
-        if ($request->has('sprint_id')) {
-            $query = $query->where('sprint_id', $request->input('sprint_id'));
         }
 
         $skip            = ($this->current_page - 1) * $this->per_page;
@@ -57,7 +53,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        $result['data']    = $this->taks->create($request->input('data'));
+        $result['data']    = $this->sprint->create($request->input('data'));
         $result['success'] = true;
         return $result;
     }
@@ -71,15 +67,15 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $taks              = $this->taks->findOrFail($id);
-        $result['data']    = $taks->update($request->input('data'));
+        $sprint            = $this->sprint->findOrFail($id);
+        $result['data']    = $sprint->update($request->input('data'));
         $result['success'] = true;
         return $result;
     }
 
     public function show($id)
     {
-        $result['data']    = $this->taks->findOrFail($id);
+        $result['data']    = $this->sprint->findOrFail($id);
         $result['success'] = true;
         return $result;
     }
@@ -92,7 +88,7 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $this->taks->destroy($id) ? $result['success'] = true : $result['success'] = false;
+        $this->sprint->destroy($id) ? $result['success'] = true : $result['success'] = false;
         return $result;
     }
 

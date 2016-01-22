@@ -2,7 +2,8 @@
 
     angular.module('project', [
         'resources.project',
-        'task'
+        'task',
+        'sprint',
     ]);
 
     angular.module('project').controller('ProjectController', ProjectController);
@@ -14,6 +15,7 @@
         $scope.save = save;
         $scope.remove = remove;
         $scope.dataLoaded = false;
+        $scope.selectedIndex=0;
         var param = {};
         getData(param);
 
@@ -46,6 +48,7 @@
     function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams) {
         $scope.dataLoaded = false;
         $scope.toggleSidebar=toggleSidebar;
+        
         ProjectFactory.getDataItem($stateParams.id).then(function(response) {
             $scope.project = response;
             $scope.dataLoaded = true;

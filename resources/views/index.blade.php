@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Angular Material - Starter App</title>
+        <title>SoftyCraft</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="">
@@ -67,10 +67,15 @@ if (!Auth::guest()) {
         <script type="text/javascript" src="./app/common/resources/project.js"></script>
         <script type="text/javascript" src="./app/common/resources/task.js"></script>
         <script type="text/javascript" src="./app/common/resources/user.js"></script>
+        <script type="text/javascript" src="./app/common/resources/sprint.js"></script>
 
         <script type="text/javascript" src="./app/src/project/project.js"></script>
         <script type="text/javascript" src="./app/src/project/task/task.js"></script>
+        <script type="text/javascript" src="./app/src/project/sprint/sprint.js"></script>
+
         <script type="text/javascript" src="./app/src/user/user.js"></script>
+        <script type="text/javascript" src="./app/src/board/board.js"></script>
+
 
     </body>
 </html>
