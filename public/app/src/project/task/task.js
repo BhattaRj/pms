@@ -7,9 +7,7 @@
 
     angular.module('task').controller('TaskController', TaskController);
     
-    function TaskController($scope, TaskFactory, ConfirmFactory, $stateParams, ModalFactory,SprintFactory) {
-
-        $scope.$parent.selectedIndex=1;
+    function TaskController($scope, TaskFactory, ConfirmFactory, $stateParams, $rootScope, ModalFactory,SprintFactory) {
 
         /**
          * Functions related to the backlog.
@@ -38,6 +36,7 @@
             if(backlog && backlog.title){
                 var data={};
                 data.project_id = $stateParams.id;
+                data.sprint_id = null;
                 data.title = backlog.title;
                 TaskFactory.save(data).then(function(response) {
                     $scope.backlogs.push(response);
@@ -63,7 +62,7 @@
             if (dataModel) {
                 data.title = "Issue";
                 ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
-                    $scope.getBacklogs(param);
+                    $scope.getBacklogs($scope.backlogParam);
                 });
             } 
         }
@@ -80,11 +79,16 @@
         getSprint($scope.sprintParam)
         $scope.removeSprintTask=removeSprintTask;
         $scope.sprintForm=sprintForm;
+
         function getSprint (param) {            
             SprintFactory.getDataList(param).then(function(response) {
                 $scope.sprintList = response.data;
                 $scope.totalSprintItems = response.total;
                 $scope.sprintDataLoaded = true;
+                $scope.dummyTask=[
+                    {
+                        sprint_id:null,
+                    }];
             });            
         }
 
@@ -103,14 +107,12 @@
         }
 
         function removeSprintTask(task, $index, $event,sprint){
-
             ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {                    
                 TaskFactory.remove(task.id).then(function(repsonse) {
                     sprint.tasks.splice($index, 1);
                 });
             });            
         }
-
         
         function sprintForm($event, dataModel) {
             var templateUrl = '/app/src/project/task/sprint-form.tpl.html',
@@ -131,6 +133,83 @@
                 });
             }
         }
+
+        $rootScope.$on('RJ-DRAG-START', function(obj, scope) {            
+            $scope.sourceIndex = scope.$index;
+            $scope.sourceData = scope.task;            
+            if(scope.sprint){
+                $scope.sourceTaskList=scope.sprint.tasks;
+            }
+        });
+
+        $rootScope.$on('RJ-DROP-START', function(obj, scope) {
+            if(scope.task.sprint_id === null && $scope.sourceData.sprint_id===null){
+                reorderBacklogTasks(scope);
+            }
+
+            if(scope.task.sprint_id == $scope.sourceData.sprint_id && scope.task.sprint_id != null ){
+                reorderSprintTask(scope);
+            }
+
+            if(scope.task.sprint_id != $scope.sourceData.sprint_id){
+                if(scope.task.sprint_id !=null && $scope.sourceData.sprint_id!=null){
+                    swapSprintTasks(scope);
+                }
+                if($scope.sourceData.sprint_id == null){
+                    addBacklogInSprint(scope);
+                }
+                if(scope.task.sprint_id==null){
+                    addSprintInBacklog(scope);
+                }                
+            }
+        });
+
+        function addBacklogInSprint(scope){
+            $scope.sourceData.sprint_id = scope.task.sprint_id;
+            $scope.backlogs.splice($scope.sourceIndex, 1);
+            scope.sprint.tasks.splice(scope.$index, 0, $scope.sourceData);
+            $scope.$apply();            
+            reorderTasks(scope.sprint.tasks);            
+        }
+
+        function addSprintInBacklog(scope){
+            $scope.sourceData.sprint_id = null;
+            $scope.sourceTaskList.splice($scope.sourceIndex, 1);
+            scope.backlogs.splice(scope.$index, 0, $scope.sourceData);
+            $scope.$apply();            
+            reorderTasks(scope.backlogs);            
+        }
+
+        function swapSprintTasks(scope){ 
+            $scope.sourceData.sprint_id = scope.task.sprint_id;
+            $scope.sourceTaskList.splice($scope.sourceIndex, 1);
+            scope.sprint.tasks.splice(scope.$index, 0, $scope.sourceData);
+            $scope.$apply();            
+            reorderTasks(scope.sprint.tasks);            
+        }
+
+        function reorderBacklogTasks(scope){            
+            $scope.backlogs.splice($scope.sourceIndex, 1);
+            $scope.backlogs.splice(scope.$index, 0, $scope.sourceData);
+            $scope.$apply();            
+            reorderTasks($scope.backlogs);
+        }
+
+        function reorderSprintTask(scope) {
+            scope.sprint.tasks.splice($scope.sourceIndex, 1);
+            scope.sprint.tasks.splice(scope.$index, 0, $scope.sourceData);
+            $scope.$apply();            
+            reorderTasks(scope.sprint.tasks);            
+        }
+        // Reorder tasks
+        function reorderTasks(dataList) {
+            $scope.updateStatus = false;        
+            TaskFactory.reorderTasks(dataList).then(function(response) {
+                if (response) {
+                    $scope.updateStatus = true;
+                }
+            });
+        }
     }
 
     function TaskViewController(data, $scope, $mdDialog, TaskFactory, $mdToast, data, $state) {           
@@ -149,7 +228,6 @@
     }
 
     function SprintViewController(data, $scope, $mdDialog, SprintFactory, $mdToast, data, $state) {  
-        debugger;      
         $scope.save = save;
         $scope.dataModel = data.dataModel ? data.dataModel : {};
         $scope.title = data.title;

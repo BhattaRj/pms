@@ -2,43 +2,22 @@
     <md-content>
     <md-tabs md-selected="selectedIndex" md-autoselect md-dynamic-height md-border-bottom >
     <md-tab label="Overview">
+
 	    <md-content class="md-padding">
-            <div class="table-responsive-vertical md-whiteframe-z1">
-                <table id="table" class="table table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Issue</th>
-                        <th>Status</th>
-                        <th>Progress</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="data in vm.tableData track by $index">
-                        <td data-title="ID">[[$index + 1]]</td>
-                        <td data-title="Issue">[[data.issu]]}</td>
-                        <td data-title="Status">[[data.status]]</td>
-                        <td data-title="Progress">
-                            <md-progress-linear class="table-progress [[data.class]]"
-                                md-mode="determinate"
-                                value=[[data.progress]]>
-                            </md-progress-linear>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            Project Overview goes here...
 	    </md-content>
+
     </md-tab>
 
-    <md-tab label="Issues" ui-sref="project.show.task">   
+    <md-tab label="Issues" >   
+        <ng-include src="'/app/src/project/task/task.tpl.html'"></ng-include>
+        <!-- <div ui-view></div> -->
+    </md-tab>
+
+<!--     <md-tab label="Active Sprint" ui-sref="project.show.sprint">
         <div ui-view></div>
     </md-tab>
-
-    <md-tab label="Active Sprint" ui-sref="project.show.sprint">
-        <div ui-view></div>
-    </md-tab>
-
+ -->
     
     <md-tab label="Members">
     <md-content class="md-padding">

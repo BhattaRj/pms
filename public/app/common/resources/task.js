@@ -19,6 +19,7 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
     fac.getDataItem = getDataItem;
     fac.save = save;
     fac.remove = remove;    
+    fac.reorderTasks=reorderTasks;
 
     function getDataItem(id) {
         return BaseModelFactory.getDataItem(res, id);
@@ -39,5 +40,23 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
         return BaseModelFactory.remove(res, id);
     }
 
+    function reorderTasks(data) {
+
+        var deferred = $q.defer();
+        $http({
+                url: '/reorder_task',
+                method: "POST",
+                data: data
+            })
+            .then(function(response) {
+                if (response.data.success) {
+                    deferred.resolve(response.data.success);
+                } else {
+                    console.log('error occoured..!!!')
+                }
+            });
+
+        return deferred.promise;
+    }
     return fac;
 }

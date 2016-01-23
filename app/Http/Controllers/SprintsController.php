@@ -29,7 +29,10 @@ class SprintsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $this->sprint->with('tasks');
+
+        $query = $this->sprint->with(['tasks' => function ($query) {
+            $query->orderBy('order');
+        }]);
 
         if ($request->has('currentPage')) {
             $this->current_page = $request->input('currentPage');

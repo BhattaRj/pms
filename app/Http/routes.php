@@ -34,6 +34,8 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::resource('project', 'ProjectsController');
 Route::resource('task', 'TasksController');
+Route::post('reorder_task', 'TasksController@reorderTasks');
+
 Route::resource('user', 'UsersController');
 Route::resource('sprint', 'SprintsController');
 

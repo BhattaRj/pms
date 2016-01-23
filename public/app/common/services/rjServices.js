@@ -38,7 +38,7 @@ function ModalFactory($mdDialog, $mdMedia) {
             templateUrl: templateUrl,
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose: true,
+            clickOutsideToClose: false,
             fullscreen: $mdMedia('sm'),
 
             locals: {

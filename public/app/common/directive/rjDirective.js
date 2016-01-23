@@ -7,6 +7,58 @@ angular.module('rjDirective').directive('modalCancelButtton', modalCancelButtton
 angular.module('rjDirective').directive('canSaveForm', canSaveForm);
 angular.module('rjDirective').directive('paddedTitle', paddedTitle);
 angular.module('rjDirective').directive('myEnter', myEnter);
+angular.module('rjDirective').directive('rjDrag', rjDrag);
+
+/**
+ * HTML drag and drop.
+ * Example:
+ * <tr ng-repeat="data in dataList" draggable="true" rj-drag>
+ * When event fired do necessery thing in controller linke re order the section list.
+ * 
+ *  $rootScope.$on('RJ-DRAG-START', function(obj, scope) {
+ *       $scope.sourceIndex = scope.$index;
+ *       $scope.sourceData = scope.data;
+ *  });
+ *
+ *  $rootScope.$on('RJ-DROP-START', function(obj, scope) {
+ *       $scope.dataList.splice($scope.sourceIndex, 1);
+ *       $scope.dataList.splice(scope.$index, 0, $scope.sourceData);
+ *       $scope.$apply();
+ *       updatePageSection();
+ *   });
+ * 
+ */
+function rjDrag($mdDialog, $rootScope) {
+    return {
+        restrict: 'A',
+        link: function(scope, iElement, iAttrs) {
+
+            iElement.bind("dragstart", function(e) {
+                $rootScope.$emit("RJ-DRAG-START",scope,scope);
+            });
+
+            iElement.bind("dragover", function(e) {
+                if (e.preventDefault) {
+                    e.preventDefault(); // Necessary. Allows us to drop.
+                }
+                e.preventDefault();
+            });
+
+            iElement.bind("drop", function(e) {
+                if (e.preventDefault) {
+                    e.preventDefault(); // Necessary. Allows us to drop.
+                }
+
+                if (e.stopPropogation) {
+                    e.stopPropogation(); // Necessary. Allows us to drop.
+                }
+                
+                $rootScope.$emit("RJ-DROP-START",scope,scope);
+            });
+
+        }
+    };
+}
 
 
 /**

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
-    protected $taks;
+    protected $task;
 
     protected $per_page = 100;
 
@@ -17,9 +17,9 @@ class TasksController extends Controller
      */
     protected $current_page = 1;
 
-    public function __construct(Task $taks)
+    public function __construct(Task $task)
     {
-        $this->taks = $taks;
+        $this->task = $task;
     }
 
     /**
@@ -29,7 +29,7 @@ class TasksController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $this->taks;
+        $query = $this->task->orderBy('order');
 
         if ($request->has('currentPage')) {
             $this->current_page = $request->input('currentPage');
@@ -57,7 +57,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        $result['data']    = $this->taks->create($request->input('data'));
+        $result['data']    = $this->task->create($request->input('data'));
         $result['success'] = true;
         return $result;
     }
@@ -71,15 +71,15 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $taks              = $this->taks->findOrFail($id);
-        $result['data']    = $taks->update($request->input('data'));
+        $task              = $this->task->findOrFail($id);
+        $result['data']    = $task->update($request->input('data'));
         $result['success'] = true;
         return $result;
     }
 
     public function show($id)
     {
-        $result['data']    = $this->taks->findOrFail($id);
+        $result['data']    = $this->task->findOrFail($id);
         $result['success'] = true;
         return $result;
     }
@@ -92,7 +92,25 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $this->taks->destroy($id) ? $result['success'] = true : $result['success'] = false;
+        $this->task->destroy($id) ? $result['success'] = true : $result['success'] = false;
+        return $result;
+    }
+
+    /**
+     * Update page sections
+     * @param  Request $request
+     * @return [array]
+     */
+    public function reorderTasks(Request $request)
+    {
+
+        //dd($request->all());
+
+        foreach ($request->all() as $data) {
+            $this->task->findOrFail($data['id'])->update($data);
+        }
+
+        $result['success'] = true;
         return $result;
     }
 

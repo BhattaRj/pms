@@ -28,9 +28,8 @@
 
         <md-input-container class="md-block">
         <label>Description</label>
-        <input md-maxlength="200" required name="description" ng-model="dataModel.description" ng-blur="makeSlug(dataModel.description)">
+        <input md-maxlength="200" name="description" ng-model="dataModel.description" ng-blur="makeSlug(dataModel.description)">
         <div ng-messages="Form.description.$error">
-            <div ng-message="required">This is required.</div>
             <div ng-message="md-maxlength">The description has to be less than 200 characters long.</div>
         </div>
         </md-input-container>
