@@ -28,11 +28,12 @@
             $scope[val]=true;
         }    
         
-        function addSprint($event,data){            
-            if(data != undefined && data.title){  
+        function addSprint($event,newSprint){            
+            if(newSprint != undefined && newSprint.title){  
                 data.project_id=$state.params.id;                
-                SprintFactory.save(data).then(function(response) { 
+                SprintFactory.save(newSprint).then(function(response) { 
                     $scope.addingSprint = false;
+                    $scope.newSprint='';
                     $scope.sprintList.push(response);
                 });
             }
