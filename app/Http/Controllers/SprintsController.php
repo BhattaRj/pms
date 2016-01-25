@@ -70,8 +70,16 @@ class SprintsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $input = $request->input('data');
+
+        // If duration is set activate the sprint.
+        if (isset($input['duration']) || isset($input['start_date']) || isset($input['end_date'])) {
+            $input['status'] = 5;
+            $this->sprint->deactivateOtherSprint($id);
+        }
+
         $sprint            = $this->sprint->findOrFail($id);
-        $result['data']    = $sprint->update($request->input('data'));
+        $result['data']    = $sprint->update($input);
         $result['success'] = true;
         return $result;
     }

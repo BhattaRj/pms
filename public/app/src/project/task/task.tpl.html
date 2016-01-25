@@ -10,7 +10,13 @@
         </div>
 
         <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList" ng-show="sprintDataLoaded">
-            <label ng-dblclick="sprintForm($event,sprint)">[[ sprint.title ]]</label>
+
+            <div layout="row">
+                <label flex="60">[[ sprint.title ]]</label>
+
+                <md-button ng-disabled="sprint.status==5" ng-hide="$index == 0" class="md-raised md-warn" ng-click="sprintForm($event,sprint)" flex="40">Start Sprint</md-button>
+            </div>            
+
             <md-input-container class="md-block">
                 <label>Add Issue</label>
                 <input name="clientName" ng-model="sprint.issue_title" my-enter="addSprintTask($event,sprint)">

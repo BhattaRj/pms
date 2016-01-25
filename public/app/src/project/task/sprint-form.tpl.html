@@ -27,13 +27,18 @@
         </md-input-container>
 
         <md-input-container class="md-block">
-        <label>Description</label>
-        <input md-maxlength="200" name="description" ng-model="dataModel.description" ng-blur="makeSlug(dataModel.description)">
-        <div ng-messages="Form.description.$error">
-            <div ng-message="md-maxlength">The description has to be less than 200 characters long.</div>
-        </div>
+            <label>Duration</label>
+            <md-select ng-model="dataModel.duration" ng-change="durationChanged(dataModel.duration)">
+              <md-option value="7"> 1 Week </md-option>
+              <md-option value="14"> 2 Week </md-option>
+              <md-option value="21"> 3 Week </md-option>
+              <md-option value="28"> 4 Week </md-option>
+              <md-option value=""> Custome </md-option>
+            </md-select>
         </md-input-container>
 
+        <md-datepicker ng-disabled="dataModel.duration != 0" make-date ng-model="dataModel.start_date" md-placeholder="Enter start date"></md-datepicker>
+        <md-datepicker ng-disabled="dataModel.duration != 0" make-date  ng-model="dataModel.end_date" md-placeholder="Enter end date"></md-datepicker>
 
     </form>
     </md-content>

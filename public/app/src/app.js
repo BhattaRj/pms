@@ -20,6 +20,35 @@
 
     angular.module('app').config(function($mdThemingProvider, $mdIconProvider, $interpolateProvider, $stateProvider, $urlRouterProvider) {
 
+
+        // This is will add this functios on every string.
+        String.prototype.capitalizeFirstLetter = function() {
+            return this.charAt(0).toUpperCase() + this.slice(1);
+        }
+
+
+        Date.prototype.toYMD = Date_toYMD;
+        
+        function Date_toYMD() {
+            var year, month, day;
+            year = String(this.getFullYear());
+            month = String(this.getMonth() + 1);
+            if (month.length == 1) {
+                month = "0" + month;
+            }
+            day = String(this.getDate());
+            if (day.length == 1) {
+                day = "0" + day;
+            }
+            return year + "-" + month + "-" + day;
+        }
+
+
+        Date.prototype.addDays = function(days) {
+            this.setDate(this.getDate() + parseInt(days));
+            return this;
+        };
+
         $interpolateProvider.startSymbol('[[').endSymbol(']]');
 
         $mdIconProvider
@@ -77,6 +106,8 @@
         $scope.maxSize = 5;
         $scope.currentPage = 1;
         $scope.itemsPerPage = 10;
+
+
     }
 
 })();

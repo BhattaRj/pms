@@ -16,14 +16,13 @@ class CreateSprintsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('title');
-            $table->boolean('status')->default(1);
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('duration');
+            $table->datetime('start_date')->nullable();
+            $table->datetime('end_date')->nullable();
+            $table->integer('duration');
             $table->text('description');
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-            $table->boolean('active')->default(0);
+            $table->integer('status')->default(1); // 1-activate 5-started 10-Done  15-deactivate
 
         });
     }

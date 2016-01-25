@@ -46,7 +46,6 @@
             if(sprint.issue_title){
                 $scope.sprint = sprint;
                 var data = {};
-                data.project_id = $stateParams.id;
                 data.title = sprint.issue_title;
                 data.sprint_id = sprint.id;
                 TaskFactory.save(data).then(function(response) {                    
@@ -142,7 +141,6 @@
         $scope.title = data.title;
         $scope.dataSaved = true;
         function save(data) {        
-            data.project_id=$state.params.id;
             $scope.dataSaved = false;
             TaskFactory.save(data).then(function(response) {    
                 $scope.dataSaved = true;
@@ -156,6 +154,7 @@
         $scope.dataModel = data.dataModel ? data.dataModel : {};
         $scope.title = data.title;
         $scope.dataSaved = true;
+        $scope.durationChanged=durationChanged;
         function save(data) {            
             data.project_id=$state.params.id;
             $scope.dataSaved = false;
@@ -163,6 +162,11 @@
                 $scope.dataSaved = true;
                 $mdDialog.hide(response);
             });
+        }
+
+        function durationChanged(duration){        
+            $scope.dataModel.start_date=new Date();            
+            $scope.dataModel.end_date= new Date().addDays(duration);
         }
     }
 })();

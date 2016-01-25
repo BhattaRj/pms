@@ -8,6 +8,7 @@ angular.module('rjDirective').directive('canSaveForm', canSaveForm);
 angular.module('rjDirective').directive('paddedTitle', paddedTitle);
 angular.module('rjDirective').directive('myEnter', myEnter);
 angular.module('rjDirective').directive('rjDrag', rjDrag);
+angular.module('rjDirective').directive('makeDate', makeDate);
 
 /**
  * HTML drag and drop.
@@ -55,22 +56,39 @@ function rjDrag($mdDialog, $rootScope) {
                     e.stopPropogation(); // Necessary. Allows us to drop.
                 }
 
-
                 scope.$emit("RJ-DROP-START",scope);
-
-                // var someEventHandle = scope.$on("someEvent", function(){
-                //                     detectSTuff();
-                //                 });
-                
-                // scope.$on('$destroy', someEventHandle);
-
-
             });
 
         }
     };
 }
 
+
+/**
+ * 
+ * 
+ */
+
+
+function makeDate() {
+    return {
+        restrict: 'A',
+        require:'ngModel',
+        link: function(scope, iElement, iAttrs,ngModel) {
+            
+            ngModel.$parsers.push(function(value) {                
+                var date = new Date(value);
+                return date.toYMD();
+            });
+
+           ngModel.$formatters.push(function(value) {                
+                if(value){
+                    return new Date(value);    
+                }
+            });
+        }
+    };
+}
 
 /**
  * 
@@ -132,7 +150,7 @@ function canSaveForm() {
     return {
         restrict: 'A',
         link: function(scope, iElement, iAttrs) {
-            scope.canSave = function(form) {                
+            scope.canSave = function(form) {   
                 if (form) {
                     return form.$dirty && form.$valid && scope.dataSaved;
                 }
