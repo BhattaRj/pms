@@ -46,7 +46,7 @@
 
             <md-input-container class="md-block" ng-show="addingSprint">
                 <label>Sprint Title</label>
-                <input name="clientName" ng-model="sprint.title" my-enter="addSprint($event,sprint)">
+                <input name="clientName" ng-model="newSprint.title" my-enter="addSprint($event,newSprint)">
             </md-input-container>
 
             <md-button ng-hide="addingSprint"class="md-raised md-primary" ng-click="toggleInput($event,'addingSprint')">Add Sprint</md-button>            

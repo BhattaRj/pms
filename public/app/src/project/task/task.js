@@ -32,7 +32,6 @@
             if(data != undefined && data.title){  
                 data.project_id=$state.params.id;                
                 SprintFactory.save(data).then(function(response) { 
-                    debugger;   
                     $scope.addingSprint = false;
                     $scope.sprintList.push(response);
                 });
