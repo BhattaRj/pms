@@ -8,7 +8,6 @@
     angular.module('task').controller('TaskController', TaskController);
     
     function TaskController($scope, TaskFactory, ConfirmFactory, $stateParams, $rootScope, ModalFactory,SprintFactory ,$state) {
-
         $scope.$parent.selectedIndex=1;
         $scope.getSprint=getSprint;        
         $scope.sprintDataLoaded = false;
@@ -20,6 +19,25 @@
         $scope.removeSprintTask=removeSprintTask;
         $scope.sprintForm=sprintForm;
         $scope.taskForm=taskForm;
+        $scope.addingSprint = false;
+        $scope.toggleInput=toggleInput;
+        $scope.addSprint=addSprint;
+
+        function toggleInput($event,val){
+            $event.preventDefault();            
+            $scope[val]=true;
+        }    
+        
+        function addSprint($event,data){            
+            if(data != undefined && data.title){  
+                data.project_id=$state.params.id;                
+                SprintFactory.save(data).then(function(response) { 
+                    debugger;   
+                    $scope.addingSprint = false;
+                    $scope.sprintList.push(response);
+                });
+            }
+        }
 
         function taskForm($event, dataModel) {
             var templateUrl = '/app/src/project/task/form.tpl.html',
@@ -70,33 +88,23 @@
                 data = {
                     dataModel: dataModel
                 };
-
             if (dataModel) {
                 data.title = "Update Sprint";
                 ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
                     $scope.getSprint($scope.sprintParam);
                 });
-            } else {
-                data.title = "Add Sprint";
-                ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
-                    $scope.getSprint($scope.sprintParam);                    
-                });
-            }
+            } 
         }
 
         $rootScope.$on('RJ-DRAG-START', function(obj, scope) {  
-
             $scope.sourceIndex = scope.$index;             
             $scope.sourceTask = scope.task;            
             if(scope.sprint){                
                 $scope.sourceTaskList = scope.sprint.tasks;
             }
         });
-
-         
-
-        var someEventHandle = $rootScope.$on('RJ-DROP-START', function(obj, scope) {               
-
+        
+        var rjEventHandler = $rootScope.$on('RJ-DROP-START', function(obj, scope) {               
             if(scope.task.sprint_id == $scope.sourceTask.sprint_id){
                 reorderSprintTask(scope);                
             }
@@ -106,7 +114,7 @@
             }                                        
         });
 
-        $scope.$on('$destroy', someEventHandle);
+        $scope.$on('$destroy', rjEventHandler);
 
         function swapSprintTasks(scope){ 
             var task = angular.copy($scope.sourceTask);
@@ -116,7 +124,6 @@
             $scope.$apply();            
             reorderTasks(scope.sprint.tasks);            
         }
-
 
         function reorderSprintTask(scope) {
             scope.sprint.tasks.splice($scope.sourceIndex, 1);
@@ -165,9 +172,12 @@
             });
         }
 
-        function durationChanged(duration){        
-            $scope.dataModel.start_date=new Date();            
-            $scope.dataModel.end_date= new Date().addDays(duration);
+        function durationChanged(duration){               
+            if(duration!=0){
+                $scope.dataModel.start_date=new Date();            
+                $scope.dataModel.end_date= new Date().addDays(duration);                
+            }
+
         }
     }
 })();

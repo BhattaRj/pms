@@ -14,15 +14,24 @@ class Sprint extends Model
         return $this->hasMany('App\Models\Task');
     }
 
-    public function deactivateOtherSprint($id)
+    /**
+     * Deactivate all other sprint of the project.
+     * @param  [type] $id         [description]
+     * @param  [type] $project_id [description]
+     * @return [type]             [description]
+     */
+    public function deactivateOtherSprint($id, $project_id)
     {
+
         $data['duration'] = null;
         $data['status']   = 1;
 
-        foreach ($this->all() as $sprint) {
+        foreach ($this->where('project_id', $project_id)->get() as $sprint) {
+
             if ($sprint->id != $id) {
                 $sprint->update($data);
             }
+
         }
         return true;
     }

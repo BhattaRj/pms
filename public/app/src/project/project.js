@@ -49,6 +49,7 @@
     function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams) {
         $scope.dataLoaded = false;
         $scope.toggleSidebar=toggleSidebar;
+        $scope.$parent.selectedIndex=0;
         
         ProjectFactory.getDataItem($stateParams.id).then(function(response) {
             $scope.project = response;

@@ -56,7 +56,9 @@ class SprintsController extends Controller
      */
     public function store(Request $request)
     {
-        $result['data']    = $this->sprint->create($request->input('data'));
+        $sprint         = $this->sprint->create($request->input('data'));
+        $result['data'] = $sprint->load('tasks');
+
         $result['success'] = true;
         return $result;
     }
@@ -75,7 +77,7 @@ class SprintsController extends Controller
         // If duration is set activate the sprint.
         if (isset($input['duration']) || isset($input['start_date']) || isset($input['end_date'])) {
             $input['status'] = 5;
-            $this->sprint->deactivateOtherSprint($id);
+            $this->sprint->deactivateOtherSprint($id, $input['project_id']);
         }
 
         $sprint            = $this->sprint->findOrFail($id);

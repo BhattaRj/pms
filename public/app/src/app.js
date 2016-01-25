@@ -20,13 +20,10 @@
 
     angular.module('app').config(function($mdThemingProvider, $mdIconProvider, $interpolateProvider, $stateProvider, $urlRouterProvider) {
 
-
         // This is will add this functios on every string.
         String.prototype.capitalizeFirstLetter = function() {
             return this.charAt(0).toUpperCase() + this.slice(1);
         }
-
-
         Date.prototype.toYMD = Date_toYMD;
         
         function Date_toYMD() {

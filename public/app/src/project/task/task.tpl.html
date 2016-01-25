@@ -1,17 +1,13 @@
 
 <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column" >
 
-<div flex="">
-    
-    <div layout="row">
+    <div layout="row" flex="100">
 
         <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="sprintDataLoaded">
             <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
         </div>
 
         <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList" ng-show="sprintDataLoaded">
-
-
             <div layout="row">
                 <div>
                     <label>[[ sprint.title ]] </label>
@@ -46,8 +42,18 @@
             </md-card>
         </div>
 
+        <div flex="40">
+
+            <md-input-container class="md-block" ng-show="addingSprint">
+                <label>Sprint Title</label>
+                <input name="clientName" ng-model="sprint.title" my-enter="addSprint($event,sprint)">
+            </md-input-container>
+
+            <md-button ng-hide="addingSprint"class="md-raised md-primary" ng-click="toggleInput($event,'addingSprint')">Add Sprint</md-button>            
+        </div>
     </div>
-    <md-button class="md-raised md-primary" ng-click="sprintForm($event)">Add Sprint</md-button>    
+
+    
 </div>
 
 
