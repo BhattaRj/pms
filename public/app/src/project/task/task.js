@@ -10,7 +10,7 @@
     function TaskController($scope, TaskFactory, ConfirmFactory, $stateParams, $rootScope, ModalFactory,SprintFactory ,$state) {
 
         $scope.getSprint=getSprint;        
-        $scope.sprintDataLoaded = true;
+        $scope.sprintDataLoaded = false;
         $scope.sprintParam={
             project_id: $stateParams.id
         }  

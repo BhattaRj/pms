@@ -1,13 +1,15 @@
 
 <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column" ng-controller="TaskController">
 
-
-
 <div flex="">
     
     <div layout="row">
 
-        <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList">
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="sprintDataLoaded">
+            <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
+        </div>
+
+        <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList" ng-show="sprintDataLoaded">
             <label ng-dblclick="sprintForm($event,sprint)">[[ sprint.title ]]</label>
             <md-input-container class="md-block">
                 <label>Add Issue</label>
