@@ -9,6 +9,26 @@ angular.module('rjDirective').directive('paddedTitle', paddedTitle);
 angular.module('rjDirective').directive('myEnter', myEnter);
 angular.module('rjDirective').directive('rjDrag', rjDrag);
 angular.module('rjDirective').directive('makeDate', makeDate);
+angular.module('rjDirective').directive('dayDifference', dayDifference);
+
+
+function dayDifference() {
+    return {
+        restrict: 'A',
+        template: "<span> [[ diff ]] Days remaining.</span>", 
+        replace: true,
+        scope: {
+            startDate: '=',
+            endDate: '='
+        },        
+        link: function(scope, iElement, iAttrs) {            
+            var date1 = new Date(scope.startDate);
+            var date2 = new Date(scope.endDate);
+            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+            scope.diff = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        }
+    };
+}
 
 /**
  * HTML drag and drop.

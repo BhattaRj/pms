@@ -4,14 +4,15 @@
     <md-tab label="Overview">
 
 	    <md-content class="md-padding">
+        [[ selectedIndex ]]
             Project Overview goes here...
 	    </md-content>
 
     </md-tab>
 
-    <md-tab label="Issues" >   
-        <ng-include src="'/app/src/project/task/task.tpl.html'"></ng-include>
-        <!-- <div ui-view></div> -->
+    <md-tab label="Issues" ui-sref="project.show.task">   
+        <!-- <ng-include src="'/app/src/project/task/task.tpl.html'"></ng-include> -->
+        <div ui-view></div>
     </md-tab>
 
 <!--     <md-tab label="Active Sprint" ui-sref="project.show.sprint">

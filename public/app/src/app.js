@@ -79,11 +79,11 @@
                 templateUrl: '/app/src/project/project-show.tpl.html',
                 controller: 'ProjectShowController'
             })
-            // .state('project.show.task', {
-            //     url: '/task',
-            //     templateUrl: '/app/src/project/task/task.tpl.html',
-            //     controller: 'TaskController'
-            // })
+            .state('project.show.task', {
+                url: '/task',
+                templateUrl: '/app/src/project/task/task.tpl.html',
+                controller: 'TaskController'
+            })
             .state('people', {
                 url: '/people',
                 templateUrl: '/app/src/user/user-list.tpl.html',

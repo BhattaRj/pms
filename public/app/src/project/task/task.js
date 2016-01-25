@@ -9,6 +9,7 @@
     
     function TaskController($scope, TaskFactory, ConfirmFactory, $stateParams, $rootScope, ModalFactory,SprintFactory ,$state) {
 
+        $scope.$parent.selectedIndex=1;
         $scope.getSprint=getSprint;        
         $scope.sprintDataLoaded = false;
         $scope.sprintParam={
