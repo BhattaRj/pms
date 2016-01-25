@@ -30,7 +30,7 @@
         
         function addSprint($event,newSprint){            
             if(newSprint != undefined && newSprint.title){  
-                data.project_id=$state.params.id;                
+                newSprint.project_id=$state.params.id;                
                 SprintFactory.save(newSprint).then(function(response) { 
                     $scope.addingSprint = false;
                     $scope.newSprint='';
