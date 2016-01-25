@@ -21,7 +21,7 @@ class CreateTasksTable extends Migration
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 
             $table->integer('sprint_id')->unsigned()->nullable();
-            $table->foreign('sprint_id')->references('id')->on('sprints');
+            $table->foreign('sprint_id')->references('id')->on('sprints')->onDelete('cascade');
 
         });
     }

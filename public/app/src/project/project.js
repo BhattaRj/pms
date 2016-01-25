@@ -8,7 +8,7 @@
     angular.module('project').controller('ProjectController', ProjectController);
     angular.module('project').controller('ProjectShowController', ProjectShowController);
 
-    function ProjectController($scope, ProjectFactory, ConfirmFactory) {
+    function ProjectController($scope, ProjectFactory, ConfirmFactory,$state) {
 
         $scope.getData = getData;
         $scope.save = save;
@@ -19,10 +19,12 @@
         getData(param);
 
         function save($event, data) {
-            ProjectFactory.save(data).then(function(response) {
-                getData(param);
-                $scope.data.title = "";
-            });
+            if(data && data.title){
+                ProjectFactory.save(data).then(function(response) {
+                    $scope.dataList.push(response);
+                    $scope.data.title='';
+                });                
+            }
         }
 
         function getData(param) {

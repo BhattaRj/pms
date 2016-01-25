@@ -32,7 +32,6 @@ function rjDrag($mdDialog, $rootScope) {
     return {
         restrict: 'A',
         link: function(scope, iElement, iAttrs) {
-
             iElement.bind("dragstart", function(e) {
                 $rootScope.$emit("RJ-DRAG-START",scope,scope);
             });
@@ -42,6 +41,9 @@ function rjDrag($mdDialog, $rootScope) {
                     e.preventDefault(); // Necessary. Allows us to drop.
                 }
                 e.preventDefault();
+                if (e.stopPropogation) {
+                    e.stopPropogation(); // Necessary. Allows us to drop.
+                }                
             });
 
             iElement.bind("drop", function(e) {
@@ -52,8 +54,17 @@ function rjDrag($mdDialog, $rootScope) {
                 if (e.stopPropogation) {
                     e.stopPropogation(); // Necessary. Allows us to drop.
                 }
+
+
+                scope.$emit("RJ-DROP-START",scope);
+
+                // var someEventHandle = scope.$on("someEvent", function(){
+                //                     detectSTuff();
+                //                 });
                 
-                $rootScope.$emit("RJ-DROP-START",scope,scope);
+                // scope.$on('$destroy', someEventHandle);
+
+
             });
 
         }

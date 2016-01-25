@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Sprint;
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
@@ -49,7 +50,14 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        $result['data']    = $this->project->create($request->input('data'));
+
+        $project = $this->project->create($request->input('data'));
+
+        $sprint = new \App\Models\Sprint(['title' => 'Backlog']);
+
+        $project->sprints()->save($sprint);
+
+        $result['data']    = $project;
         $result['success'] = true;
         return $result;
     }

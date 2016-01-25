@@ -1,36 +1,9 @@
 
 <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column" ng-controller="TaskController">
 
-<div flex="30" flex-xs="100" layout="column">
-    <label>Backlog</label>
-    <md-input-container class="md-block">
-        <label>Add Issue</label>
-        <input name="clientName" ng-model="backlog.title" my-enter="addBacklog($event,backlog)">
-    </md-input-container>
-
-    <md-card  ng-show="(backlogs.length==0)"   rj-drag >
-    <md-card-content> 
-    <span ng-bind="task.sprint_id=null"> </span>
-    <p>Drop Issue here..</p>
-    </md-card-content>
-    </md-card>
-
-    <md-card ng-repeat="task in backlogs" draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
-    <md-card-content> 
-    <span ng-hide="true">[[ task.order = $index ]]</span>
-    <p>[[ task.title ]]
-    <span class="pull-right">    
-        <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeBacklog(task.id,$index,$event)">
-        <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
-        </md-button>
-    </span>
-    </p>
-    </md-card-content>
-    </md-card>
-</div>
 
 
-<div flex="70">
+<div flex="">
     
     <div layout="row">
 
@@ -41,15 +14,12 @@
                 <input name="clientName" ng-model="sprint.issue_title" my-enter="addSprintTask($event,sprint)">
             </md-input-container>
 
-            <div ng-show="(sprint.tasks.length==0)"> 
-                <span ng-hide="true">[[ dummyTasks[0].sprint_id = sprint.id ]]</span>
-                <md-card ng-repeat="task in dummyTasks" rj-drag>
-                <md-card-content>
-                <p>Drop Here..</p>
-                </md-card-content>
-                </md-card>                
-
-            </div>
+            <md-card  ng-show="(sprint.tasks.length == 0)"   rj-drag >
+            <md-card-content> 
+            <span ng-hide="true" ng-bind="task.sprint_id = sprint.id"> </span>
+            <p>Drop Issue here..</p>
+            </md-card-content>
+            </md-card>
 
             <md-card ng-repeat="task in sprint.tasks"  draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
             <md-card-content>

@@ -19,7 +19,7 @@
 
         <md-input-container class="md-block">
         <label>Title</label>
-        <input md-maxlength="150" required name="title" ng-model="dataModel.title" ng-blur="makeSlug(dataModel.title)">
+        <input ng-disabled="dataModel.titleStatus" md-maxlength="150" required name="title" ng-model="dataModel.title" ng-blur="makeSlug(dataModel.title)">
         <div ng-messages="Form.title.$error">
             <div ng-message="required">This is required.</div>
             <div ng-message="md-maxlength">The title has to be less than 150 characters long.</div>

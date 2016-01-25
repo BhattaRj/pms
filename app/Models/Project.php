@@ -13,4 +13,10 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\Task');
     }
+
+    public function sprints()
+    {
+        return $this->hasMany('App\Models\Sprint');
+    }
+
 }
