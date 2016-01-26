@@ -72,7 +72,7 @@ if (!Auth::guest()) {
         <script type="text/javascript" src="./app/src/project/project.js"></script>
         <script type="text/javascript" src="./app/src/project/task/task.js"></script>
         <script type="text/javascript" src="./app/src/user/user.js"></script>
-        <script type="text/javascript" src="./app/src/board/board.js"></script>
+        <script type="text/javascript" src="./app/src/project/board/board.js"></script>
 
 
     </body>

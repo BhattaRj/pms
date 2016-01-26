@@ -2,12 +2,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Board;
 use App\Models\Sprint;
 use Illuminate\Http\Request;
 
 class SprintsController extends Controller
 {
-    protected $sprint;
 
     protected $per_page = 100;
 
@@ -17,9 +17,13 @@ class SprintsController extends Controller
      */
     protected $current_page = 1;
 
-    public function __construct(Sprint $sprint)
+    protected $sprint;
+    protected $board;
+
+    public function __construct(Sprint $sprint, Board $board)
     {
         $this->sprint = $sprint;
+        $this->board  = $board;
     }
 
     /**
@@ -56,9 +60,9 @@ class SprintsController extends Controller
      */
     public function store(Request $request)
     {
-        $sprint         = $this->sprint->create($request->input('data'));
-        $result['data'] = $sprint->load('tasks');
-
+        $boards            = $this->board->where('sprint_default', 1)->get();
+        $sprint            = $this->sprint->addSprint($request->input('data'), $boards);
+        $result['data']    = $sprint->load('tasks');
         $result['success'] = true;
         return $result;
     }
@@ -105,4 +109,10 @@ class SprintsController extends Controller
         return $result;
     }
 
+    public function getActivateSprint(Request $request)
+    {
+        $result['data']    = $this->sprint->getActivateSprint($request);
+        $result['success'] = true;
+        return $result;
+    }
 }

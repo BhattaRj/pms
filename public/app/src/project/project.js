@@ -2,7 +2,8 @@
 
     angular.module('project', [
         'resources.project',
-        'task',        
+        'task', 
+        'board'
     ]);
 
     angular.module('project').controller('ProjectController', ProjectController);

@@ -2,12 +2,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Board;
 use App\Models\Task;
+use App\User;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
     protected $task;
+    protected $board;
+    protected $user;
 
     protected $per_page = 100;
 
@@ -17,9 +21,11 @@ class TasksController extends Controller
      */
     protected $current_page = 1;
 
-    public function __construct(Task $task)
+    public function __construct(Task $task, Board $board, User $user)
     {
-        $this->task = $task;
+        $this->task  = $task;
+        $this->board = $board;
+        $this->user  = $user;
     }
 
     /**
@@ -57,8 +63,12 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        $result['data']    = $this->task->create($request->input('data'));
-        $result['success'] = true;
+        $input              = $request->input('data');
+        $input['board_id']  = $this->board->getDefaultTaskBoardId();
+        $input['author_id'] = $this->user->currentUserId();
+        $result['data']     = $this->task->create($input);
+        $result['success']  = true;
+
         return $result;
     }
 

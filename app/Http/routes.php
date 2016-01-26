@@ -39,6 +39,8 @@ Route::post('reorder_task', 'TasksController@reorderTasks');
 Route::resource('user', 'UsersController');
 Route::resource('sprint', 'SprintsController');
 
+Route::get('active_sprint', 'SprintsController@getActivateSprint');
+
 Route::controller('auth/password', 'Auth\PasswordController', [
     'getEmail' => 'auth.password.email',
     'getReset' => 'auth.password.reset',

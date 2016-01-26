@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTasksTable extends Migration
+class CreateBoardTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,15 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('boards', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string('title');
-            $table->string('description');
-            $table->integer('sprint_id')->unsigned()->nullable();
-            $table->foreign('sprint_id')->references('id')->on('sprints')->onDelete('cascade');
-
+            $table->boolean('status')->default(1);
+            $table->text('description');
+            $table->boolean('sprint_default')->default(0); // default for sprint;
+            $table->boolean('task_default')->default(0); // default for task.
+            $table->boolean('order');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tasks');
+        Schema::drop('boards');
     }
 }

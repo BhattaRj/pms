@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -36,5 +37,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function currentUserId()
+    {
+        if (Auth::check()) {
+            return Auth::user()->id;
+        }
+        return null;
     }
 }

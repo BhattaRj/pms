@@ -10,9 +10,7 @@
         'ngResource',
         'ui.bootstrap',
         'user',
-        'ngFileUpload',
-        'board',
-        
+        'ngFileUpload',                
     ]);
 
 
@@ -63,7 +61,7 @@
             .primaryPalette('green')
             .accentPalette('red');
 
-        // $urlRouterProvider.otherwise('/main');
+        $urlRouterProvider.otherwise('/project');
 
         $stateProvider
             .state('project', {
@@ -81,16 +79,16 @@
                 templateUrl: '/app/src/project/task/task.tpl.html',
                 controller: 'TaskController'
             })
+            .state('project.show.activesprint', {
+                url: '/board',
+                templateUrl: '/app/src/project/board/board.tpl.html',
+                controller: 'BoardController',
+            })                        
             .state('people', {
                 url: '/people',
                 templateUrl: '/app/src/user/user-list.tpl.html',
                 controller: 'UserListController',
-            })
-            // .state('board', {
-            //     url: '/board',
-            //     templateUrl: '/app/src/board/board.tpl.html',
-            //     controller: 'BoardController',
-            // });            
+            });
 
     });
 

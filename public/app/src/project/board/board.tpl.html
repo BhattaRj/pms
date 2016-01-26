@@ -1,34 +1,26 @@
 
+
 <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
 
     <div layout="row" flex="100">
 
-        <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="sprintDataLoaded">
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
             <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
         </div>
 
-        <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList" ng-show="sprintDataLoaded">
+
+		<!-- <span ng-show="sprint.status==5" day-difference start-date="sprint.start_date" end-date="sprint.end_date"></span>                     -->
+
+
+        <div  flex="40" flex-xs="100" layout="column" ng-repeat="board in activesprint.boards" ng-show="dataLoaded">
             <div layout="row">
                 <div>
-                    <label>[[ sprint.title ]] </label>
-                    <span ng-show="sprint.status==5" day-difference start-date="sprint.start_date" end-date="sprint.end_date"></span>                    
+                    <label>[[ board.title ]] </label>
                 </div>
-                <md-button ng-disabled="sprint.status==5" ng-hide="$index == 0" class="md-raised md-warn" ng-click="sprintForm($event,sprint)" flex="40">Start Sprint</md-button>
+
             </div>            
 
-            <md-input-container class="md-block">
-                <label>Add Issue</label>
-                <input name="clientName" ng-model="sprint.issue_title" my-enter="addSprintTask($event,sprint)">
-            </md-input-container>
-
-            <md-card  ng-show="(sprint.tasks.length == 0)"   rj-drag >
-            <md-card-content> 
-            <span ng-hide="true" ng-bind="task.sprint_id = sprint.id"> </span>
-            <p>Drop Issue here..</p>
-            </md-card-content>
-            </md-card>
-
-            <md-card ng-repeat="task in sprint.tasks"  draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
+            <md-card ng-repeat="task in board.tasks"  draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
             <md-card-content>
             <span ng-hide="true">[[ task.order = $index ]]</span>
             <p>[[ task.title ]]
@@ -42,7 +34,7 @@
             </md-card>
         </div>
 
-        <div flex="40">
+<!--         <div flex="40">
 
             <md-input-container class="md-block" ng-show="addingSprint">
                 <label>Sprint Title</label>
@@ -50,7 +42,7 @@
             </md-input-container>
 
             <md-button ng-hide="addingSprint"class="md-raised md-primary" ng-click="toggleInput($event,'addingSprint')">Add Sprint</md-button>            
-        </div>
+        </div> -->
     </div>
 
     
