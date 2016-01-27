@@ -1,19 +1,27 @@
 <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
 
-    <div layout="row" ng-if="activeSprint">
+    <div layout="row" ng-if="activeSprint.length!=0">
         <div>
             <h4>[[ activeSprint.title ]]</h4>
-            <span day-difference start-date="activeSprint.start_date" end-date="activeSprint.end_date"></span>            
+            <div ng-if="activeSprint">
+                <span day-difference start-date="activeSprint.start_date" end-date="activeSprint.end_date"></span> 
+                <span days-remaining end-date="activeSprint.end_date"></span> 
+            </div>
+            
         </div>
     </div>            
 
-    <div layout="row" flex="100">
+    <div layout="row" ng-if="activeSprint.length == 0">
+        <div>
+            <h4>Active Sprint not found.</h4>            
+        </div>
+    </div>            
 
+    <div layout="row" flex="100" >
         <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
             <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
         </div>
         <div  flex="40" flex-xs="100" layout="column" ng-repeat="board in activeSprint.boards" ng-show="dataLoaded">
-
             <div layout="row">
                 <div>
                     <label>[[ board.title ]] </label>
@@ -41,7 +49,7 @@
             </md-card>
         </div>
 
-        <div flex="40">
+        <div flex="40" ng-if="activeSprint.length!=0">
             <md-input-container class="md-block" ng-show="addingSprint">
                 <label>Board Title</label>
                 <input name="clientName" ng-model="board.title" my-enter="addSprint($event,board)">

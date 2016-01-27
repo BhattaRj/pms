@@ -111,7 +111,18 @@ class SprintsController extends Controller
 
     public function getActivateSprint(Request $request)
     {
-        $result['data']    = $this->sprint->getActivateSprint($request);
+        $sprint = $this->sprint->getActivateSprint($request->input('project_id'));
+        if ($sprint) {
+            $query = $sprint->load(['boards' => function ($query) use ($sprint) {
+                $query->with(['tasks' => function ($query) use ($sprint) {
+                    $query->where('sprint_id', $sprint->id)->orderBy('order');
+                }]);
+            }]);
+            $result['data'] = $query;
+        } else {
+            $result['data'] = null;
+        }
+
         $result['success'] = true;
         return $result;
     }

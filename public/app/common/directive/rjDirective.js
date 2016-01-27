@@ -10,12 +10,12 @@ angular.module('rjDirective').directive('myEnter', myEnter);
 angular.module('rjDirective').directive('rjDrag', rjDrag);
 angular.module('rjDirective').directive('makeDate', makeDate);
 angular.module('rjDirective').directive('dayDifference', dayDifference);
-
+angular.module('rjDirective').directive('daysRemaining', daysRemaining);
 
 function dayDifference() {
     return {
         restrict: 'A',
-        template: "<span> [[ diff ]] Days remaining.</span>", 
+        template: "<span> Total [[ diff ]] days.</span>", 
         replace: true,
         scope: {
             startDate: '=',
@@ -23,6 +23,24 @@ function dayDifference() {
         },        
         link: function(scope, iElement, iAttrs) {              
             var date1 = new Date(scope.startDate);
+            var date2 = new Date(scope.endDate);
+            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+            scope.diff = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        }
+    };
+}
+
+
+function daysRemaining() {
+    return {
+        restrict: 'A',
+        template: "<span> [[ diff ]] Days remaining.</span>", 
+        replace: true,
+        scope: {
+            endDate: '='
+        },        
+        link: function(scope, iElement, iAttrs) {              
+            var date1 = new Date();
             var date2 = new Date(scope.endDate);
             var timeDiff = Math.abs(date2.getTime() - date1.getTime());
             scope.diff = Math.ceil(timeDiff / (1000 * 3600 * 24)); 

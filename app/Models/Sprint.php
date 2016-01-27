@@ -44,35 +44,17 @@ class Sprint extends Model
     public function addSprint($sprintData, $boards)
     {
         $baordData = [];
-
         foreach ($boards as $board) {
             $baordData[] = $board->id;
         }
-
         $sprint = $this->create($sprintData);
         $sprint->boards()->attach($baordData);
 
         return $sprint;
     }
 
-    public function getActivateSprint($request)
+    public function getActivateSprint($project_id)
     {
-        $sprint = $this->where('project_id', $request->input('project_id'))
-            ->where('status', 5)->first();
-
-        if ($sprint) {
-            // return $sprint;
-
-            return $sprint->load(['boards' => function ($query) use ($sprint) {
-
-                $query->with(['tasks' => function ($query) use ($sprint) {
-                    $query->where('sprint_id', $sprint->id)->orderBy('order');
-                }]);
-
-            }]);
-
-        } else {
-            return null;
-        }
+        return $this->where('project_id', $project_id)->where('status', 5)->first();
     }
 }
