@@ -21,7 +21,7 @@ function dayDifference() {
             startDate: '=',
             endDate: '='
         },        
-        link: function(scope, iElement, iAttrs) {            
+        link: function(scope, iElement, iAttrs) {              
             var date1 = new Date(scope.startDate);
             var date2 = new Date(scope.endDate);
             var timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -54,7 +54,7 @@ function rjDrag($mdDialog, $rootScope) {
         restrict: 'A',
         link: function(scope, iElement, iAttrs) {
             iElement.bind("dragstart", function(e) {
-                $rootScope.$emit("RJ-DRAG-START",scope,scope);
+                scope.$emit("RJ-DRAG-START",scope,scope);
             });
 
             iElement.bind("dragover", function(e) {

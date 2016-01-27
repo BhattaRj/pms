@@ -1,24 +1,31 @@
-
-
 <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
+
+    <div layout="row" ng-if="activeSprint">
+        <div>
+            <h4>[[ activeSprint.title ]]</h4>
+            <span day-difference start-date="activeSprint.start_date" end-date="activeSprint.end_date"></span>            
+        </div>
+    </div>            
 
     <div layout="row" flex="100">
 
         <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
             <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
         </div>
+        <div  flex="40" flex-xs="100" layout="column" ng-repeat="board in activeSprint.boards" ng-show="dataLoaded">
 
-
-		<!-- <span ng-show="sprint.status==5" day-difference start-date="sprint.start_date" end-date="sprint.end_date"></span>                     -->
-
-
-        <div  flex="40" flex-xs="100" layout="column" ng-repeat="board in activesprint.boards" ng-show="dataLoaded">
             <div layout="row">
                 <div>
                     <label>[[ board.title ]] </label>
                 </div>
-
             </div>            
+
+            <md-card  ng-show="(board.tasks.length == 0)"   rj-drag >
+            <md-card-content> 
+            <span ng-hide="true" ng-bind="task.board_id = board.id"> </span>
+            <p>Drop Issue here..</p>
+            </md-card-content>
+            </md-card>
 
             <md-card ng-repeat="task in board.tasks"  draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
             <md-card-content>
@@ -34,15 +41,13 @@
             </md-card>
         </div>
 
-<!--         <div flex="40">
-
+        <div flex="40">
             <md-input-container class="md-block" ng-show="addingSprint">
-                <label>Sprint Title</label>
-                <input name="clientName" ng-model="newSprint.title" my-enter="addSprint($event,newSprint)">
+                <label>Board Title</label>
+                <input name="clientName" ng-model="board.title" my-enter="addSprint($event,board)">
             </md-input-container>
-
-            <md-button ng-hide="addingSprint"class="md-raised md-primary" ng-click="toggleInput($event,'addingSprint')">Add Sprint</md-button>            
-        </div> -->
+            <md-button ng-hide="addingSprint"class="md-raised md-primary" ng-click="toggleInput($event,'addingSprint')">Add Board</md-button>            
+        </div>
     </div>
 
     

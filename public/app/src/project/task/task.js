@@ -8,7 +8,6 @@
     angular.module('task').controller('TaskController', TaskController);
     
     function TaskController($scope, TaskFactory, ConfirmFactory, $stateParams, $rootScope, ModalFactory,SprintFactory ,$state) {
-        debugger;
         $scope.$parent.selectedIndex=1;
         $scope.getSprint=getSprint;        
         $scope.sprintDataLoaded = false;
@@ -97,7 +96,7 @@
             } 
         }
 
-        $rootScope.$on('RJ-DRAG-START', function(obj, scope) {  
+        $scope.$on('RJ-DRAG-START', function(obj, scope) { 
             $scope.sourceIndex = scope.$index;             
             $scope.sourceTask = scope.task;            
             if(scope.sprint){                
@@ -105,7 +104,7 @@
             }
         });
         
-        var rjEventHandler = $rootScope.$on('RJ-DROP-START', function(obj, scope) {               
+        var rjEventHandler = $scope.$on('RJ-DROP-START', function(obj, scope) {               
             if(scope.task.sprint_id == $scope.sourceTask.sprint_id){
                 reorderSprintTask(scope);                
             }
