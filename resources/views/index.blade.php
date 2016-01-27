@@ -46,13 +46,13 @@ if (!Auth::guest()) {
         <script src="./bower_components/angular-animate/angular-animate.js"></script>
         <script src="./bower_components/angular-aria/angular-aria.js"></script>
         <script src="./bower_components/angular-material/angular-material.js"></script>
-        <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-        <script src="/bower_components/angular-resource/angular-resource.js"></script>
-        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-        <script src="/bower_components/angular-messages/angular-messages.min.js"></script>
-        <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
+        <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="./bower_components/angular-resource/angular-resource.js"></script>
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="./bower_components/angular-messages/angular-messages.min.js"></script>
+        <script src="./bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="./bower_components/ng-file-upload/ng-file-upload.js"></script>
 
 
 
@@ -70,10 +70,14 @@ if (!Auth::guest()) {
         <script type="text/javascript" src="./app/common/resources/sprint.js"></script>
 
         <script type="text/javascript" src="./app/src/project/project.js"></script>
-        <script type="text/javascript" src="./app/src/project/task/task.js"></script>
         <script type="text/javascript" src="./app/src/user/user.js"></script>
-        <script type="text/javascript" src="./app/src/project/board/board.js"></script>
+        <script type="text/javascript" src="./app/src/dashboard/dashboard.js"></script>
 
+        <script type="text/javascript" src="./app/src/project/overview/overview.js"></script>
+        <script type="text/javascript" src="./app/src/project/task/task.js"></script>
+        <script type="text/javascript" src="./app/src/project/board/board.js"></script>
+        <script type="text/javascript" src="./app/src/project/member/member.js"></script>
+        <script type="text/javascript" src="./app/src/project/file/file.js"></script>
 
     </body>
 </html>

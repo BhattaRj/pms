@@ -3,19 +3,20 @@
     angular.module('project', [
         'resources.project',
         'task', 
-        'board'
+        'board',
+        'file',
+        'member',
+        'overview',
     ]);
 
     angular.module('project').controller('ProjectController', ProjectController);
     angular.module('project').controller('ProjectShowController', ProjectShowController);
 
-    function ProjectController($scope, ProjectFactory, ConfirmFactory,$state) {
-
+    function ProjectController($scope, ProjectFactory, ConfirmFactory,$state) {   
         $scope.getData = getData;
         $scope.save = save;
         $scope.remove = remove;
-        $scope.dataLoaded = false;
-        $scope.selectedIndex=0;
+        $scope.dataLoaded = false;        
         var param = {};
         getData(param);
 
@@ -47,11 +48,11 @@
         }
     }
 
-    function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams) {
+    function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams,$state) {        
         $scope.dataLoaded = false;
         $scope.toggleSidebar=toggleSidebar;
-        $scope.$parent.selectedIndex=0;
-        
+        $state.go('project.show.overview');       
+             
         ProjectFactory.getDataItem($stateParams.id).then(function(response) {
             $scope.project = response;
             $scope.dataLoaded = true;

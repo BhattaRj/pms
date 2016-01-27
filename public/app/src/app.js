@@ -5,12 +5,13 @@
         'ngMaterial',
         'ngSanitize',
         'ui.router',
-        'project',
         'rjDirective',
         'ngResource',
-        'ui.bootstrap',
-        'user',
-        'ngFileUpload',                
+        'ui.bootstrap',        
+        'ngFileUpload',
+        'project',
+        'dashboard',
+        'user',                        
     ]);
 
 
@@ -61,9 +62,19 @@
             .primaryPalette('green')
             .accentPalette('red');
 
-        $urlRouterProvider.otherwise('/project');
+        $urlRouterProvider.otherwise('/dashboard');
 
         $stateProvider
+            .state('people', {
+                url: '/people',
+                templateUrl: '/app/src/user/user-list.tpl.html',
+                controller: 'UserListController',
+            })
+            .state('dashboard', {
+                url: '/dashboard',
+                templateUrl: '/app/src/dashboard/dashboard.tpl.html',
+                controller: 'DashboardController',
+            })                            
             .state('project', {
                 url: '/project',
                 templateUrl: '/app/src/project/project.tpl.html',
@@ -84,12 +95,21 @@
                 templateUrl: '/app/src/project/board/board.tpl.html',
                 controller: 'BoardController',
             })                        
-            .state('people', {
-                url: '/people',
-                templateUrl: '/app/src/user/user-list.tpl.html',
-                controller: 'UserListController',
-            });
-
+            .state('project.show.overview', {
+                url: '/overview',
+                templateUrl: '/app/src/project/overview/overview.tpl.html',
+                controller: 'OverviewController',
+            })                        
+            .state('project.show.member', {
+                url: '/member',
+                templateUrl: '/app/src/project/member/member.tpl.html',
+                controller: 'MemberController',
+            })                        
+            .state('project.show.file', {
+                url: '/file',
+                templateUrl: '/app/src/project/file/file.tpl.html',
+                controller: 'FileController',
+            });                                                            
     });
 
     function BaseController($scope) {

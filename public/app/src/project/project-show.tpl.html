@@ -1,44 +1,25 @@
 <div ng-cloak>
     <md-content>
     <md-tabs md-selected="selectedIndex" md-autoselect md-dynamic-height md-border-bottom >
-    <md-tab label="Overview">
 
-	    <md-content class="md-padding">
-        [[ selectedIndex ]]
-            Project Overview goes here...
-	    </md-content>
-
+    <md-tab label="Overview" ui-sref="project.show.overview">
     </md-tab>
 
     <md-tab label="Issues" ui-sref="project.show.task">   
-        <!-- <ng-include src="'/app/src/project/task/task.tpl.html'"></ng-include> -->
-        <!-- <div ui-view></div> -->
     </md-tab>
 
-    <md-tab label="Active Sprint" ui-sref="project.show.activesprint">
-        <!-- <div ui-view></div> -->
+    <md-tab label="Active Sprint" ui-sref="project.show.activesprint">        
     </md-tab>
     
     
-    <md-tab label="Members">
-    <md-content class="md-padding">
-
-    <h1 class="md-display-2">Tab Two</h1>
-
-    <md-whiteframe class="md-whiteframe-2dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center">
-Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-    </md-content>
-    </md-tab>
-    <md-tab label="Files">
-    <md-content class="md-padding">
-    <h1 class="md-display-2">Tab Three</h1>
-    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi egetvolutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-    </md-content>
-
+    <md-tab label="Members" ui-sref="project.show.member">
     </md-tab>
 
-    </md-tabs>
-    
+    <md-tab label="Files" ui-sref="project.show.file">
+    </md-tab>
+
+    </md-tabs>    
+
     <div ui-view></div>
 
     </md-content>
