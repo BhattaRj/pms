@@ -48,14 +48,10 @@
         }
     }
 
-    function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams,$state) {        
-        $scope.dataLoaded = false;
-        $scope.toggleSidebar=toggleSidebar;        
-        ProjectFactory.getDataItem($stateParams.id).then(function(response) {
-            $scope.project = response;
-            $scope.dataLoaded = true;
-            $scope.toggleSidebar();
-        });
+    function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams,$state) {
+        $scope.toggleSidebar=toggleSidebar;         
+        
+        debugger;
 
         // toggle the sidebar.
         function toggleSidebar() {
@@ -64,6 +60,11 @@
                 $mdSidenav('left').toggle();
             });
         }
+
+        if($state.is("project.show")){
+            $state.go('project.show.overview');               
+        }
+        
     }
 
 })();
