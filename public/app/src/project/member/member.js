@@ -9,7 +9,8 @@ angular.module('member', [
 angular.module('member').controller('MemberController', MemberController);
 
 function MemberController($scope , $stateParams, UserFactory , ProjectFactory , ConfirmFactory) {
-
+    debugger;
+    $scope.$parent.selectedIndex=3;
     $scope.querySearch = querySearch;
     $scope.getUser=getUser;
     $scope.selectedUser =[];        
