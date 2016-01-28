@@ -50,8 +50,6 @@
 
     function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams,$state) {
         $scope.toggleSidebar=toggleSidebar;         
-        
-        debugger;
 
         // toggle the sidebar.
         function toggleSidebar() {

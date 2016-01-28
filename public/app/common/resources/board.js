@@ -1,20 +1,20 @@
 /**
  *  Resourse for creates read update delete.
  */
-angular.module('resources.project', ['ngResource', 'ngMaterial', 'rjServices']);
+angular.module('resources.board', ['ngResource', 'ngMaterial', 'rjServices']);
 
-angular.module('resources.project').factory('Project', Project);
-angular.module('resources.project').factory('ProjectFactory', ProjectFactory);
+angular.module('resources.board').factory('Board', Board);
+angular.module('resources.board').factory('BoardFactory', BoardFactory);
 
 
-function Project(ResourseFactory) {
-    return ResourseFactory.makeResource('/project/:id');
+function Board(ResourseFactory) {
+    return ResourseFactory.makeResource('/board/:id');
 }
 
 
-function ProjectFactory(Project, BaseModelFactory, $q, $http) {
+function BoardFactory(Board, BaseModelFactory, $q, $http) {
     var fac = {},
-        res = Project;
+        res = Board;
     fac.getDataList = getDataList;
     fac.getDataItem = getDataItem;
     fac.save = save;

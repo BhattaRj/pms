@@ -50,11 +50,13 @@
         </div>
 
         <div flex="40" ng-if="activeSprint.length!=0">
-            <md-input-container class="md-block" ng-show="addingSprint">
+
+            <md-input-container class="md-block" ng-show="addingBoard">
                 <label>Board Title</label>
-                <input name="clientName" ng-model="board.title" my-enter="addSprint($event,board)">
+                <input name="clientName" ng-model="board.title" my-enter="addBoard($event,board)">
             </md-input-container>
-            <md-button ng-hide="addingSprint"class="md-raised md-primary" ng-click="toggleInput($event,'addingSprint')">Add Board</md-button>            
+
+            <md-button ng-hide="addingBoard"class="md-raised md-primary" ng-click="toggleInput($event,'addingBoard')">Add Board</md-button>            
         </div>
     </div>
 

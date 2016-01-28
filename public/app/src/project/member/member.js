@@ -8,8 +8,7 @@ angular.module('member', [
 
 angular.module('member').controller('MemberController', MemberController);
 
-function MemberController($scope , $stateParams, UserFactory , ProjectFactory , ConfirmFactory) {
-    debugger;
+function MemberController($scope , $stateParams, UserFactory , ProjectFactory , ConfirmFactory) {    
     $scope.$parent.selectedIndex=3;
     $scope.querySearch = querySearch;
     $scope.getUser=getUser;
@@ -50,10 +49,10 @@ function MemberController($scope , $stateParams, UserFactory , ProjectFactory , 
             return $scope.dataList.map(function(user) {
                 user._lowername = user.name.toLowerCase();
                 $scope.users.push(user);
-            });
-            
+            });            
         });        
     }
+
     function getProject(){    
         ProjectFactory.getDataItem($stateParams.id).then(function(response){
             $scope.project = response;
@@ -74,7 +73,7 @@ function MemberController($scope , $stateParams, UserFactory , ProjectFactory , 
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
         return function filterFn(contact) {
-        return (contact._lowername.indexOf(lowercaseQuery) != -1);;
+            return (contact._lowername.indexOf(lowercaseQuery) != -1);;
         };
     }
 }

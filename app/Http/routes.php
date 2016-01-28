@@ -42,6 +42,8 @@ Route::get('project_user/{project_id}', 'UsersController@getProjectUser');
 Route::resource('sprint', 'SprintsController');
 Route::get('active_sprint', 'SprintsController@getActivateSprint');
 
+Route::resource('board', 'BoardsController');
+
 Route::controller('auth/password', 'Auth\PasswordController', [
     'getEmail' => 'auth.password.email',
     'getReset' => 'auth.password.reset',

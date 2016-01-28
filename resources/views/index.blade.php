@@ -68,6 +68,7 @@ if (!Auth::guest()) {
         <script type="text/javascript" src="./app/common/resources/task.js"></script>
         <script type="text/javascript" src="./app/common/resources/user.js"></script>
         <script type="text/javascript" src="./app/common/resources/sprint.js"></script>
+        <script type="text/javascript" src="./app/common/resources/board.js"></script>
 
         <script type="text/javascript" src="./app/src/project/project.js"></script>
         <script type="text/javascript" src="./app/src/user/user.js"></script>

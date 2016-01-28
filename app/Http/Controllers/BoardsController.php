@@ -3,15 +3,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Board;
-use App\Models\Task;
-use App\User;
 use Illuminate\Http\Request;
 
-class TasksController extends Controller
+class BoardsController extends Controller
 {
-    protected $task;
     protected $board;
-    protected $user;
 
     protected $per_page = 100;
 
@@ -21,11 +17,9 @@ class TasksController extends Controller
      */
     protected $current_page = 1;
 
-    public function __construct(Task $task, Board $board, User $user)
+    public function __construct(Board $board)
     {
-        $this->task  = $task;
         $this->board = $board;
-        $this->user  = $user;
     }
 
     /**
@@ -35,18 +29,10 @@ class TasksController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $this->task->orderBy('order');
+        $query = $this->board;
 
         if ($request->has('currentPage')) {
             $this->current_page = $request->input('currentPage');
-        }
-
-        if ($request->has('project_id')) {
-            $query = $query->where('project_id', $request->input('project_id'));
-        }
-
-        if ($request->has('sprint_id')) {
-            $query = $query->whereNull('sprint_id');
         }
 
         $skip            = ($this->current_page - 1) * $this->per_page;
@@ -63,12 +49,15 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        $input              = $request->input('data');
-        $input['board_id']  = $this->board->getDefaultTaskBoardId();
-        $input['author_id'] = $this->user->currentUserId();
-        $result['data']     = $this->task->create($input);
-        $result['success']  = true;
+        $input = $request->input('data');
+        $board = $this->board->create($input);
 
+        if (isset($input['sprint_id'])) {
+            $board->sprints()->attach($input['sprint_id']);
+        }
+
+        $result['data']    = $board->load('tasks');
+        $result['success'] = true;
         return $result;
     }
 
@@ -81,15 +70,16 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $task              = $this->task->findOrFail($id);
-        $result['data']    = $task->update($request->input('data'));
+        $input             = $request->input('data');
+        $board             = $this->board->findOrFail($id);
+        $result['data']    = $board->update($input);
         $result['success'] = true;
         return $result;
     }
 
     public function show($id)
     {
-        $result['data']    = $this->task->findOrFail($id);
+        $result['data']    = $this->board->findOrFail($id)->load('users');
         $result['success'] = true;
         return $result;
     }
@@ -102,26 +92,7 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $this->task->destroy($id) ? $result['success'] = true : $result['success'] = false;
-        return $result;
-    }
-
-    /**
-     * Reorder the task in sprint.
-     * if default_board change the board id into the default board.
-     * @param  Request $request
-     * @return [array]
-     */
-    public function reorderTasks(Request $request)
-    {
-        foreach ($request->all() as $data) {
-            if (isset($data['default_board']) && $data['default_board'] == true) {
-                $data['board_id'] = $this->board->getDefaultTaskBoardId();
-            }
-            $this->task->findOrFail($data['id'])->update($data);
-        }
-
-        $result['success'] = true;
+        $this->board->destroy($id) ? $result['success'] = true : $result['success'] = false;
         return $result;
     }
 

@@ -3,16 +3,41 @@
 
 angular.module('board', [    
 	'resources.sprint',
-	'resources.task'
+	'resources.task',
+    'resources.board',
 ]);
 
 angular.module('board').controller('BoardController', BoardController);
 
-function BoardController($scope,$stateParams, SprintFactory,TaskFactory ) {	
+function BoardController($scope , $stateParams, SprintFactory , TaskFactory , BoardFactory) {	
     $scope.$parent.selectedIndex=2;
-	$scope.getData=getData;
-	$scope.dataLoaded=false;
+	$scope.getData = getData;
+	$scope.dataLoaded = false;
+    $scope.addBoard = addBoard;
+    $scope.addingBoard = false;
+    $scope.toggleInput = toggleInput;
+
 	getData();
+
+    function toggleInput($event,val){
+        $event.preventDefault();            
+        $scope[val]=true;
+    }    
+
+    function addBoard ($event,board) {            
+        if(board.title){
+            var data = {};
+            data.title = board.title;
+            data.sprint_id = $scope.activeSprint.id;
+
+            BoardFactory.save(data).then(function(response) {                    
+                $scope.activeSprint.boards.push(response);
+                board.title='';
+                $scope.addingBoard = false;                
+            });                            
+        }
+    }
+
 
 	function getData(){
 		SprintFactory.activeSprint($stateParams.id).then(function(response){			

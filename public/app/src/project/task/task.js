@@ -48,7 +48,7 @@
             if (dataModel) {
                 data.title = "Issue";
                 ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
-                    $scope.getBacklogs($scope.backlogParam);
+                    $scope.getSprint($scope.sprintParam);
                 });
             } 
         }
@@ -119,6 +119,9 @@
         function swapSprintTasks(scope){ 
             var task = angular.copy($scope.sourceTask);
             task.sprint_id = scope.task.sprint_id;
+            
+            task.default_board = true;
+
             $scope.sourceTaskList.splice($scope.sourceIndex, 1);
             scope.sprint.tasks.splice(scope.$index, 0, task);
             $scope.$apply();            
