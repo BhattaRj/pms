@@ -15,7 +15,7 @@ angular.module('rjDirective').directive('daysRemaining', daysRemaining);
 function dayDifference() {
     return {
         restrict: 'A',
-        template: "<span> Total [[ diff ]] days.</span>", 
+        template: "<span> Total {{ diff }} days.</span>", 
         replace: true,
         scope: {
             startDate: '=',
@@ -34,7 +34,7 @@ function dayDifference() {
 function daysRemaining() {
     return {
         restrict: 'A',
-        template: "<span> [[ diff ]] Days remaining.</span>", 
+        template: "<span> {{ diff }} Days remaining.</span>", 
         replace: true,
         scope: {
             endDate: '='

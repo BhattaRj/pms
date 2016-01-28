@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -9,11 +10,13 @@ class UsersController extends Controller
 {
 
     protected $user;
+    protected $project;
     protected $iamge_url_path = "upload/profile_pic";
 
-    public function __construct(User $user)
+    public function __construct(User $user, Project $project)
     {
-        $this->user = $user;
+        $this->user    = $user;
+        $this->project = $project;
     }
 
     /**
@@ -48,7 +51,7 @@ class UsersController extends Controller
 
         if ($request->hasFile('file')) {
             $file               = $request->file('file');
-            $input['image_url'] = $this->uploadImage($this->iamge_url_path, $file);
+            $input['image_url'] = $this->uploadProfile($this->iamge_url_path, $file);
         }
 
         if (isset($input['id'])) {
@@ -86,6 +89,23 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $this->user->destroy($id) ? $result['success'] = true : $result['success'] = false;
+        return $result;
+    }
+
+    /**
+     * Returns all user except users already in project.
+     * @param  [integer] $project_id
+     * @return [array]
+     */
+    public function getProjectUser($project_id)
+    {
+        $project_users = $this->project->findOrFail($project_id)->users;
+        $users         = [];
+        foreach ($project_users as $user) {
+            $users[] = $user['id'];
+        }
+        $result['data']    = $this->user->whereNotIn('id', $users)->get();
+        $result['success'] = true;
         return $result;
     }
 }

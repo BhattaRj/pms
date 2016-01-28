@@ -45,7 +45,6 @@
             return this;
         };
 
-        $interpolateProvider.startSymbol('[[').endSymbol(']]');
 
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
@@ -113,16 +112,12 @@
     });
 
     function BaseController($scope) {
-
         $scope.login = login;
         $scope.user = user;
-
         // Initial parameters for pagination.
         $scope.maxSize = 5;
         $scope.currentPage = 1;
         $scope.itemsPerPage = 10;
-
-
     }
 
 })();

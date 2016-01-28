@@ -19,4 +19,8 @@ class Project extends Model
         return $this->hasMany('App\Models\Sprint');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'project_user', 'project_id', 'user_id');
+    }
 }

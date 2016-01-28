@@ -20,7 +20,7 @@
 <div class="menu-demo-container" layout-align="end end" layout="row">
 
     <md-menu>
-    <md-button ng-click="openMenu($mdOpenMenu, $event)"> <span ng-show="login"> [[ user.name]]</span></md-button>
+    <md-button ng-click="openMenu($mdOpenMenu, $event)"> <span ng-show="login"> {{ user.name }}</span></md-button>
 
     <md-menu-content width="4">
 

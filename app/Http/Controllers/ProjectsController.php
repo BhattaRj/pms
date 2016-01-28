@@ -52,9 +52,7 @@ class ProjectsController extends Controller
     {
 
         $project = $this->project->create($request->input('data'));
-
-        $sprint = new \App\Models\Sprint(['title' => 'Backlog']);
-
+        $sprint  = new \App\Models\Sprint(['title' => 'Backlog']);
         $project->sprints()->save($sprint);
 
         $result['data']    = $project;
@@ -71,15 +69,25 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $project           = $this->project->findOrFail($id);
-        $result['data']    = $project->update($request->input('data'));
+        $input   = $request->input('data');
+        $project = $this->project->findOrFail($id);
+
+        if (isset($input['users'])) {
+            $users = [];
+            foreach ($input['users'] as $user) {
+                $users[] = $user['id'];
+            }
+            $project->users()->sync($users);
+        }
+
+        $result['data']    = $project->update($input);
         $result['success'] = true;
         return $result;
     }
 
     public function show($id)
     {
-        $result['data']    = $this->project->findOrFail($id);
+        $result['data']    = $this->project->findOrFail($id)->load('users');
         $result['success'] = true;
         return $result;
     }

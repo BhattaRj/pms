@@ -10,7 +10,7 @@
         <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList" ng-show="sprintDataLoaded">
             <div layout="row">
                 <div>
-                    <label>[[ sprint.title ]] </label>
+                    <label>{{ sprint.title }} </label>
                     <span ng-show="sprint.status==5" day-difference start-date="sprint.start_date" end-date="sprint.end_date"></span>                    
                 </div>
                 <md-button ng-disabled="sprint.status==5" ng-hide="$index == 0" class="md-raised md-warn" ng-click="sprintForm($event,sprint)" flex="40">Start Sprint</md-button>
@@ -30,8 +30,8 @@
 
             <md-card ng-repeat="task in sprint.tasks"  draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
             <md-card-content>
-            <span ng-hide="true">[[ task.order = $index ]]</span>
-            <p>[[ task.title ]]
+            <span ng-hide="true">{{ task.order = $index }}</span>
+            <p>{{ task.title }}
                 <span class="pull-right">    
                     <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeSprintTask(task,$index,$event,sprint)">
                     <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
