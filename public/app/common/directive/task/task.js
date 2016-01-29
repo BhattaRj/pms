@@ -1,6 +1,6 @@
 
 angular.module('task', [
-
+        'resources.task'
     ]);
 
 angular.module('task').directive('rjTask', rjTask);
@@ -26,13 +26,14 @@ function rjTask() {
         replace: true,
         scope: {
             task: '=',
-            hideRemoveButton: '=',            
+            hideRemoveButton: '=',     
+            taskList: '='       
         },
 
-        controller: function($scope, $http , ModalFactory) {            
+        controller: function($scope, $http , ModalFactory, ConfirmFactory , TaskFactory ) {            
 
-            $scope.taskForm = taskForm;
-
+            $scope.taskForm = taskForm;   
+            $scope.removeTask = removeTask;                        
             function taskForm($event, dataModel) {
                 var templateUrl = "app/common/directive/task/form.tpl.html",
                     contrl = TaskViewController,
@@ -45,7 +46,18 @@ function rjTask() {
                         //$scope.getSprint($scope.sprintParam);
                     });
                 } 
-            }            
+            }  
+
+            function removeTask(task, $index, $event){                
+                ConfirmFactory.show($event, 'You really want to remove this !!').then(function() { 
+
+                    TaskFactory.remove(task.id).then(function(repsonse) {
+                        $scope.taskList.splice($index, 1);
+                    });
+
+                });            
+            }
+
         }    
     };
 }

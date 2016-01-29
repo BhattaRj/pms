@@ -16,7 +16,6 @@
         }  
         $scope.addSprintTask=addSprintTask;
         getSprint($scope.sprintParam)
-        $scope.removeSprintTask=removeSprintTask;
         $scope.sprintForm=sprintForm;
         $scope.addingSprint = false;
         $scope.toggleInput=toggleInput;
@@ -60,13 +59,6 @@
             }
         }
 
-        function removeSprintTask(task, $index, $event,sprint){
-            ConfirmFactory.show($event, 'You really want to remove this !!').then(function() { 
-                TaskFactory.remove(task.id).then(function(repsonse) {
-                    sprint.tasks.splice($index, 1);
-                });
-            });            
-        }
         
         function sprintForm($event, dataModel) {
             var templateUrl = '/app/src/project/backlog/sprint-form.tpl.html',
