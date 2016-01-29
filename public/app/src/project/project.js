@@ -2,7 +2,7 @@
 
     angular.module('project', [
         'resources.project',
-        'task', 
+        'backlog', 
         'board',
         'file',
         'member',

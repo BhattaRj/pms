@@ -16,8 +16,8 @@ function BoardController($scope , $stateParams, SprintFactory , TaskFactory , Bo
     $scope.addBoard = addBoard;
     $scope.addingBoard = false;
     $scope.toggleInput = toggleInput;
-
 	getData();
+
 
     function toggleInput($event,val){
         $event.preventDefault();            

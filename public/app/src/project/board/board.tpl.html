@@ -36,16 +36,9 @@
             </md-card>
 
             <md-card ng-repeat="task in board.tasks"  draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
-            <md-card-content>
+
             <span ng-hide="true">{{ task.order = $index }}</span>
-            <p>{{ task.title }}
-                <!-- <span class="pull-right">    
-                    <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeSprintTask(task,$index,$event,sprint)">
-                    <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
-                    </md-button>
-                </span> -->
-            </p>
-            </md-card-content>
+                <rj-task task=task> </rj-task>
             </md-card>
         </div>
 

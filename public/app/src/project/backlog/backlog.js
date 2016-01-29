@@ -1,13 +1,13 @@
 (function() {
 
-    angular.module('task', [
+    angular.module('backlog', [
         'resources.task',
         'resources.sprint',          
     ]);
 
-    angular.module('task').controller('TaskController', TaskController);
+    angular.module('backlog').controller('BacklogController', BacklogController);
     
-    function TaskController($scope, TaskFactory, ConfirmFactory, $stateParams, $rootScope, ModalFactory,SprintFactory ,$state) {
+    function BacklogController($scope, TaskFactory, ConfirmFactory, $stateParams, $rootScope, ModalFactory,SprintFactory ,$state) {
         $scope.$parent.selectedIndex=1;
         $scope.getSprint=getSprint;        
         $scope.sprintDataLoaded = false;
@@ -18,7 +18,6 @@
         getSprint($scope.sprintParam)
         $scope.removeSprintTask=removeSprintTask;
         $scope.sprintForm=sprintForm;
-        $scope.taskForm=taskForm;
         $scope.addingSprint = false;
         $scope.toggleInput=toggleInput;
         $scope.addSprint=addSprint;
@@ -39,19 +38,6 @@
             }
         }
 
-        function taskForm($event, dataModel) {
-            var templateUrl = '/app/src/project/task/form.tpl.html',
-                contrl = TaskViewController,
-                data = {
-                    dataModel: dataModel
-                };
-            if (dataModel) {
-                data.title = "Issue";
-                ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
-                    $scope.getSprint($scope.sprintParam);
-                });
-            } 
-        }
 
         function getSprint (param) {            
             SprintFactory.getDataList(param).then(function(response) {
@@ -83,7 +69,7 @@
         }
         
         function sprintForm($event, dataModel) {
-            var templateUrl = '/app/src/project/task/sprint-form.tpl.html',
+            var templateUrl = '/app/src/project/backlog/sprint-form.tpl.html',
                 contrl = SprintViewController,
                 data = {
                     dataModel: dataModel
@@ -142,20 +128,6 @@
                 if (response) {
                     $scope.updateStatus = true;
                 }
-            });
-        }
-    }
-
-    function TaskViewController(data, $scope, $mdDialog, TaskFactory, $mdToast, data, $state) {           
-        $scope.save = save;
-        $scope.dataModel = data.dataModel ? data.dataModel : {};
-        $scope.title = data.title;
-        $scope.dataSaved = true;
-        function save(data) {        
-            $scope.dataSaved = false;
-            TaskFactory.save(data).then(function(response) {    
-                $scope.dataSaved = true;
-                $mdDialog.hide(response);
             });
         }
     }

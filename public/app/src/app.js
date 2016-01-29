@@ -6,12 +6,13 @@
         'ngSanitize',
         'ui.router',
         'rjDirective',
+        'task',
         'ngResource',
         'ui.bootstrap',        
         'ngFileUpload',
         'project',
         'dashboard',
-        'user',                        
+        'user',
     ]);
 
 
@@ -84,10 +85,10 @@
                 templateUrl: '/app/src/project/project-show.tpl.html',
                 controller: 'ProjectShowController'
             })
-            .state('project.show.task', {
-                url: '/task',
-                templateUrl: '/app/src/project/task/task.tpl.html',
-                controller: 'TaskController'
+            .state('project.show.backlog', {
+                url: '/backlog',
+                templateUrl: '/app/src/project/backlog/backlog.tpl.html',
+                controller: 'BacklogController'
             })
             .state('project.show.activesprint', {
                 url: '/board',

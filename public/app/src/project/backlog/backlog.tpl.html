@@ -1,8 +1,6 @@
 
 <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
-
     <div layout="row" flex="100">
-
         <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="sprintDataLoaded">
             <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
         </div>
@@ -28,42 +26,20 @@
             </md-card-content>
             </md-card>
 
-            <md-card ng-repeat="task in sprint.tasks"  draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
-            <md-card-content>
-            <span ng-hide="true">{{ task.order = $index }}</span>
-            <p>{{ task.title }}
-                <span class="pull-right">    
-                    <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeSprintTask(task,$index,$event,sprint)">
-                    <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
-                    </md-button>
-                </span>
-            </p>
-            </md-card-content>
+            <md-card ng-repeat="task in sprint.tasks"  draggable="true"  rj-drag>
+                <span ng-hide="true">{{ task.order = $index }}</span>
+                <rj-task task=task> </rj-task>
+
             </md-card>
         </div>
 
         <div flex="40">
-
             <md-input-container class="md-block" ng-show="addingSprint">
                 <label>Sprint Title</label>
                 <input name="clientName" ng-model="newSprint.title" my-enter="addSprint($event,newSprint)">
             </md-input-container>
-
             <md-button ng-hide="addingSprint"class="md-raised md-primary" ng-click="toggleInput($event,'addingSprint')">Add Sprint</md-button>            
         </div>
     </div>
-
     
 </div>
-
-
-
-
-  
-
-  
-
-
-
-
-

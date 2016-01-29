@@ -63,6 +63,7 @@ if (!Auth::guest()) {
 
         <script type="text/javascript" src="./app/common/directive/rjDirective.js"></script>
         <script type="text/javascript" src="./app/common/services/rjServices.js"></script>
+         <script type="text/javascript" src="./app/common/directive/task/task.js"></script>
 
         <script type="text/javascript" src="./app/common/resources/project.js"></script>
         <script type="text/javascript" src="./app/common/resources/task.js"></script>
@@ -75,7 +76,7 @@ if (!Auth::guest()) {
         <script type="text/javascript" src="./app/src/dashboard/dashboard.js"></script>
 
         <script type="text/javascript" src="./app/src/project/overview/overview.js"></script>
-        <script type="text/javascript" src="./app/src/project/task/task.js"></script>
+        <script type="text/javascript" src="./app/src/project/backlog/backlog.js"></script>
         <script type="text/javascript" src="./app/src/project/board/board.js"></script>
         <script type="text/javascript" src="./app/src/project/member/member.js"></script>
         <script type="text/javascript" src="./app/src/project/file/file.js"></script>
