@@ -26,9 +26,10 @@ function rjTask() {
         replace: true,
         scope: {
             task: '=',
+            hideRemoveButton: '=',            
         },
 
-        controller: function($scope, $http , ModalFactory) {
+        controller: function($scope, $http , ModalFactory) {            
 
             $scope.taskForm = taskForm;
 

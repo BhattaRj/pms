@@ -6,7 +6,7 @@
 <p>
 	{{ task.title }}
     <span class="pull-right">    
-        <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeSprintTask(task,$index,$event,sprint)">
+        <md-button ng-hide="hideRemoveButton" class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeSprintTask(task,$index,$event,sprint)">
         <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
         </md-button>
     </span>

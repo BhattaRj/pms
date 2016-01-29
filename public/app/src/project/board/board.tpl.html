@@ -38,7 +38,9 @@
             <md-card ng-repeat="task in board.tasks"  draggable="true"  rj-drag ng-dblclick="taskForm($event,task)">
 
             <span ng-hide="true">{{ task.order = $index }}</span>
-                <rj-task task=task> </rj-task>
+
+                <rj-task task=task hide-remove-button="true"> </rj-task>
+                
             </md-card>
         </div>
 
