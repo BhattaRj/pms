@@ -6,15 +6,12 @@
             <div ng-if="activeSprint">
                 <span day-difference start-date="activeSprint.start_date" end-date="activeSprint.end_date"></span> 
                 <span days-remaining end-date="activeSprint.end_date"></span> 
-            </div>
-            
+            </div>            
         </div>
     </div>            
 
     <div layout="row" ng-if="activeSprint.length == 0">
-        <div>
-            <h4>Active Sprint not found.</h4>            
-        </div>
+        <div><h4>Active Sprint not found.</h4></div>
     </div>            
 
     <div layout="row" flex="100" >
@@ -39,7 +36,7 @@
 
             <span ng-hide="true">{{ task.order = $index }}</span>
 
-                <rj-task task=task hide-remove-button="true"> </rj-task>
+                <rj-task task=task hide-remove-button="true" sprint-id="activeSprint.id"> </rj-task>
                 
             </md-card>
         </div>

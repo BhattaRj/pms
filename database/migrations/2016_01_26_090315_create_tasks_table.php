@@ -19,7 +19,7 @@ class CreateTasksTable extends Migration
             $table->string('description');
             $table->integer('order');
             $table->string('priority')->default('High'); // Highest , High, Low , lowest
-            $table->string('task_type')->default('Task'); // Bug, Story, Epic
+            $table->string('task_type')->default('Task'); // Bug, Story, Epic , Task
             $table->integer('story_point');
 
             $table->integer('sprint_id')->unsigned();

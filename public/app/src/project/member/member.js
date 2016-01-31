@@ -56,7 +56,7 @@ function MemberController($scope , $stateParams, UserFactory , ProjectFactory , 
     function getProject(){    
         ProjectFactory.getDataItem($stateParams.id).then(function(response){
             $scope.project = response;
-        })
+        });
     }
 
     /**

@@ -35,7 +35,7 @@ class SprintsController extends Controller
     {
 
         $query = $this->sprint->with(['tasks' => function ($query) {
-            $query->orderBy('order');
+            $query->orderBy('order')->with('assigne');
         }]);
 
         if ($request->has('currentPage')) {
@@ -92,7 +92,7 @@ class SprintsController extends Controller
 
     public function show($id)
     {
-        $result['data']    = $this->sprint->findOrFail($id);
+        $result['data']    = $this->sprint->findOrFail($id)->load('boards');
         $result['success'] = true;
         return $result;
     }
@@ -115,7 +115,7 @@ class SprintsController extends Controller
         if ($sprint) {
             $query = $sprint->load(['boards' => function ($query) use ($sprint) {
                 $query->with(['tasks' => function ($query) use ($sprint) {
-                    $query->where('sprint_id', $sprint->id)->orderBy('order');
+                    $query->where('sprint_id', $sprint->id)->orderBy('order')->with('assigne');
                 }]);
             }]);
             $result['data'] = $query;

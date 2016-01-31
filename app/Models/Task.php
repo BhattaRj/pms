@@ -23,4 +23,10 @@ class Task extends Model
     {
         return $this->belongsTo('App\Models\Board');
     }
+
+    public function assigne()
+    {
+        return $this->belongsTo('App\User', 'assigne_id');
+    }
+
 }
