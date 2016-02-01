@@ -10,6 +10,8 @@
         'ngResource',
         'ui.bootstrap',        
         'ngFileUpload',
+        'textAngular',
+        'task',
         'project',
         'dashboard',
         'user',

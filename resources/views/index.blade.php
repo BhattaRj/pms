@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
         <link rel="stylesheet" href="assets/app.css"/>
         <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-
+        <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" type="text/css">
 <?php
 
 if (!Auth::guest()) {
@@ -53,7 +53,7 @@ if (!Auth::guest()) {
         <script src="./bower_components/angular-messages/angular-messages.min.js"></script>
         <script src="./bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="./bower_components/ng-file-upload/ng-file-upload.js"></script>
-
+        <script src="./app/js/textAngular.min.js"></script>
 
 
         <script type="text/javascript" src="./app/src/app.js"></script>
