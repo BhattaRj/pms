@@ -37,7 +37,7 @@ if (!Auth::guest()) {
 
         <header></header>
 
-        <div flex layout="row" ui-view>
+        <div id="main" flex layout="row" ui-view>
 
         </div>
 

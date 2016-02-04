@@ -338,3 +338,7 @@ md-card md-card-content {
 .chipsdemoContactChips .fixedRows {
   height: 250px;
   overflow: hidden; }
+
+#main {
+    background-image: url("/background/Alien_Ink_2560X1600_Abstract_Background_1.jpg");
+}
