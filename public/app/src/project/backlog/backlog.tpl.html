@@ -1,15 +1,15 @@
 
-<md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
-    <div layout="row" flex="100">
-        <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="sprintDataLoaded">
-            <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
-        </div>
+<div layout="row" layout-sm="column" layout-align="space-around" ng-hide="sprintDataLoaded">
+    <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
+</div>
 
-        <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList" ng-show="sprintDataLoaded">
+<md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column" ng-show="sprintDataLoaded">
+    <div layout="row" flex="100">
+        <div  flex="40" flex-xs="100" layout="column" ng-repeat="sprint in sprintList" >
             <div layout="row">
                 <div>
                     <label>{{ sprint.title }} </label>
-                    <span ng-show="sprint.status==5" day-difference start-date="sprint.start_date" end-date="sprint.end_date"></span>                    
+                    <span ng-show="sprint.status==5" day-difference start-date="sprint.start_date" end-date="sprint.end_date"></span>
                 </div>
                 <md-button ng-disabled="sprint.status==5" ng-hide="$index == 0" class="md-raised md-warn" ng-click="sprintForm($event,sprint)" flex="40">Start Sprint</md-button>
             </div>            

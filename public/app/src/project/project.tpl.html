@@ -13,7 +13,7 @@
     <md-list ng-cloak ng-show="dataLoaded">
         <md-list-item ng-repeat="project in dataList">
 
-            <md-button flex="95%" ui-sref="project.show({ id:{{ project.id }} })" >{{ project.title }}</md-button> 
+            <md-button flex="95%" ui-sref="project.show({ id:{{ project.id }} })" ui-sref-active="project.show({ id:{{ project.id }} })" >{{ project.title }}</md-button> 
 
             <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="remove(project.id,$index,$event)">
             <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
