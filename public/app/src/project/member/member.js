@@ -15,6 +15,7 @@ function MemberController($scope , $stateParams, UserFactory , ProjectFactory , 
     $scope.selectedUser =[];        
     $scope.addUser= addUser;
     $scope.removeUser=removeUser;
+    $scope.dataLoaded=false;
     getUser();
     getProject();
 

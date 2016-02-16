@@ -14,13 +14,15 @@
         placeholder="Add Member">
     </md-contact-chips>
 
-    <md-list class="fixedRows">
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
+        <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
+    </div>
+
+    <md-list class="fixedRows" ng-show="dataLoaded">
       <md-subheader class="md-no-sticky">Members in project.</md-subheader>
 
       <md-list-item class="md-2-line user-item" ng-repeat="(index, user) in project.users">
-
         <img ng-src="{{user.image_url}}" class="md-avatar" alt="{{user.name}}" />
-
         <div class="md-list-item-text compact">
           <h3>{{user.name}}</h3>
           <p>{{user.email}} </p>
