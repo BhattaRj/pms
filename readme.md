@@ -3,6 +3,7 @@
 
 ## Installation 
 sudo git clone https://github.com/BhattaRj/pms
+
 pms$ bower install 
 
 initial username admin@admin.com
