@@ -2,7 +2,7 @@
   This App is for software project management purpose Based in Agile methodology. 
 
 ## Installation 
-sudo git clone https://github.com/BhattaRj/pms
+$ sudo git clone https://github.com/BhattaRj/pms
 
 pms$ bower install 
 
