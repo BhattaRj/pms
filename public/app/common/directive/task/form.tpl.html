@@ -1,3 +1,16 @@
+<style type="text/css">
+    .ta-editor {
+    min-height: 100px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+.text-editor{
+    width: 700px;
+}
+</style>
 <md-dialog aria-label="Mango (Fruit)"  ng-cloak flex="60">
 <md-toolbar>
 <div class="md-toolbar-tools">
@@ -88,23 +101,13 @@
 
         </div>
 
+        <label>Description</label>        
         <md-input-container class="md-block">
-            <label>Description</label>
-            <input  name="description" ng-model="dataModel.description" ng-blur="makeSlug(dataModel.description)">
-            <div ng-messages="Form.description.$error">
-                <div ng-message="required">This is required.</div>
-            </div>
-        </md-input-container>
-
-
-        <label>Content</label>        
-        <md-input-container class="md-block">
-        <div class="container app">
-          <div text-angular="text-angular" name="page_content" ng-model="dataModel.page_content"></div>
+        <div class="container app text-editor">
+          <div text-angular="text-angular" name="description" ng-model="dataModel.description"></div>
         </div>
 
         </md-input-container>                        
-
 
     </form>
     </md-content>
