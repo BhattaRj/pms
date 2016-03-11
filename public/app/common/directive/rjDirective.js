@@ -12,38 +12,47 @@ angular.module('rjDirective').directive('makeDate', makeDate);
 angular.module('rjDirective').directive('dayDifference', dayDifference);
 angular.module('rjDirective').directive('daysRemaining', daysRemaining);
 
+/**
+ * Calculate difference in days between two dates.
+ * uses:
+ * <md-button ng-disabled="sprint.status==5"  ng-click="sprintForm($event,sprint)" flex="40"> Start Sprint </md-button>
+ */
 function dayDifference() {
     return {
         restrict: 'A',
-        template: "<span> Total {{ diff }} days.</span>", 
+        template: "<span> Total {{ dayDiff }} days.</span>", 
         replace: true,
         scope: {
             startDate: '=',
             endDate: '='
         },        
         link: function(scope, iElement, iAttrs) {              
-            var date1 = new Date(scope.startDate);
-            var date2 = new Date(scope.endDate);
-            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-            scope.diff = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+            var startDate = new Date(scope.startDate);
+            var endDate = new Date(scope.endDate);
+            var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+            scope.dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
         }
     };
 }
 
-
+/**
+ * Calculates the days remaining between current date and end date.
+ * uses:
+ * <span days-remaining end-date="activeSprint.end_date"></span>
+ */
 function daysRemaining() {
     return {
         restrict: 'A',
-        template: "<span> {{ diff }} Days remaining.</span>", 
+        template: "<span> {{ daysRemaining }} Days remaining.</span>", 
         replace: true,
         scope: {
             endDate: '='
         },        
         link: function(scope, iElement, iAttrs) {              
-            var date1 = new Date();
-            var date2 = new Date(scope.endDate);
-            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-            scope.diff = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+            var currentDate = new Date();
+            var endDate = new Date(scope.endDate);
+            var timeDiff = Math.abs(endDate.getTime() - currentDate.getTime());
+            scope.daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
         }
     };
 }
