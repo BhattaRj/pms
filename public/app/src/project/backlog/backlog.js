@@ -60,6 +60,7 @@
         }
 
 
+        // Sprint form to activate sprint.
         function sprintForm($event, dataModel) {
             var templateUrl = '/app/src/project/backlog/sprint-form.tpl.html',
                 contrl = SprintViewController,
@@ -124,6 +125,7 @@
         }
     }
 
+    // Sprint view to activat sprint.
     function SprintViewController(data, $scope, $mdDialog, SprintFactory, $mdToast, data, $state) {
         $scope.save = save;
         $scope.dataModel = data.dataModel ? data.dataModel : {};

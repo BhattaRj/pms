@@ -9,7 +9,7 @@
         {{-- <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,700'/> --}}
         <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
         <link rel="stylesheet" href="assets/app.css"/>
-        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+<!--         <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" /> -->
         <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" type="text/css">
 <?php
 

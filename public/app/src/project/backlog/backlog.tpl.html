@@ -28,9 +28,7 @@
 
             <md-card ng-repeat="task in sprint.tasks"  draggable="true"  rj-drag>
                 <span ng-hide="true">{{ task.order = $index }}</span>
-
-                <rj-task task=task hide-remove-button="false" task-list="sprint.tasks" sprint-id="sprint.id"> </rj-task>
-                
+                <rj-task task=task hide-remove-button="false" task-list="sprint.tasks" sprint-id="sprint.id" project-id="" get-data="getData(param)">> </rj-task>                
             </md-card>
         </div>
 

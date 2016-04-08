@@ -1,9 +1,8 @@
-
 angular.module('task', [
-        'resources.task',
-        'resources.project',
-        'resources.sprint'
-    ]);
+    'resources.task',
+    'resources.project',
+    'resources.sprint'
+]);
 
 angular.module('task').directive('rjTask', rjTask);
 angular.module('task').factory('TaskDataFactory', TaskDataFactory);
@@ -28,15 +27,18 @@ function rjTask() {
         replace: true,
         scope: {
             task: '=',
-            hideRemoveButton: '=',     
+            hideRemoveButton: '=',
             taskList: '=',
-            sprintId:'='       
+            sprintId: '=',
+            projectId: '=',
+            getData: '&',
         },
 
-        controller: function($scope, $http , ModalFactory, ConfirmFactory , TaskFactory ) {            
+        controller: function($scope, $http, ModalFactory, ConfirmFactory, TaskFactory) {
 
-            $scope.taskForm = taskForm;   
-            $scope.removeTask = removeTask;                                
+            $scope.taskForm = taskForm;
+            $scope.removeTask = removeTask;
+
             function taskForm($event, dataModel) {
                 var templateUrl = "app/common/directive/task/form.tpl.html",
                     contrl = TaskViewController,
@@ -47,49 +49,50 @@ function rjTask() {
                     data.title = "Issue";
                     data.sprint_id = $scope.sprintId;
                     ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
-                        //$scope.getSprint($scope.sprintParam);
+                        if ($scope.sprintParam) {
+                            $scope.getData({ param: $scope.sprintParam });
+                        }
                     });
-                } 
-            }  
+                }
+            }
 
-            function removeTask(task, $index, $event){    
+            function removeTask(task, $index, $event) {
                 $event.preventDefault()
-                $event.stopPropagation()            
-                ConfirmFactory.show($event, 'You really want to remove this !!').then(function() { 
+                $event.stopPropagation()
+                ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {
                     TaskFactory.remove(task.id).then(function(repsonse) {
                         $scope.taskList.splice($index, 1);
                     });
 
-                });            
+                });
             }
-        }    
+        }
     };
 }
 
 
 
-function TaskViewController(data, $scope, $mdDialog ,TaskFactory , $stateParams , ProjectFactory , SprintFactory) {           
+function TaskViewController(data, $scope, $mdDialog, TaskFactory, $stateParams, ProjectFactory, SprintFactory) {
     $scope.save = save;
     $scope.dataModel = data.dataModel ? data.dataModel : {};
     $scope.title = data.title;
     $scope.sprint_id = data.sprint_id;
     $scope.dataSaved = true;
-    $scope.getData=getData;
-    getData();
+    init();
 
-    function getData(){
-        ProjectFactory.getDataItem($stateParams.id).then(function(response){
+    function init() {
+        ProjectFactory.getDataItem($stateParams.id).then(function(response) {
             $scope.users = response.users;
         });
 
-        SprintFactory.getDataItem($scope.sprint_id).then(function(response){
+        SprintFactory.getDataItem($scope.sprint_id).then(function(response) {
             $scope.boards = response.boards;
         });
     }
-    
-    function save(data) {        
+
+    function save(data) {
         $scope.dataSaved = false;
-        TaskFactory.save(data).then(function(response) {    
+        TaskFactory.save(data).then(function(response) {
             $scope.dataSaved = true;
             $mdDialog.hide(response);
         });

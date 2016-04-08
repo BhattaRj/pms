@@ -115,8 +115,6 @@ function rjDrag($mdDialog, $rootScope) {
  * 
  * 
  */
-
-
 function makeDate() {
     return {
         restrict: 'A',

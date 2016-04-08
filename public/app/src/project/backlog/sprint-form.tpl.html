@@ -1,9 +1,8 @@
 <md-dialog aria-label="Mango (Fruit)"  ng-cloak flex="40">
+
 <md-toolbar>
 <div class="md-toolbar-tools">
-
-    <h4>{{ title }}</h4>
-    
+    <h4>{{ title }}</h4>    
     <span flex></span>
     <md-button class="md-icon-button" ng-click="cancel()">
     <md-icon  aria-label="Close dialog">
@@ -12,11 +11,11 @@
     </md-button>
 </div>
 </md-toolbar>
+
 <md-dialog-content>
 <div layout="column" ng-cloak>
     <md-content layout-padding>
     <form name="Form">
-
         <md-input-container class="md-block">
         <label>Title</label>
         <input ng-disabled="dataModel.titleStatus" md-maxlength="150" required name="title" ng-model="dataModel.title" ng-blur="makeSlug(dataModel.title)">
