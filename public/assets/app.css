@@ -1,12 +1,3 @@
-html, body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-}
-
-
 /* Toolbar area */
 
 .menu {
@@ -17,34 +8,43 @@ html, body {
     width: 36px;
 }
 
-md-toolbar h1 {
+md-toolbar h3 {
     margin: auto;
+    font-weight: 500;
 }
 
 
 /* Sidenav area */
 
-md-list .md-button {
-    color: inherit;
-    font-weight: 500;
-    text-align: left;
+md-list-item > button {
     width: 100%;
+    text-align: left !important;
+    height: 70px;
+    ;
+}
+
+md-icon.avatar {
+    margin-right: 20px;
 }
 
 md-list .md-button.selected {
     color: #03a9f4;
 }
 
-md-sidenav md-list {
-    padding: 0px 0px 8px 0px;
+button#main {
+    margin-bottom: 10px;
+}
+
+md-sidenav > md-toolbar {
+    height: 64px;
+}
+
+md-list-item {
+    overflow: hidden;
 }
 
 
 /* Primary content area */
-
-#content {
-    overflow: hidden;
-}
 
 #content {
     padding-left: 40px;
@@ -73,12 +73,6 @@ md-sidenav md-list {
     height: 36px;
 }
 
-md-button.menuBtn > md-icon {
-    fill: white;
-    width: 24px;
-    height: 24px;
-}
-
 #content .md-button.contact:active > md-icon {
     background-color: #dadada;
     border-radius: 75%;
@@ -86,41 +80,22 @@ md-button.menuBtn > md-icon {
     transition: all 100ms ease-out 30ms;
 }
 
-#content img {
-    display: block;
-    height: auto;
-    max-width: 500px;
-}
-
 
 /* Utils */
-
-.content-wrapper {
-    position: relative;
-}
 
 
 /* Typography support coming in 0.8.0 */
 
-md-toolbar h1 {
-    font-size: 1.250em;
-    font-weight: 400;
-}
-
 .avatar {
     position: relative;
-    width: 128px;
-    height: 128px;
+    width: 54px;
+    height: 54px;
     border: 1px solid #ddd;
     border-radius: 50%;
     display: inline-block;
     overflow: hidden;
     margin: 0px;
     vertical-align: middle;
-    zoom: 0.70;
-    transform: translateZ(0);
-    -webkit-transform: scale(0.70);
-    -moz-transform: scale(0.70);
 }
 
 md-bottom-sheet md-icon {
@@ -132,212 +107,6 @@ span.name {
     font-size: 1.1em;
     padding-left: 5px;
 }
-
-.menudemoBasicUsage .md-menu-demo {
-    padding: 24px;
-}
-
-.menudemoBasicUsage .menu-demo-container {
-    min-height: 200px;
-}
-
-.listdemoListControls {
-    /* Add some right padding so that the text doesn't overlap the buttons */
-}
-
-.listdemoListControls md-divider {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.listdemoListControls md-list-item > p, .listdemoListControls md-list-item > .md-list-item-inner > p, .listdemoListControls md-list-item .md-list-item-inner > p, .listdemoListControls md-list-item .md-list-item-inner > .md-list-item-inner > p {
-    -webkit-user-select: none;
-    /* Chrome all / Safari all */
-    -moz-user-select: none;
-    /* Firefox all */
-    -ms-user-select: none;
-    /* IE 10+ */
-    user-select: none;
-    /* Likely future */
-}
-
-.listdemoListControls .secondary-button-padding p {
-    padding-right: 100px;
-}
-
-.tabsdemoDynamicHeight md-content {
-    background-color: transparent !important;
-}
-
-.tabsdemoDynamicHeight md-content md-tabs {
-    background: #f6f6f6;
-    border: 1px solid #e1e1e1;
-}
-
-.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
-    background: white;
-}
-
-.tabsdemoDynamicHeight md-content h1:first-child {
-    margin-top: 0;
-}
-
-div.scrollingDiv {
-    overflow: scroll;
-}
-
-.whiteframedemoBasicUsage md-whiteframe {
-    background: #fff;
-    margin: 30px;
-    height: 100px;
-}
-
-@media screen and (max-width: 599px) {
-    .whiteframedemoBasicUsage md-whiteframe {
-        margin: 7px;
-        height: 50px;
-        background-color: #c8e4fa;
-    }
-    .whiteframedemoBasicUsage md-whiteframe > span {
-        font-size: 0.4em;
-    }
-}
-
-@media screen and (min-width: 600px) and (max-width: 959px) {
-    .whiteframedemoBasicUsage md-whiteframe {
-        margin: 20px;
-        height: 75px;
-    }
-    .whiteframedemoBasicUsage md-whiteframe > span {
-        font-size: 0.6em;
-    }
-}
-
-@media screen and (min-width: 960px) and (max-width: 1199px) {
-    .whiteframedemoBasicUsage md-whiteframe {
-        margin: 20px;
-        height: 90px;
-        background-color: #fcddde;
-    }
-    .whiteframedemoBasicUsage md-whiteframe > span {
-        font-size: 0.9em;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    .whiteframedemoBasicUsage md-whiteframe {
-        margin: 25px;
-        height: 100px;
-        background-color: #F2FCE2;
-    }
-    .whiteframedemoBasicUsage md-whiteframe > span {
-        font-size: 1.0em;
-    }
-}
-
-.chipsdemoCustomInputs md-content.autocomplete {
-    min-height: 200px;
-}
-
-.chipsdemoCustomInputs input[type=number] {
-    width: 110px;
-}
-
-.chipsdemoCustomInputs .veggie-option {
-    float: left;
-    width: 20%;
-    box-sizing: border-box;
-    padding: 0 8px;
-}
-
-.chipsdemoCustomInputs .veggie-option .md-item-text {
-    padding: 8px;
-    background: #f0f0f0;
-    border-radius: 3px;
-}
-
-.chipsdemoCustomInputs .veggie-option .md-item-text h3, .chipsdemoCustomInputs .veggie-option .md-item-text p {
-    padding: 0;
-    margin: 0;
-}
-
-
-.md-headline {
-    font-size: 16px !important;
-    font-weight: 400;
-    line-height: 20px !important;
-    color: rgb(168, 173, 35);
-}
-
-md-card md-card-title {
-    padding: 2px 12px 4px !important;
-}
-
-md-card md-card-content {
-    padding: 9px !important;
-}
-
-
-.fabSpeedDialdemoBasicUsage .text-capitalize {
-  text-transform: capitalize; 
-}
-
-.fabSpeedDialdemoBasicUsage .md-fab:hover, .fabSpeedDialdemoBasicUsage .md-fab.md-focused 
-{
-  background-color: #000 !important; 
-}
-
-.fabSpeedDialdemoBasicUsage p.note 
-{
-  font-size: 1.2rem; 
-}
-
-.fabSpeedDialdemoBasicUsage .lock-size 
-{
-  min-width: 300px;
-  min-height: 300px;
-  width: 300px;
-  height: 300px;
-  margin-left: auto;
-  margin-right: auto; 
-}
-
-
-.chipsdemoContactChips md-content.autocomplete {
-  min-height: 250px; }
-  .chipsdemoContactChips md-content.autocomplete input {
-    min-width: 400px; }
-.chipsdemoContactChips .md-item-text.compact {
-  padding-top: 8px;
-  padding-bottom: 8px; }
-.chipsdemoContactChips .contact-item {
-  box-sizing: border-box; }
-  .chipsdemoContactChips .contact-item.selected {
-    opacity: 0.5; }
-    .chipsdemoContactChips .contact-item.selected h3 {
-      opacity: 0.5; }
-  .chipsdemoContactChips .contact-item .md-list-item-text {
-    padding: 14px 0;
-    max-width: 190px; }
-    .chipsdemoContactChips .contact-item .md-list-item-text h3 {
-      margin: 0 !important;
-      padding: 0;
-      line-height: 1.2em !important; }
-    .chipsdemoContactChips .contact-item .md-list-item-text h3, .chipsdemoContactChips .contact-item .md-list-item-text p {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden; }
-  @media screen and (min-width: 960px) {
-    .chipsdemoContactChips .contact-item {
-      float: left;
-      width: 33%; } }
-.chipsdemoContactChips md-contact-chips {
-  margin-bottom: 10px; }
-.chipsdemoContactChips .md-chips {
-  padding: 5px 0 8px; }
-.chipsdemoContactChips .fixedRows {
-  height: 250px;
-  overflow: hidden; }
 
 #main {
     background-image: url("/background/Alien_Ink_2560X1600_Abstract_Background_1.jpg");

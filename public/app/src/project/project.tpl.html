@@ -1,29 +1,33 @@
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-click="ul.toggleList()" aria-label="Show User List" md-is-locked-open="$mdMedia('gt-sm')" flex="20">
+    <md-list>
 
-<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
-
-    <md-input-container class="md-block">
-        <label>Title</label>
-        <input name="clientName" ng-model="data.title" my-enter="save($event,data)">
-    </md-input-container>
-
-    <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
-        <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
-    </div>
-
-    <md-list ng-cloak ng-show="dataLoaded">
-        <md-list-item ng-repeat="project in dataList">
-
-            <md-button flex="95%" ui-sref="project.show({ id:{{ project.id }} })" ui-sref-active="project.show({ id:{{ project.id }} })" >{{ project.title }}</md-button> 
-
-            <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="remove(project.id,$index,$event)">
-            <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>
-            </md-button>
+        <md-list-item>
+            <md-button ui-sref="project.overview" ui-sref-active="project.overview">Overview</md-button>
         </md-list-item>
+
+        <md-list-item>
+            <md-button ui-sref="project.issue" ui-sref-active="project.issue">Issue</md-button>
+        </md-list-item>
+
+        <md-list-item>
+            <md-button ui-sref="project.activesprint" ui-sref-active="project.activesprint">Board</md-button>
+        </md-list-item>
+
+        <md-list-item>
+            <md-button ui-sref="project.member" ui-sref-active="project.member">Member</md-button>
+        </md-list-item>
+
+        <md-list-item>
+            <md-button ui-sref="project.file" ui-sref-active="project.file">File</md-button>
+        </md-list-item>
+
     </md-list>
-
 </md-sidenav>
-
-
-<md-content flex id="content" ui-view>
-
+<md-content flex id="content">
+    <md-card>
+        <md-card-content>
+            <div id="view-container" ui-view>
+            </div>
+        </md-card-content>
+    </md-card>
 </md-content>

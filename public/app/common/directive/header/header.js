@@ -15,17 +15,13 @@ angular.module('app')
             controller: function($scope, $mdSidenav, $mdBottomSheet, ConfirmFactory) {
                 var originatorEv;
 
+                $scope.toggleSidenav = function() {
+                    $mdSidenav('left').toggle();
+                }
+
                 $scope.openMenu = function($mdOpenMenu, ev) {
                     originatorEv = ev;
                     $mdOpenMenu(ev);
-                }
-
-                $scope.toggleList = function() {
-                    var pending = $mdBottomSheet.hide() || $q.when(true);
-
-                    pending.then(function() {
-                        $mdSidenav('left').toggle();
-                    });
                 }
 
                 $scope.logout = function($event) {

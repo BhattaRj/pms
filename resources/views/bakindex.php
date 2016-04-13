@@ -1,3 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="/">
+    <title>1040NR</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <!-- <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'> -->
+    <!-- Styles -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="assets/app.css" />
+    <link rel="stylesheet" href="assets/main_styles.css" />
+</head>
+
+<body ng-app="ntech" layout="column" ng-controller="BaseController as base" ng-cloak>
+    <header></header>
+    <div id="main" flex layout="row">
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-click="ul.toggleList()" aria-label="Show User List" md-is-locked-open="$mdMedia('gt-sm')" flex="20">
+    <md-list>
+        <md-list-item>
+            <md-button ng-click="form1040nr.goto('basic-info')" ng-class="{'selected' : form1040nr.selectedForm.title === 'basic-info' }">
+                Basic Info
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="form1040nr.goto('filling-status')" ng-class="{'selected' : form1040nr.selectedForm.title === 'filling-status' }">
+                Filling Status
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="form1040nr.goto('exemptions')" ng-class="{'selected' : form1040nr.selectedForm.title === 'exemptions' }">
+                Exemptions
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="form1040nr.goto('income')" ng-class="{'selected' : form1040nr.selectedForm.title === 'income' }">
+                Income
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="form1040nr.goto('grossincome')" ng-class="{'selected' : form1040nr.selectedForm.title === 'grossincome' }">
+                Grossincome
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="form1040nr.goto('taxes')" ng-class="{'selected' : form1040nr.selectedForm.title === 'taxes' }">
+                taxes
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="form1040nr.goto('othertaxes')" ng-class="{'selected' : form1040nr.selectedForm.title === 'othertaxes' }">
+                Othertaxes
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="form1040nr.goto('payments')" ng-class="{'selected' : form1040nr.selectedForm.title === 'payments' }">
+                payments
+            </md-button>
+        </md-list-item>
+    </md-list>
+</md-sidenav>
+
+
+
+<md-content flex id="content">
+    <md-card>
+        <md-card-content>
+            <div id="view-container">
 <h1>Income Effectively Connected With U.S. Trade/ Business</h1>
 <form name="income">
     <div layout-gt-sm="row">
@@ -104,3 +174,23 @@
     </md-input-container>
 </form>
 <slider-button></slider-button>
+
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>
+</div>
+    <!-- <div id="main" flex layout="row" ui-view></div> -->
+    <!-- Dependenceies Library -->
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="bower_components/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="bower_components/angular-material/angular-material.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- App files -->
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/common/directive/header/header.js"></script>
+
+</body>
+
+</html>

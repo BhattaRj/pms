@@ -9,8 +9,9 @@
         {{-- <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,700'/> --}}
         <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
         <link rel="stylesheet" href="assets/app.css"/>
-<!--         <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" /> -->
+        <link rel="stylesheet" href="assets/main_styles.css" />
         <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
 <?php
 
 if (!Auth::guest()) {
@@ -33,13 +34,13 @@ if (!Auth::guest()) {
 
 
     </head>
-    <body ng-app="app" layout="column" ng-controller="BaseController as ctrl">
+
+
+    <body ng-app="app" layout="column" ng-controller="BaseController as ctrl" ng-cloak>
 
         <header></header>
 
-        <div id="main" flex layout="row" ui-view>
-
-        </div>
+        <div id="main" flex layout="row" ui-view></div>
 
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="./bower_components/angular/angular.js"></script>
@@ -57,6 +58,8 @@ if (!Auth::guest()) {
 
 
         <script type="text/javascript" src="./app/src/app.js"></script>
+        <script type="text/javascript" src="./app/src/app-router.js"></script>
+
         <script type="text/javascript" src="./app/common/directive/header/header.js"></script>
 
         <script type="text/javascript" src="./app/common/directive/formButton/formButton.js"></script>
@@ -70,6 +73,7 @@ if (!Auth::guest()) {
         <script type="text/javascript" src="./app/common/resources/user.js"></script>
         <script type="text/javascript" src="./app/common/resources/sprint.js"></script>
         <script type="text/javascript" src="./app/common/resources/board.js"></script>
+        <script type="text/javascript" src="./app/common/resources/issue.js"></script>
 
         <script type="text/javascript" src="./app/src/project/project.js"></script>
         <script type="text/javascript" src="./app/src/user/user.js"></script>
@@ -80,6 +84,7 @@ if (!Auth::guest()) {
         <script type="text/javascript" src="./app/src/project/board/board.js"></script>
         <script type="text/javascript" src="./app/src/project/member/member.js"></script>
         <script type="text/javascript" src="./app/src/project/file/file.js"></script>
+        <script type="text/javascript" src="./app/src/project/issue/issue.js"></script>
 
     </body>
 </html>

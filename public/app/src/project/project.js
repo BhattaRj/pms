@@ -1,9 +1,10 @@
 (function() {
 
     angular.module('project', [
-        'resources.project',
-        'backlog', 
+        // 'resources.project',
+        // 'backlog', 
         'board',
+        'issue',
         'file',
         'member',
         'overview',
@@ -12,7 +13,10 @@
     angular.module('project').controller('ProjectController', ProjectController);
     angular.module('project').controller('ProjectShowController', ProjectShowController);
 
-    function ProjectController($scope, ProjectFactory, ConfirmFactory,$state) {   
+function ProjectController() {
+}
+    function ProjectControllerbak($scope, ProjectFactory, ConfirmFactory,$state) {  
+        debugger;
         $scope.getData = getData;
         $scope.save = save;
         $scope.remove = remove;

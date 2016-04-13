@@ -4,30 +4,29 @@
     angular.module('app', [
         'ngMaterial',
         'ngSanitize',
-        'ui.router',
+         'ui.router',
         'rjDirective',
+        'rjServices',
         'task',
         'ngResource',
-        'ui.bootstrap',        
+        'ui.bootstrap',
         'ngFileUpload',
         'textAngular',
         'task',
         'project',
         'dashboard',
-        'user',
+        'user',        
     ]);
-
 
     angular.module('app').controller('BaseController', ['$scope', BaseController]);
 
-    angular.module('app').config(function($mdThemingProvider, $mdIconProvider, $interpolateProvider, $stateProvider, $urlRouterProvider) {
-
+    angular.module('app').config(function($mdThemingProvider, $mdIconProvider) {
         // This is will add this functios on every string.
         String.prototype.capitalizeFirstLetter = function() {
             return this.charAt(0).toUpperCase() + this.slice(1);
         }
         Date.prototype.toYMD = Date_toYMD;
-        
+
         function Date_toYMD() {
             var year, month, day;
             year = String(this.getFullYear());
@@ -41,14 +40,10 @@
             }
             return year + "-" + month + "-" + day;
         }
-
-
         Date.prototype.addDays = function(days) {
             this.setDate(this.getDate() + parseInt(days));
             return this;
         };
-
-
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
             .icon("menu", "./assets/svg/menu.svg", 24)
@@ -64,57 +59,17 @@
             .primaryPalette('green')
             .accentPalette('red');
 
-        $urlRouterProvider.otherwise('/dashboard');
-
-        $stateProvider
-            .state('people', {
-                url: '/people',
-                templateUrl: '/app/src/user/user-list.tpl.html',
-                controller: 'UserListController',
-            })
-            .state('dashboard', {
-                url: '/dashboard',
-                templateUrl: '/app/src/dashboard/dashboard.tpl.html',
-                controller: 'DashboardController',
-            })                            
-            .state('project', {
-                url: '/project',
-                templateUrl: '/app/src/project/project.tpl.html',
-                controller: 'ProjectController',
-            })
-            .state('project.show', {
-                url: '/show/:id',
-                templateUrl: '/app/src/project/project-show.tpl.html',
-                controller: 'ProjectShowController'
-            })
-            .state('project.show.backlog', {
-                url: '/backlog',
-                templateUrl: '/app/src/project/backlog/backlog.tpl.html',
-                controller: 'BacklogController'
-            })
-            .state('project.show.activesprint', {
-                url: '/board',
-                templateUrl: '/app/src/project/board/board.tpl.html',
-                controller: 'BoardController',
-            })                        
-            .state('project.show.overview', {
-                url: '/overview',
-                templateUrl: '/app/src/project/overview/overview.tpl.html',
-                controller: 'OverviewController',
-            })                        
-            .state('project.show.member', {
-                url: '/member',
-                templateUrl: '/app/src/project/member/member.tpl.html',
-                controller: 'MemberController',
-            })                        
-            .state('project.show.file', {
-                url: '/file',
-                templateUrl: '/app/src/project/file/file.tpl.html',
-                controller: 'FileController',
-            });                                                            
     });
 
     function BaseController($scope) {
+
+    var vm = this;
+    vm.toggleSidenav = toggleSidenav;
+
+    function toggleSidenav() {
+        $mdSidenav('left').toggle();
+    }
+
         $scope.login = login;
         $scope.user = user;
         // Initial parameters for pagination.

@@ -1,19 +1,14 @@
-<md-toolbar layout="row" class="md-whiteframe-z1">
-    <md-button id="main" class="menu" hide-gt-sm ng-click="toggleSidenav()" aria-label="Show side nav">
+<md-toolbar layout="row">
+
+    <md-button class="menu" hide-gt-sm ng-click="toggleList()" aria-label="Show User List">
         <md-icon md-svg-icon="menu"></md-icon>
     </md-button>
-    <div layout="row" layout-align="center center" flex="20">
-        <md-button ui-sref="dashboard" ui-sref-active="home">SoftyCraft</md-button>
-    </div>
-    <div layout="row" layout-align="center center" flex="30">    
-    </div>    
 
-    <div layout="row"  layout-align="end center" flex="50">
+    <div layout="row" layout-align="center center">
         <md-button ui-sref="dashboard" ui-sref-active="dashboard"> Dashboard </md-button>
-        <md-button ui-sref="people" ui-sref-active="people"> People </md-button>
         <md-button ui-sref="project" ui-sref-active="project"> Project </md-button>
+        <md-button ui-sref="people" ui-sref-active="people"> People </md-button>
     </div>
-
     <div class="menu-demo-container" layout-align="end end" layout="row">
         <md-menu>
             <md-button ng-click="openMenu($mdOpenMenu, $event)"> <span ng-show="login"> {{ user.name }}</span></md-button>
@@ -28,5 +23,4 @@
             </md-menu-content>
         </md-menu>
     </div>
-
 </md-toolbar>

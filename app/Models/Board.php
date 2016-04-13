@@ -22,4 +22,14 @@ class Board extends Model
     {
         return $this->hasMany('App\Models\Task');
     }
+
+    public function issues()
+    {
+        return $this->hasMany('App\Models\Issues');
+    }
+
+    public function getDefaultBoardId()
+    {
+        return $this->where('task_default', 1)->first()->id;
+    }
 }

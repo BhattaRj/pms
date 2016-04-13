@@ -57,4 +57,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Models\Task', 'assigne_id', 'id');
     }
 
+    public function assignedIssues()
+    {
+        return $this->hasMany('App\Models\Issue', 'assigne_id', 'id');
+    }
+
 }
