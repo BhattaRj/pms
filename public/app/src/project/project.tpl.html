@@ -1,39 +1,22 @@
-<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-click="ul.toggleList()" aria-label="Show User List" md-is-locked-open="$mdMedia('gt-sm')" flex="20">
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-click="ul.toggleList()" aria-label="Show User List" md-is-locked-open="$mdMedia('gt-sm')" flex="10">
     <md-list>
-
         <md-list-item>
             <md-button ui-sref="project.overview" ui-sref-active="project.overview">Overview</md-button>
         </md-list-item>
-
         <md-list-item>
             <md-button ui-sref="project.issue" ui-sref-active="project.issue">Issue</md-button>
         </md-list-item>
-
         <md-list-item>
             <md-button ui-sref="project.activesprint" ui-sref-active="project.activesprint">Board</md-button>
         </md-list-item>
-
         <md-list-item>
             <md-button ui-sref="project.member" ui-sref-active="project.member">Member</md-button>
         </md-list-item>
-
         <md-list-item>
             <md-button ui-sref="project.file" ui-sref-active="project.file">File</md-button>
         </md-list-item>
-
     </md-list>
 </md-sidenav>
 <md-content flex id="content">
-
-    <div ui-view>
-        
-    </div>
-    
-<!--     <md-card>
-        <md-card-content>
-            <div id="view-container" ui-view>
-            </div>
-        </md-card-content>
-    </md-card> -->
-
+    <div ui-view></div>
 </md-content>

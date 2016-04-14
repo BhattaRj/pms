@@ -50,7 +50,7 @@
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm>
                             <label></label>
-                            <md-select ng-model="dataModel.orderIssue">
+                            <md-select ng-model="dataModel.orderIssue" aria-label="Select Order">
                                 <md-option ng-repeat="issue in issues" value="{{ issue.id }}">
                                     <span ng-bind-html="[[ makePadding(issue.title,issue.depth) ]]" padded-title></span>
                                 </md-option>
