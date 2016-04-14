@@ -1,20 +1,22 @@
-<md-button class="md-raised" ng-click="CreateForm($event)">
-    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Issue</md-button>
+
 <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
     <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
 </div>
+
 <div class="table-responsive" ng-show="dataLoaded">
-    <table class="table table-hover">
+
+    <table class="mdl-data-table mdl-js-data-table" width="600">
         <thead>
             <tr>
-                <th>Sr No</th>
+                <!-- <th>Sr No</th> -->
                 <th>Title</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="dataModel in pages">
-                <td>{{ ($index+1)+(itemsPerPage*(currentPage-1)) }}</td>
-                <td>
+                <!-- <td>{{ ($index+1)+(itemsPerPage*(currentPage-1)) }}</td> -->
+                <td align="left">
                     <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title></span>
                 </td>
                 <td>
@@ -31,4 +33,8 @@
         <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-click="pageChanged()"></uib-pagination>
         <p><span>Total {{ totalItems }} records found.</span></p>
     </div>
+</div>
+
+<div layout="row">
+    <md-button class="md-primary md-fab md-fab-bottom-right" ng-click="CreateForm($event)">Add</md-button>
 </div>
