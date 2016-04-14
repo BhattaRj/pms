@@ -12,7 +12,6 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
     $scope.pageChanged = pageChanged;
     $scope.dataLoaded = false;
     $scope.param = {};
-    $scope.title = "All issue";
     getData();
 
     function pageChanged(page) {
@@ -31,12 +30,10 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
         });
     }
 
-    // Remove the dataItem form the dataList.
     function remove(id, $index, $event) {
         ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {
             IssueFactory.remove(id).then(function(response) {
                 if (response) {
-                    // $scope.issues.splice($index, 1);
                     $scope.getData($scope.param);
                 }
             });
@@ -50,16 +47,9 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
             data = {
                 id: id
             };
-
-        if (id) {
-            ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
-                $scope.getData($scope.param);
-            });
-        } else {
-            ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
-                $scope.getData($scope.param);
-            });
-        }
+        ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
+            $scope.getData($scope.param);
+        });
     }
 }
 
