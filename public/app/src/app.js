@@ -4,7 +4,7 @@
     angular.module('app', [
         'ngMaterial',
         'ngSanitize',
-         'ui.router',
+        'ui.router',
         'rjDirective',
         'rjServices',
         'task',
@@ -16,7 +16,8 @@
         'project',
         'dashboard',
         'user',
-        'resources.project'        
+        'resources.project',
+        'allproject'
     ]);
 
     angular.module('app').controller('BaseController', ['$scope', BaseController]);
@@ -64,12 +65,12 @@
 
     function BaseController($scope) {
 
-    var vm = this;
-    vm.toggleSidenav = toggleSidenav;
+        var vm = this;
+        vm.toggleSidenav = toggleSidenav;
 
-    function toggleSidenav() {
-        $mdSidenav('left').toggle();
-    }
+        function toggleSidenav() {
+            $mdSidenav('left').toggle();
+        }
 
         $scope.login = login;
         $scope.user = user;

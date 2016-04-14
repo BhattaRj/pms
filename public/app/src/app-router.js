@@ -12,6 +12,12 @@ angular.module('app').config(function($interpolateProvider, $stateProvider, $url
             templateUrl: '/app/src/dashboard/dashboard.tpl.html',
             controller: 'DashboardController',
         })
+        .state('allproject', {
+            url: '/allproject',
+            templateUrl: 'app/src/allproject/project-list.tpl.html',
+            controller: 'ProjectListControlller',
+            controllerAs: 'allproject',
+        })
         .state('project', {
             url: '/project/:id',
             templateUrl: '/app/src/project/project.tpl.html',
