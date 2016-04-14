@@ -12,9 +12,16 @@ angular.module('app')
             templateUrl: '/app/common/directive/header/header.html',
             restrict: 'E',
             replace: true,
-            controller: function($scope, $mdSidenav, $mdBottomSheet, ConfirmFactory) {
+            controller: function($scope, $mdSidenav, $mdBottomSheet, ConfirmFactory, ProjectFactory) {
                 var originatorEv;
 
+                init();
+
+                function init() {
+                    ProjectFactory.recentProjects().then(function(response) {
+                        $scope.recentProjects = response;
+                    });
+                }
                 $scope.toggleSidenav = function() {
                     $mdSidenav('left').toggle();
                 }

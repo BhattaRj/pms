@@ -3,6 +3,7 @@
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::resource('project', 'ProjectsController');
+Route::get('recent_project', 'ProjectsController@recentProject');
 Route::resource('issue', 'IssuesController');
 Route::get('issue_list', 'IssuesController@issueList');
 

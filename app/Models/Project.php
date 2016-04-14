@@ -28,4 +28,9 @@ class Project extends Model
     {
         return $this->belongsToMany('App\User', 'project_user', 'project_id', 'user_id');
     }
+
+    public function recentPorject()
+    {
+        return $this->latest('updated_at')->select('title', 'id')->take(4)->get();
+    }
 }

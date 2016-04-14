@@ -15,7 +15,8 @@
         'task',
         'project',
         'dashboard',
-        'user',        
+        'user',
+        'resources.project'        
     ]);
 
     angular.module('app').controller('BaseController', ['$scope', BaseController]);

@@ -92,16 +92,16 @@ class ProjectsController extends Controller
         return $result;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $this->project->destroy($id) ? $result['success'] = true : $result['success'] = false;
         return $result;
     }
 
+    public function recentProject()
+    {
+        $result['data']    = $this->project->recentPorject();
+        $result['success'] = true;
+        return $result;
+    }
 }

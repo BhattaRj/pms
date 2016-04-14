@@ -18,7 +18,8 @@ function ProjectFactory(Project, BaseModelFactory, $q, $http) {
     fac.getDataList = getDataList;
     fac.getDataItem = getDataItem;
     fac.save = save;
-    fac.remove = remove;    
+    fac.remove = remove;
+    fac.recentProjects = recentProjects;
 
     function getDataItem(id) {
         return BaseModelFactory.getDataItem(res, id);
@@ -34,6 +35,17 @@ function ProjectFactory(Project, BaseModelFactory, $q, $http) {
 
     function remove(id) {
         return BaseModelFactory.remove(res, id);
+    }
+
+    function recentProjects() {
+        var deferred = $q.defer();
+        $http.get("/recent_project").then(function(response) {
+            if (response) {
+                deferred.resolve(response.data.data);
+            }
+        });
+
+        return deferred.promise;
     }
 
     return fac;

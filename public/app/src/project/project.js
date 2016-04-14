@@ -13,23 +13,23 @@
     angular.module('project').controller('ProjectController', ProjectController);
     angular.module('project').controller('ProjectShowController', ProjectShowController);
 
-function ProjectController() {
-}
-    function ProjectControllerbak($scope, ProjectFactory, ConfirmFactory,$state) {  
+    function ProjectController() {}
+
+    function ProjectControllerbak($scope, ProjectFactory, ConfirmFactory, $state) {
         debugger;
         $scope.getData = getData;
         $scope.save = save;
         $scope.remove = remove;
-        $scope.dataLoaded = false;        
+        $scope.dataLoaded = false;
         var param = {};
         getData(param);
 
         function save($event, data) {
-            if(data && data.title){
+            if (data && data.title) {
                 ProjectFactory.save(data).then(function(response) {
                     $scope.dataList.push(response);
-                    $scope.data.title='';
-                });                
+                    $scope.data.title = '';
+                });
             }
         }
 
@@ -52,8 +52,8 @@ function ProjectController() {
         }
     }
 
-    function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams,$state) {
-        $scope.toggleSidebar=toggleSidebar;         
+    function ProjectShowController($scope, ProjectFactory, $mdBottomSheet, $mdSidenav, $stateParams, $state) {
+        $scope.toggleSidebar = toggleSidebar;
 
         // toggle the sidebar.
         function toggleSidebar() {
@@ -63,10 +63,10 @@ function ProjectController() {
             });
         }
 
-        if($state.is("project.show")){
-            $state.go('project.show.overview');               
+        if ($state.is("project.show")) {
+            $state.go('project.show.overview');
         }
-        
+
     }
 
 })();
