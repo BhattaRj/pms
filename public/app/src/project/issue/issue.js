@@ -1,9 +1,9 @@
 angular.module('issue', [
     'resources.issue',
+    'resources.project'
 ]);
 
 angular.module('issue').controller('IssueListController', IssueListController);
-
 
 function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalFactory, IssueFactory) {
     $scope.getData = getData;
@@ -53,7 +53,7 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
     }
 }
 
-function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, data, $state) {
+function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, data, $state, ProjectFactory) {
     $scope.mode = data.mode;
     $scope.dataSaved = true;
     $scope.save = save;
@@ -78,6 +78,14 @@ function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, da
         IssueFactory.list().then(function(data) {
             $scope.issues = data;
         });
+
+        ProjectFactory.getDataItem($state.params.id).then(function(response) {
+            $scope.users = response.users;
+        });
+
+        // SprintFactory.getDataItem($scope.sprint_id).then(function(response) {
+        //     $scope.boards = response.boards;
+        // });
     }
 
     function save(data) {

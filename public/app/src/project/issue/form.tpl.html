@@ -1,5 +1,5 @@
 <style type="text/css">
-    .ta-editor {
+.ta-editor {
     min-height: 100px;
     height: auto;
     overflow: auto;
@@ -7,11 +7,10 @@
     font-size: 100%;
 }
 
-.text-editor{
+.text-editor {
     width: 700px;
 }
 </style>
-
 <md-dialog aria-label="Issue" ng-cloak flex="60">
     <md-toolbar>
         <div class="md-toolbar-tools">
@@ -55,6 +54,58 @@
                                 </md-option>
                             </md-select>
                         </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Priority</label>
+                            <md-select ng-model="dataModel.priority">
+                                <md-option value="Highest">Highest</md-option>
+                                <md-option value="High">High</md-option>
+                                <md-option value="Low">Low</md-option>
+                                <md-option value="Lowest">Lowest</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Type</label>
+                            <md-select ng-model="dataModel.task_type">
+                                <md-option value="Module">Module</md-option>
+                                <md-option value="Epic">Epic</md-option>
+                                <md-option value="Sprint">Sprint</md-option>
+                                <md-option value="Task">Task</md-option>
+                                <md-option value="Bug">Bug</md-option>
+                                <md-option value="Story">Story</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Story Point</label>
+                            <input name="story_point" ng-model="dataModel.story_point">
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Reporter </label>
+                            <md-select ng-model="dataModel.reporter_id">
+                                <md-option ng-repeat="user in users" value="{{ user.id }}">
+                                    {{ user.name }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Assigne </label>
+                            <md-select ng-model="dataModel.assigne_id">
+                                <md-option ng-repeat="user in users" value="{{ user.id }}">
+                                    {{ user.name }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <!-- <md-input-container class="md-block" flex-gt-sm>
+                            <label>Board Status </label>
+                            <md-select ng-model="dataModel.board_id">
+                                <md-option ng-repeat="board in boards" value="{{ board.id }}">
+                                    {{ board.title }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container> -->
                     </div>
                     <label>Description</label>
                     <md-input-container class="md-block">

@@ -1,8 +1,9 @@
-<table class="mdl-data-table mdl-js-data-table" width="700">
+<table class="mdl-data-table mdl-js-data-table" width="750">
     <thead>
         <tr>
             <th class="mdl-data-table__cell--non-numeric">Sr.No.</th>
             <th class="mdl-data-table__cell--non-numeric">Title</th>
+            <th class="mdl-data-table__cell--non-numeric">Type</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -19,6 +20,10 @@
             <td class="mdl-data-table__cell--non-numeric">
                 <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title></span>
             </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            {{ dataModel.task_type }}
+            <span ng-show="dataModel.task_type=='Sprint'"><a href="javascript;:">  View Board</a></span>
+            </td>           
             <td>
                 <a href="javascript:;" ng-click="CreateForm($event,dataModel.id)">Edit</a> |
                 <a href="javascript:;" ng-click="remove(dataModel.id,$index,$event)">Remove</a>
