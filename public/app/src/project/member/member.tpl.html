@@ -1,37 +1,24 @@
-
-<div layout="column" ng-cloak>
-
-  <md-content class="md-padding autocomplete" layout="column"  my-enter="addUser($event)">
-
-    <md-contact-chips
-        ng-model="selectedUser"
-        md-contacts="querySearch($query)"
-        md-contact-name="name"
-        md-contact-image="image_url"
-        md-contact-email="email"
-        md-require-match="true"
-        md-highlight-flags="i"
-        placeholder="Add Member">
-    </md-contact-chips>
-
-    <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
-        <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
-    </div>
-
-    <md-list class="fixedRows" ng-show="dataLoaded">
-      <md-subheader class="md-no-sticky">Members in project.</md-subheader>
-
-      <md-list-item class="md-2-line user-item" ng-repeat="(index, user) in project.users">
-        <img ng-src="{{user.image_url}}" class="md-avatar" alt="{{user.name}}" />
-        <div class="md-list-item-text compact">
-          <h3>{{user.name}}</h3>
-          <p>{{user.email}} </p>
-            <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeUser(user.id,$index,$event)">
-                <md-icon md-svg-icon="img/icons/cross.svg"></md-icon>
-            </md-button>          
-        </div>
-
-      </md-list-item>
-    </md-list>
-  </md-content>
-</div>
+<md-card>
+    <md-card-content>
+        <md-content class="md-padding autocomplete" layout="column" my-enter="addUser($event)">
+            <md-contact-chips ng-model="selectedUser" md-contacts="querySearch($query)" md-contact-name="name" md-contact-image="image_url" md-contact-email="email" md-require-match="true" md-highlight-flags="i" placeholder="Add Member">
+            </md-contact-chips>
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
+                <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
+            </div>
+            <md-list class="fixedRows" ng-show="dataLoaded">
+                <md-subheader class="md-no-sticky">Members in project.</md-subheader>
+                <md-list-item class="md-2-line user-item" ng-repeat="(index, user) in project.users">
+                    <img ng-src="{{user.image_url}}" class="md-avatar" alt="{{user.name}}" />
+                    <div class="md-list-item-text compact">
+                        <h3>{{user.name}}</h3>
+                        <p>{{user.email}} </p>
+                        <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeUser(user.id,$index,$event)">
+                            <md-icon md-svg-icon="img/icons/cross.svg"></md-icon>
+                        </md-button>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-card-content>
+</md-card>
