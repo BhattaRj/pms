@@ -15,8 +15,7 @@
 <md-dialog aria-label="Issue" ng-cloak flex="60">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h4 ng-show="mode=='add'">Add Issue</h4>
-            <h4 ng-show="mode=='edit'">Edit Issue</h4>
+            <h4>{{ title }}</h4>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="cancel()">
                 <md-icon aria-label="Close dialog">

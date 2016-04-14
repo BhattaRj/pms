@@ -78,7 +78,7 @@ class IssuesController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if ($response = $this->updatePageOrder($page, $request)) {
+        if ($response = $this->updateRowOrder($issue, $request)) {
             return $response;
         }
 

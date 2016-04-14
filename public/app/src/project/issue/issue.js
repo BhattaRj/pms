@@ -9,7 +9,6 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
     $scope.getData = getData;
     $scope.remove = remove;
     $scope.CreateForm = CreateForm;
-    $scope.changeStatus = changeStatus;
     $scope.pageChanged = pageChanged;
     $scope.dataLoaded = false;
     $scope.param = {};
@@ -24,9 +23,9 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
     //Retrive all dataList.         
     function getData(param) {
         $scope.dataLoaded = false;
-        $scope.pages = [];
+        $scope.issues = [];
         IssueFactory.getDataList(param).then(function(response) {
-            $scope.pages = response.data;
+            $scope.issues = response.data;
             $scope.totalItems = response.total;
             $scope.dataLoaded = true;
         });
@@ -34,60 +33,63 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
 
     // Remove the dataItem form the dataList.
     function remove(id, $index, $event) {
-
         ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {
-            IssueFactory.remove(id).then(function(repsonse) {
-                $scope.getData($scope.param);
+            IssueFactory.remove(id).then(function(response) {
+                if (response) {
+                    // $scope.issues.splice($index, 1);
+                    $scope.getData($scope.param);
+                }
             });
         });
     }
 
     // Create form for create and Save.
-    function CreateForm($event, dataModel) {
+    function CreateForm($event, id) {
         var templateUrl = '/app/src/project/issue/form.tpl.html',
             contrl = SaveIssueController,
             data = {
-                dataModel: dataModel
+                id: id
             };
 
-        if (dataModel) {
-            data.mode = "edit";
+        if (id) {
             ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
                 $scope.getData($scope.param);
             });
         } else {
-            data.mode = "add";
             ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
                 $scope.getData($scope.param);
             });
-
         }
-    }
-
-    // Change the status.
-    function changeStatus(data) {
-        IssueFactory.save(data);
     }
 }
 
 function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, data, $state) {
-    $scope.save = save;
-    $scope.dataModel = data.dataModel ? data.dataModel : {};
-    $scope.dataModel = {
-        project_id: $state.params.id
-    }
     $scope.mode = data.mode;
     $scope.dataSaved = true;
+    $scope.save = save;
     init();
 
+    if (data.id) {
+        getIssue(data.id);
+        $scope.title = "Edit Issue";
+    } else {
+        $scope.title = "Add Issue";
+        $scope.dataModel = {};
+        $scope.dataModel.project_id = $state.params.id
+    }
+
+    function getIssue(id) {
+        IssueFactory.getDataItem(id).then(function(response) {
+            $scope.dataModel = response;
+        });
+    }
+
     function init() {
-        // Page list for select box.
         IssueFactory.list().then(function(data) {
             $scope.issues = data;
         });
     }
 
-    // Save the page.
     function save(data) {
         $scope.dataSaved = false;
         IssueFactory.save(data).then(function(response) {
