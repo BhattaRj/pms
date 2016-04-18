@@ -1,8 +1,8 @@
 (function() {
 
     angular.module('project', [
-        // 'resources.project',
-        // 'backlog', 
+        'resources.project',
+        'backlog', 
         'board',
         'issue',
         'file',

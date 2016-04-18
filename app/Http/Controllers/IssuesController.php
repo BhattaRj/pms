@@ -3,29 +3,30 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Board;
-use App\Models\Issue;
+use App\Models\Task;
 use App\User;
+use App\Models\Project;
+use App\Models\Sprint;
+
 use Illuminate\Http\Request;
 
 class IssuesController extends Controller
 {
-    protected $issue;
+    protected $task;
     protected $board;
     protected $user;
-
+    protected $project;
+    protected $sprint;
     protected $per_page = 100;
-
-    /**
-     * Default page no. for pagination.
-     * @var integer
-     */
     protected $current_page = 1;
 
-    public function __construct(issue $issue, Board $board, User $user)
+    public function __construct(task $task, Board $board, User $user,Project $project,Sprint $sprint)
     {
-        $this->issue = $issue;
+        $this->task = $task;
         $this->board = $board;
         $this->user  = $user;
+        $this->project=$project;
+        $this->sprint=$sprint;
     }
 
     /**
@@ -35,7 +36,7 @@ class IssuesController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $this->issue->orderBy('lft', 'asc');
+        $query = $this->task->orderBy('lft', 'asc');
         if ($request->has('currentPage')) {
             $this->current_page = $request->input('currentPage');
         }
@@ -56,9 +57,14 @@ class IssuesController extends Controller
     {
         $input = $request->input('data');
 
+        if(!isset($input['sprint_id'])){
+
+            $input['sprint_id']=$this->sprint->where('project_id',$input['project_id'])->where('title','Backlog')->first()->id;    
+        }
+        
         $input['board_id']  = $this->board->getDefaultBoardId();
         $input['author_id'] = $this->user->currentUserId();
-        $result['data']     = $this->issue->create($input);
+        $result['data']     = $this->task->create($input);
 
         $this->updateRowOrder($result['data'], $request);
 
@@ -67,77 +73,71 @@ class IssuesController extends Controller
         return $result;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        $issue = $this->issue->findOrFail($id);
 
-        if ($response = $this->updateRowOrder($issue, $request)) {
+
+        $task = $this->task->findOrFail($id);
+
+        if ($response = $this->updateRowOrder($task, $request)) {
+
             return $response;
         }
 
-        $result['data']    = $issue->update($request->input('data'));
+        $result['data']    = $task->update($request->input('data'));
         $result['success'] = true;
         return $result;
     }
 
     public function show($id)
     {
-        $result['data']    = $this->issue->findOrFail($id);
+        $result['data']    = $this->task->findOrFail($id);
         $result['success'] = true;
         return $result;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        $this->issue->destroy($id) ? $result['success'] = true : $result['success'] = false;
+        $this->task->destroy($id) ? $result['success'] = true : $result['success'] = false;
         return $result;
     }
 
     public function issueList()
     {
-        $result['data'] = $this->issue->issueList();
+        $result['data'] = $this->task->taskList();
         return $result;
     }
 
     /**
-     * Reorder the issue in sprint.
+     * Reorder the task in sprint.
      * if default_board change the board id into the default board.
      * @param  Request $request
      * @return [array]
      */
-    public function reorderIssues(Request $request)
+    public function reordertasks(Request $request)
     {
         foreach ($request->all() as $data) {
             if (isset($data['default_board']) && $data['default_board'] == true) {
-                $data['board_id'] = $this->board->getDefaultissueBoardId();
+                $data['board_id'] = $this->board->getDefaulttaskBoardId();
             }
-            $this->issue->findOrFail($data['id'])->update($data);
+            $this->task->findOrFail($data['id'])->update($data);
         }
 
         $result['success'] = true;
         return $result;
     }
 
-    protected function updateRowOrder(Issue $issue, Request $request)
+    protected function updateRowOrder(task $task, Request $request)
     {
-        if (array_key_exists('order', $request->input('data')) && array_key_exists('orderIssue', $request->input('data'))) {
+
+        if (array_key_exists('order', $request->input('data')) && array_key_exists('ordertask', $request->input('data'))) {
 
             try
             {
-                $issue->updateOrder($request->input('data')['order'], $request->input('data')['orderIssue']);
+
+                $task->updateOrder($request->input('data')['order'], $request->input('data')['ordertask']);
             } catch (MoveNotPossibleException $e) {
                 $result['success'] = false;
                 $result['msg']     = "Cannot make a page a child of self.";

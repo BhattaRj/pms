@@ -1,3 +1,6 @@
+
+// All route for application.
+
 angular.module('app').config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/dashboard');
@@ -52,12 +55,10 @@ angular.module('app').config(function($interpolateProvider, $stateProvider, $url
             url: '/board',
             templateUrl: '/app/src/project/board/board.tpl.html',
             controller: 'BoardController',
+        })
+        .state('project.backlog', {
+            url: '/backlog',
+            templateUrl: '/app/src/project/backlog/backlog.tpl.html',
+            controller: 'BacklogController'
         });
-
-
-    // .state('project.show.backlog', {
-    //     url: '/backlog',
-    //     templateUrl: '/app/src/project/backlog/backlog.tpl.html',
-    //     controller: 'BacklogController'
-    // })
 });

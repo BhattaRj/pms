@@ -21,11 +21,13 @@
         $scope.toggleInput = toggleInput;
         $scope.addSprint = addSprint;
 
+        // Show input box.
         function toggleInput($event, val) {
             $event.preventDefault();
             $scope[val] = true;
         }
 
+        // Add new sprint.
         function addSprint($event, newSprint) {
             if (newSprint != undefined && newSprint.title) {
                 newSprint.project_id = $state.params.id;
@@ -37,7 +39,7 @@
             }
         }
 
-
+        // Get all sprintlist.
         function getSprint(param) {
             SprintFactory.getDataList(param).then(function(response) {
                 $scope.sprintList = response.data;
@@ -46,12 +48,14 @@
             });
         }
 
+        // Add task for the sprint.
         function addSprintTask($event, sprint) {
             if (sprint.issue_title) {
                 $scope.sprint = sprint;
                 var data = {};
                 data.title = sprint.issue_title;
                 data.sprint_id = sprint.id;
+                data.project_id = $stateParams.id;
                 TaskFactory.save(data).then(function(response) {
                     $scope.sprint.tasks.push(response)
                     $scope.sprint.issue_title = "";
@@ -60,7 +64,7 @@
         }
 
 
-        // Sprint form to activate sprint.
+        // Show form modal to activate sprint.
         function sprintForm($event, dataModel) {
             var templateUrl = '/app/src/project/backlog/sprint-form.tpl.html',
                 contrl = SprintViewController,
@@ -75,6 +79,7 @@
             }
         }
 
+        // Drag start event handler.
         $scope.$on('RJ-DRAG-START', function(obj, scope) {
             $scope.sourceIndex = scope.$index;
             $scope.sourceTask = scope.task;
@@ -83,6 +88,7 @@
             }
         });
 
+        // Drop start event handler.
         var rjEventHandler = $scope.$on('RJ-DROP-START', function(obj, scope) {
             if (scope.task.sprint_id == $scope.sourceTask.sprint_id) {
                 reorderSprintTask(scope);
@@ -95,18 +101,18 @@
 
         $scope.$on('$destroy', rjEventHandler);
 
+        // Swap tasks from one sprint to another sprint.
         function swapSprintTasks(scope) {
             var task = angular.copy($scope.sourceTask);
             task.sprint_id = scope.task.sprint_id;
-
             task.default_board = true;
-
             $scope.sourceTaskList.splice($scope.sourceIndex, 1);
             scope.sprint.tasks.splice(scope.$index, 0, task);
             $scope.$apply();
             reorderTasks(scope.sprint.tasks);
         }
 
+        // Reorder tasks in same sprint or backlog.
         function reorderSprintTask(scope) {
             scope.sprint.tasks.splice($scope.sourceIndex, 1);
             scope.sprint.tasks.splice(scope.$index, 0, $scope.sourceTask);
@@ -114,7 +120,7 @@
             reorderTasks(scope.sprint.tasks);
         }
 
-        // Reorder tasks
+        // Reorder tasks.
         function reorderTasks(dataList) {
             $scope.updateStatus = false;
             TaskFactory.reorderTasks(dataList).then(function(response) {
@@ -125,8 +131,9 @@
         }
     }
 
-    // Sprint view to activat sprint.
+    // Sprint view to activate sprint.
     function SprintViewController(data, $scope, $mdDialog, SprintFactory, $mdToast, data, $state) {
+
         $scope.save = save;
         $scope.dataModel = data.dataModel ? data.dataModel : {};
         $scope.title = data.title;
@@ -142,6 +149,8 @@
             });
         }
 
+        // when duration of sprint change
+        // change sprint start data and end date.
         function durationChanged(duration) {
             if (duration != 0) {
                 $scope.dataModel.start_date = new Date();

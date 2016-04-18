@@ -68,7 +68,7 @@ function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, da
         $scope.dataModel.project_id = $state.params.id
     }
 
-    function getIssue(id) {
+    function getIssue(id) {        
         IssueFactory.getDataItem(id).then(function(response) {
             $scope.dataModel = response;
         });
@@ -83,9 +83,6 @@ function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, da
             $scope.users = response.users;
         });
 
-        // SprintFactory.getDataItem($scope.sprint_id).then(function(response) {
-        //     $scope.boards = response.boards;
-        // });
     }
 
     function save(data) {

@@ -35,7 +35,7 @@ class SprintsController extends Controller
     {
 
         $query = $this->sprint->with(['tasks' => function ($query) {
-            $query->orderBy('order')->with('assigne');
+            $query->orderBy('order')->with('assigne')->where('task_type','Task');
         }]);
 
         if ($request->has('currentPage')) {

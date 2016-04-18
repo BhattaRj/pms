@@ -10,13 +10,6 @@ class Issue extends Node
     protected $table    = 'issues';
     protected $fillable = ['title', 'description', 'project_id', 'order', 'priority', 'task_type', 'story_point', 'board_id', 'author_id', 'reporter_id', 'assigne_id'];
 
-    public function pageList()
-    {
-        return $this->where('page_status', 1)
-            ->where('hidden', false)
-            ->select('page_title', 'id', 'depth')
-            ->orderBy('lft', 'asc')->get();
-    }
 
     public function updateOrder($order, $orderPage)
     {

@@ -39,6 +39,7 @@
     "smartmenus": "~0.9.7",
     "angularjs-slider": "~2.1.0",
     "ng-file-upload": "~11.1.1",
-    "ng-marviluz": "ng-material#~0.0.4"
+    "ng-marviluz": "ng-material#~0.0.4",
+    "angular-messages": "^1.5.3"
   }
 }

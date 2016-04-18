@@ -48,7 +48,7 @@
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm>
                             <label></label>
-                            <md-select ng-model="dataModel.orderIssue" aria-label="Select Order">
+                            <md-select ng-model="dataModel.ordertask" aria-label="Select Order">
                                 <md-option ng-repeat="issue in issues" value="{{ issue.id }}">
                                     <span ng-bind-html="[[ makePadding(issue.title,issue.depth) ]]" padded-title></span>
                                 </md-option>
@@ -68,12 +68,9 @@
                         <md-input-container class="md-block" flex-gt-sm>
                             <label>Type</label>
                             <md-select ng-model="dataModel.task_type">
-                                <md-option value="Module">Module</md-option>
+                                <md-option value="Module" selected>User Story</md-option>
                                 <md-option value="Epic">Epic</md-option>
-                                <md-option value="Sprint">Sprint</md-option>
-                                <md-option value="Task">Task</md-option>
-                                <md-option value="Bug">Bug</md-option>
-                                <md-option value="Story">Story</md-option>
+
                             </md-select>
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm>
