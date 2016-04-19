@@ -18,8 +18,10 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
     fac.getDataList = getDataList;
     fac.getDataItem = getDataItem;
     fac.save = save;
-    fac.remove = remove;    
-    fac.reorderTasks=reorderTasks;
+    fac.remove = remove;
+    fac.reorderTasks = reorderTasks;
+    fac.list = list;
+    fac.getStories = getStories;
 
     function getDataItem(id) {
         return BaseModelFactory.getDataItem(res, id);
@@ -43,12 +45,14 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
     function reorderTasks(data) {
 
         var deferred = $q.defer();
+
         $http({
                 url: '/reorder_task',
                 method: "POST",
                 data: data
             })
             .then(function(response) {
+
                 if (response.data.success) {
                     deferred.resolve(response.data.success);
                 } else {
@@ -58,5 +62,47 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
 
         return deferred.promise;
     }
+
+
+    function list() {
+
+        var deferred = $q.defer();
+
+        $http.get("/task_list").then(function(response) {
+            deferred.resolve(response.data.data);
+        });
+
+        return deferred.promise;
+    }
+
+
+    function getStories(param) {
+
+        var queryString = makeQueryString(param),
+            url = "/get_sotries?" + queryString,
+            deferred = $q.defer();
+
+        $http.get(url).then(function(response) {
+            deferred.resolve(response.data.data);
+        });
+
+        return deferred.promise;
+
+    }
+
+    function makeQueryString(param) {
+
+        this.queryString='';
+
+        angular.forEach(param, function(value, key) {
+            
+            this.queryString += key + '=' + value + '&';
+
+        }, this);
+
+        return this.queryString;
+
+    }
+
     return fac;
 }

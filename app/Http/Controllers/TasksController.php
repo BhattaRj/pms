@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Board;
 use App\Models\Task;
+use App\Models\Sprint;
+use App\Models\Project;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -12,26 +14,22 @@ class TasksController extends Controller
     protected $task;
     protected $board;
     protected $user;
-
+    protected $sprint;
+    protected $project;
     protected $per_page = 100;
-
-    /**
-     * Default page no. for pagination.
-     * @var integer
-     */
     protected $current_page = 1;
 
-    public function __construct(Task $task, Board $board, User $user)
+    public function __construct(Task $task, Board $board, User $user , Sprint $sprint, Project $project)
     {
         $this->task  = $task;
         $this->board = $board;
         $this->user  = $user;
+        $this->sprint = $sprint;
+        $this->project = $project;
     }
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
@@ -55,33 +53,36 @@ class TasksController extends Controller
         return $result;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        $input              = $request->input('data');
-        $input['board_id']  = $this->board->getDefaultTaskBoardId();
+
+        $input = $request->input('data');
+
+        if(!isset($input['sprint_id'])){
+
+            $project            = $this->project->findOrFail($input['project_id']);
+            $input['sprint_id'] = $project->getBacklogId(); 
+
+        }
+        
+        $input['board_id']  = $this->board->getDefaultBoardId();
         $input['author_id'] = $this->user->currentUserId();
         $result['data']     = $this->task->create($input);
-        $result['success']  = true;
+
+        $this->updateRowOrder($result['data'], $request);
+
+        $result['success'] = true;
 
         return $result;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        $task              = $this->task->findOrFail($id);
+        $task = $this->task->findOrFail($id);
+        $this->updateRowOrder($task, $request);
+
         $result['data']    = $task->update($request->input('data'));
         $result['success'] = true;
         return $result;
@@ -94,17 +95,12 @@ class TasksController extends Controller
         return $result;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $this->task->destroy($id) ? $result['success'] = true : $result['success'] = false;
         return $result;
     }
+
 
     /**
      * Reorder the task in sprint.
@@ -125,4 +121,52 @@ class TasksController extends Controller
         return $result;
     }
 
+
+    /** Return tasks heirarchically for stroy board. */
+
+    public function getStories(Request $request)
+    {        
+
+        $query = $this->task->orderBy('lft', 'asc');
+
+        if ($request->has('project_id')) {            
+            $query = $query->where('project_id', $request->input('project_id'));
+        }
+        
+        if ($request->has('currentPage')) {
+            $this->current_page = $request->input('currentPage');
+        }
+
+        $skip            = ($this->current_page - 1) * $this->per_page;
+        $result['total'] = $query->get()->count();
+        $result['data']  = $query->skip($skip)->take($this->per_page)->get();
+
+        return $result;
+    }
+
+
+    public function taskList()
+    {
+        $result['data'] = $this->task->taskList();
+        return $result;
+    }    
+
+
+    protected function updateRowOrder(task $task, Request $request)
+    {
+
+        if (array_key_exists('order', $request->input('data')) && array_key_exists('ordertask', $request->input('data'))) {
+
+            try
+            {
+
+                $task->updateOrder($request->input('data')['order'], $request->input('data')['ordertask']);
+            } catch (MoveNotPossibleException $e) {
+                $result['success'] = false;
+                $result['msg']     = "Cannot make a page a child of self.";
+                return $result;
+            }
+        }
+    }
+    
 }

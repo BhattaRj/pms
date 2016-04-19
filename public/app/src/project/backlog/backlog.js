@@ -11,9 +11,11 @@
         $scope.$parent.selectedIndex = 1;
         $scope.getSprint = getSprint;
         $scope.sprintDataLoaded = false;
+
         $scope.sprintParam = {
             project_id: $stateParams.id
         }
+        
         $scope.addSprintTask = addSprintTask;
         getSprint($scope.sprintParam)
         $scope.sprintForm = sprintForm;

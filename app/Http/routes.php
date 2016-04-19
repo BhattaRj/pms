@@ -4,11 +4,15 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::resource('project', 'ProjectsController');
 Route::get('recent_project', 'ProjectsController@recentProject');
-Route::resource('issue', 'IssuesController');
-Route::get('issue_list', 'IssuesController@issueList');
+
 
 Route::resource('task', 'TasksController');
 Route::post('reorder_task', 'TasksController@reorderTasks');
+Route::get('get_sotries','TasksController@getStories');
+Route::get('task_list','TasksController@taskList');
+
+
+
 
 Route::resource('user', 'UsersController');
 Route::get('project_user/{project_id}', 'UsersController@getProjectUser');

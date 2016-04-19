@@ -7,10 +7,14 @@ function ProjectListControlller(ProjectFactory, ConfirmFactory, ModalFactory) {
     vm.dataLoaded = false;
     vm.remove = remove;
     vm.createForm = createForm;
-    getData();
+    vm.param = {};
+    vm.param.project_id = 10;
+    vm.param.sprint_id=20;
+    
+    getData(vm.param);
 
-    function getData() {
-        ProjectFactory.getDataList().then(function(response) {
+    function getData(param) {
+        ProjectFactory.getDataList(param).then(function(response) {
             vm.projects = response.data;
             vm.dataLoaded = true;
         });

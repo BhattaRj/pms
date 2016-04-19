@@ -1,18 +1,20 @@
 angular.module('issue', [
-    'resources.issue',
+    'resources.task',
     'resources.project'
 ]);
 
 angular.module('issue').controller('IssueListController', IssueListController);
 
-function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalFactory, IssueFactory) {
+function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalFactory, TaskFactory, $stateParams) {
     $scope.getData = getData;
     $scope.remove = remove;
     $scope.CreateForm = CreateForm;
     $scope.pageChanged = pageChanged;
     $scope.dataLoaded = false;
     $scope.param = {};
-    getData();
+    $scope.param.project_id = $stateParams.id;    
+
+    getData($scope.param);
 
     function pageChanged(page) {
         $scope.param.currentPage = $scope.currentPage;
@@ -23,8 +25,8 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
     function getData(param) {
         $scope.dataLoaded = false;
         $scope.issues = [];
-        IssueFactory.getDataList(param).then(function(response) {
-            $scope.issues = response.data;
+        TaskFactory.getStories(param).then(function(response) {
+            $scope.issues = response;
             $scope.totalItems = response.total;
             $scope.dataLoaded = true;
         });
@@ -32,7 +34,7 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
 
     function remove(id, $index, $event) {
         ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {
-            IssueFactory.remove(id).then(function(response) {
+            TaskFactory.remove(id).then(function(response) {
                 if (response) {
                     $scope.getData($scope.param);
                 }
@@ -53,7 +55,7 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
     }
 }
 
-function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, data, $state, ProjectFactory) {
+function SaveIssueController(data, $scope, $mdDialog, TaskFactory, $mdToast, data, $state, ProjectFactory) {
     $scope.mode = data.mode;
     $scope.dataSaved = true;
     $scope.save = save;
@@ -68,14 +70,14 @@ function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, da
         $scope.dataModel.project_id = $state.params.id
     }
 
-    function getIssue(id) {        
-        IssueFactory.getDataItem(id).then(function(response) {
+    function getIssue(id) {
+        TaskFactory.getDataItem(id).then(function(response) {
             $scope.dataModel = response;
         });
     }
 
     function init() {
-        IssueFactory.list().then(function(data) {
+        TaskFactory.list().then(function(data) {
             $scope.issues = data;
         });
 
@@ -87,7 +89,7 @@ function SaveIssueController(data, $scope, $mdDialog, IssueFactory, $mdToast, da
 
     function save(data) {
         $scope.dataSaved = false;
-        IssueFactory.save(data).then(function(response) {
+        TaskFactory.save(data).then(function(response) {
             $scope.dataSaved = true;
             $mdDialog.hide(response);
         });

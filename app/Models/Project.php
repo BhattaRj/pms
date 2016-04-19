@@ -33,4 +33,13 @@ class Project extends Model
     {
         return $this->latest('updated_at')->select('title', 'id')->take(4)->get();
     }
+
+    // Get backlog id of this project.
+    public function getBacklogId()
+    {
+        return $this->sprints()->where('title', 'Backlog')->first()->id;
+
+    }
+    
+
 }

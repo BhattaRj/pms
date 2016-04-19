@@ -42,12 +42,54 @@ class Task extends Node
         $orderPage = $this->findOrFail($orderPage);
 
         if ($order == 'before') {
+
             $this->moveToLeftOf($orderPage);
+
         } elseif ($order == 'after') {
+
             $this->moveToRightOf($orderPage);
+
         } elseif ($order == 'childOf') {
+
             $this->makeChildOf($orderPage);
         }
+
     }
+
+    // public function updateRowOrder($request)
+    // {
+
+    //     if (array_key_exists('order', $request->input('data')) && array_key_exists('ordertask', $request->input('data'))) {
+
+    //         dd($request);
+            
+    //         try
+    //         {
+
+    //             $this->updateOrder($request->input('data')['order'], $request->input('data')['ordertask']);
+
+    //         } catch (MoveNotPossibleException $e) {
+
+    //             $result['success'] = false;
+    //             $result['msg']     = "Cannot make a page a child of self.";
+    //             return $result;
+    //         }
+    //     }
+    // }
+
+
+    // public function reorderTasks($request){
+
+    //     foreach ($tasks as $task) {
+
+    //         if (isset($task['default_board']) && $task['default_board'] == true) {
+
+    //             $task['board_id'] = $this->board->getDefaultTaskBoardId();
+    //         }
+
+    //         $this->task->findOrFail($task['id'])->update($task);
+    //     }
+    //     return true;
+    // }
 
 }
