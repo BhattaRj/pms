@@ -74,6 +74,7 @@
 
         $scope.login = login;
         $scope.user = user;
+        
         // Initial parameters for pagination.
         $scope.maxSize = 5;
         $scope.currentPage = 1;

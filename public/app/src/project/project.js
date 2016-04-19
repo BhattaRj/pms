@@ -2,18 +2,29 @@
 
     angular.module('project', [
         'resources.project',
-        'backlog', 
+        'backlog',
         'board',
         'issue',
         'file',
         'member',
         'overview',
+        'project'
     ]);
 
     angular.module('project').controller('ProjectController', ProjectController);
     angular.module('project').controller('ProjectShowController', ProjectShowController);
 
-    function ProjectController() {}
+    function ProjectController($stateParams, ProjectFactory) {
+        var vm = this;
+        init();
+
+        function init() {
+            var project_id = $stateParams.id;
+            ProjectFactory.getDataItem(project_id).then(function(response) {                
+                vm.currentProject = response;
+            });            
+        }
+    }
 
     function ProjectControllerbak($scope, ProjectFactory, ConfirmFactory, $state) {
         debugger;
