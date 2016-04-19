@@ -12,7 +12,7 @@ class BoardsTableSeeder extends Seeder
     public function run()
     {
         DB::table('boards')->insert([
-            'title'          => 'To Do',
+            'title'          => 'Active Backlog',
             'sprint_default' => 1,
             'task_default'   => 1,
         ]);
