@@ -132,6 +132,16 @@ class TasksController extends Controller
         if ($request->has('project_id')) {            
             $query = $query->where('project_id', $request->input('project_id'));
         }
+
+        if ($request->has('task_type')) {            
+            $query = $query->where('task_type', $request->input('task_type'));
+        }
+
+
+        if ($request->has('priority')) {            
+            $query = $query->where('priority', $request->input('priority'));
+        }
+                        
         
         if ($request->has('currentPage')) {
             $this->current_page = $request->input('currentPage');

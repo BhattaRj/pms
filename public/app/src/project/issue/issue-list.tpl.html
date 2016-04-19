@@ -1,14 +1,43 @@
 
+<h4>{{ project.currentProject.title }} - WBS Board</h4>
 
-
-<h4>{{ project.currentProject.title }}</h4>
-
+<div flex layout="row">
+    <md-card flex id="content">
+        <md-card-content>
+            <form name="Form">
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Filter by Type</label>
+                        <md-select ng-model="param.task_type" ng-change="getData(param)">
+                            <md-option value="">All</md-option>
+                            <md-option value="User Story">User Story</md-option>
+                            <md-option value="Epic">Epic</md-option>
+                            <md-option value="Task">Task</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Filter by Priority</label>
+                        <md-select ng-model="param.priority" ng-change="getData(param)">
+                            <md-option value="">All</md-option>
+                            <md-option value="Highest">Highest</md-option>
+                            <md-option value="High">High</md-option>
+                            <md-option value="Low">Low</md-option>
+                            <md-option value="Lowest">Lowest</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+    <div flex="30"></div>
+</div>
 <table class="mdl-data-table mdl-js-data-table" width="750">
     <thead>
         <tr>
             <th class="mdl-data-table__cell--non-numeric">Sr.No.</th>
             <th class="mdl-data-table__cell--non-numeric">Title</th>
             <th class="mdl-data-table__cell--non-numeric">Type</th>
+            <th class="mdl-data-table__cell--non-numeric">Priority</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -26,9 +55,13 @@
                 <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title></span>
             </td>
             <td class="mdl-data-table__cell--non-numeric">
-            {{ dataModel.task_type }}
-            <span ng-show="dataModel.task_type=='Sprint'"><a href="javascript;:">  View Board</a></span>
-            </td>           
+                {{ dataModel.task_type }}                
+            </td>
+
+            <td class="mdl-data-table__cell--non-numeric">
+                {{ dataModel.priority }}
+            </td>
+
             <td>
                 <a href="javascript:;" ng-click="CreateForm($event,dataModel.id)">Edit</a> |
                 <a href="javascript:;" ng-click="remove(dataModel.id,$index,$event)">Remove</a>

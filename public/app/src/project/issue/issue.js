@@ -22,7 +22,7 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
     };
 
     //Retrive all dataList.         
-    function getData(param) {
+    function getData(param) {        
         $scope.dataLoaded = false;
         $scope.issues = [];
         TaskFactory.getStories(param).then(function(response) {
