@@ -56,7 +56,6 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-
         $input = $request->input('data');
 
         if(!isset($input['sprint_id'])){
@@ -127,7 +126,7 @@ class TasksController extends Controller
     public function getStories(Request $request)
     {        
 
-        $query = $this->task->orderBy('lft', 'asc');
+        $query = $this->task->with(['board','assigne'])->orderBy('lft', 'asc');
 
         if ($request->has('project_id')) {            
             $query = $query->where('project_id', $request->input('project_id'));

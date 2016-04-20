@@ -1,6 +1,27 @@
+<style type="text/css">
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button,
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button:hover {
+    box-shadow: none;
+    border: none;
+    transform: none;
+    -webkit-transform: none;
+}
 
+.tooltipdemoBasicUsage .left {
+    top: 70px !important;
+    left: 56px !important;
+}
+
+.tooltipdemoBasicUsage .right {
+    top: 70px !important;
+    right: 56px !important;
+}
+
+md-tooltip .md-content {
+    height: auto;
+}
+</style>
 <h4>{{ project.currentProject.title }} - WBS Board</h4>
-
 <div flex layout="row">
     <md-card flex id="content">
         <md-card-content>
@@ -52,16 +73,19 @@
         <tr ng-repeat="dataModel in issues">
             <td class="mdl-data-table__cell--non-numeric">{{ ($index+1)+(itemsPerPage*(currentPage-1))}}</td>
             <td class="mdl-data-table__cell--non-numeric">
-                <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title></span>
+                <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title>
+                    <md-tooltip>
+                        Status : {{ dataModel.board.title }}<br>
+                        Assigne : {{ dataModel.assigne.name }}                                                    
+                    </md-tooltip>
+                </span>
             </td>
             <td class="mdl-data-table__cell--non-numeric">
-                {{ dataModel.task_type }}                
+                {{ dataModel.task_type }}
             </td>
-
             <td class="mdl-data-table__cell--non-numeric">
                 {{ dataModel.priority }}
             </td>
-
             <td>
                 <a href="javascript:;" ng-click="CreateForm($event,dataModel.id)">Edit</a> |
                 <a href="javascript:;" ng-click="remove(dataModel.id,$index,$event)">Remove</a>
