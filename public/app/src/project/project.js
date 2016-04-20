@@ -17,7 +17,7 @@
     function ProjectController($stateParams, ProjectFactory) {
         var vm = this;
         init();
-
+        
         function init() {
             var project_id = $stateParams.id;
             ProjectFactory.getDataItem(project_id).then(function(response) {                
@@ -27,7 +27,6 @@
     }
 
     function ProjectControllerbak($scope, ProjectFactory, ConfirmFactory, $state) {
-        debugger;
         $scope.getData = getData;
         $scope.save = save;
         $scope.remove = remove;
@@ -67,16 +66,16 @@
         $scope.toggleSidebar = toggleSidebar;
 
         // toggle the sidebar.
-        function toggleSidebar() {
-            var pending = $mdBottomSheet.hide() || $q.when(true);
-            pending.then(function() {
-                $mdSidenav('left').toggle();
-            });
-        }
+        // function toggleSidebar() {
+        //     var pending = $mdBottomSheet.hide() || $q.when(true);
+        //     pending.then(function() {
+        //         $mdSidenav('left').toggle();
+        //     });
+        // }
 
-        if ($state.is("project.show")) {
-            $state.go('project.show.overview');
-        }
+        // if ($state.is("project.show")) {
+        //     $state.go('project.show.overview');
+        // }
 
     }
 
