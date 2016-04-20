@@ -59,6 +59,7 @@ md-tooltip .md-content {
             <th class="mdl-data-table__cell--non-numeric">Title</th>
             <th class="mdl-data-table__cell--non-numeric">Type</th>
             <th class="mdl-data-table__cell--non-numeric">Priority</th>
+            <th class="mdl-data-table__cell--non-numeric">Status</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -86,6 +87,7 @@ md-tooltip .md-content {
             <td class="mdl-data-table__cell--non-numeric">
                 {{ dataModel.priority }}
             </td>
+            <td class="mdl-data-table__cell--non-numeric">{{ dataModel.board.title }}</td>
             <td>
                 <a href="javascript:;" ng-click="CreateForm($event,dataModel.id)">Edit</a> |
                 <a href="javascript:;" ng-click="remove(dataModel.id,$index,$event)">Remove</a>
