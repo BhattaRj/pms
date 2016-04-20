@@ -1,4 +1,3 @@
-
 // All route for application.
 
 angular.module('app').config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
@@ -60,5 +59,11 @@ angular.module('app').config(function($interpolateProvider, $stateProvider, $url
             url: '/backlog',
             templateUrl: '/app/src/project/backlog/backlog.tpl.html',
             controller: 'BacklogController'
+        })
+        .state('project.testing', {
+            url: '/testing',
+            templateUrl: '/app/src/project/testing/testing.tpl.html',
+            controller: 'TestingController',
+            controllerAs: 'testing'
         });
 });

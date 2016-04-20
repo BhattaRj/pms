@@ -54,6 +54,7 @@
             .icon("hangouts", "./assets/svg/hangouts.svg", 512)
             .icon("twitter", "./assets/svg/twitter.svg", 512)
             .icon("phone", "./assets/svg/phone.svg", 512)
+            .icon("bug", "./assets/svg/animals.svg", 512)
             .iconSet("call", 'img/icons/sets/communication-icons.svg', 24)
             .iconSet("social", 'img/icons/sets/social-icons.svg', 24);
 

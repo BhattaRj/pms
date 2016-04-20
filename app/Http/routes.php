@@ -10,6 +10,8 @@ Route::resource('task', 'TasksController');
 Route::post('reorder_task', 'TasksController@reorderTasks');
 Route::get('get_sotries','TasksController@getStories');
 Route::get('task_list','TasksController@taskList');
+Route::get('get_sub_tasks','TasksController@getSubTasks');
+
 
 
 

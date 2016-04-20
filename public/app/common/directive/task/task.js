@@ -30,14 +30,18 @@ function rjTask() {
             hideRemoveButton: '=',
             taskList: '=',
             sprintId: '=',
-            projectId: '=',
-            getData: '&',
+            projectId: '=',            
         },
 
         controller: function($scope, $http, ModalFactory, ConfirmFactory, TaskFactory) {
 
             $scope.taskForm = taskForm;
             $scope.removeTask = removeTask;
+            $scope.toggleLeft = toggleLeft;
+
+            function toggleLeft(task_id) {
+                $scope.$parent.toggleLeft(task_id);
+            }
 
             function taskForm($event, dataModel) {
                 var templateUrl = "app/common/directive/task/form.tpl.html",
@@ -46,9 +50,9 @@ function rjTask() {
                         dataModel: dataModel
                     };
                 if (dataModel) {
-                    data.title = "Issue";
+                    data.title = "Item";
                     data.sprint_id = $scope.sprintId;
-                    ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {
+                    ModalFactory.showModal($event, contrl, templateUrl, data).then(function() {                        
                         if ($scope.sprintParam) {
                             $scope.getData({ param: $scope.sprintParam });
                         }

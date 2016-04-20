@@ -8,10 +8,10 @@
 }
 
 .text-editor{
-    width: 700px;
+    width: auto;
 }
 </style>
-<md-dialog aria-label="Mango (Fruit)"  ng-cloak flex="60">
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak flex="50">
 <md-toolbar>
 <div class="md-toolbar-tools">
     <h4>{{ title }}</h4>
@@ -37,17 +37,7 @@
         </div>
         </md-input-container>
 
-        <div layout-gt-sm="row">
-
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Priority</label>                 
-                <md-select ng-model="dataModel.priority" >
-                  <md-option  value="Highest">Highest</md-option>
-                  <md-option  value="High">High</md-option>
-                  <md-option  value="Low">Low</md-option>
-                  <md-option  value="Lowest">Lowest</md-option>                        
-                </md-select>
-            </md-input-container>
+        <!-- <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Task Type</label>                 
                 <md-select ng-model="dataModel.task_type">
@@ -62,10 +52,19 @@
                 <label>Story Point</label>
                 <input  name="story_point" ng-model="dataModel.story_point">
             </md-input-container>
-
-        </div>
+        </div> -->
 
         <div layout-gt-sm="row">
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Priority</label>                 
+                <md-select ng-model="dataModel.priority" >
+                  <md-option  value="Highest">Highest</md-option>
+                  <md-option  value="High">High</md-option>
+                  <md-option  value="Low">Low</md-option>
+                  <md-option  value="Lowest">Lowest</md-option>                        
+                </md-select>
+            </md-input-container>
 
             <md-input-container class="md-block" flex-gt-sm >
             <label>Reporter  </label>

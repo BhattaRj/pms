@@ -8,15 +8,8 @@ use Illuminate\Http\Request;
 
 class SprintsController extends Controller
 {
-
     protected $per_page = 100;
-
-    /**
-     * Default page no. for pagination.
-     * @var integer
-     */
     protected $current_page = 1;
-
     protected $sprint;
     protected $board;
 
@@ -26,14 +19,8 @@ class SprintsController extends Controller
         $this->board  = $board;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-
         $query = $this->sprint->with(['tasks' => function ($query) {
             $query->orderBy('order')->with('assigne')->where('task_type','Task');
         }]);
@@ -52,28 +39,18 @@ class SprintsController extends Controller
         return $result;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $boards            = $this->board->where('sprint_default', 1)->get();
+        
         $sprint            = $this->sprint->addSprint($request->input('data'), $boards);
+
         $result['data']    = $sprint->load('tasks');
         $result['success'] = true;
         return $result;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $input = $request->input('data');
@@ -97,18 +74,14 @@ class SprintsController extends Controller
         return $result;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $this->sprint->destroy($id) ? $result['success'] = true : $result['success'] = false;
         return $result;
     }
 
+    // Returns active sprint.
     public function getActivateSprint(Request $request)
     {
         $sprint = $this->sprint->getActivateSprint($request->input('project_id'));

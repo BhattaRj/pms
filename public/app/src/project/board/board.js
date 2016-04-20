@@ -7,11 +7,13 @@
         'resources.sprint',
         'resources.task',
         'resources.board',
+        'right-nav'
     ]);
 
     angular.module('board').controller('BoardController', BoardController);
 
-    function BoardController($scope, $stateParams, SprintFactory, TaskFactory, BoardFactory) {
+    function BoardController($scope, $stateParams, SprintFactory, TaskFactory, BoardFactory, $mdSidenav) {
+        $scope.project_id = $stateParams.id;
         $scope.$parent.selectedIndex = 2;
         $scope.getData = getData;
         $scope.dataLoaded = false;
@@ -20,6 +22,12 @@
         $scope.toggleInput = toggleInput;
         getData();
 
+        $scope.toggleLeft = toggleLeft;
+
+        function toggleLeft(task_id) {
+            $scope.selectedTaskID = task_id;
+            $mdSidenav('right').toggle();
+        }
 
         function toggleInput($event, val) {
             $event.preventDefault();
@@ -42,7 +50,7 @@
 
 
         function getData() {
-            SprintFactory.activeSprint($stateParams.id).then(function(response) {
+            SprintFactory.activeSprint($scope.project_id).then(function(response) {
                 if (response == null) {
                     $scope.activeSprint = [];
                 } else {

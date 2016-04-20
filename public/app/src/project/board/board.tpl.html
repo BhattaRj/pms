@@ -1,5 +1,4 @@
 <h4>{{ project.currentProject.title }} - Active Sprint</h4>
-
 <md-card>
     <md-card-content>
         <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
@@ -7,24 +6,20 @@
         </div>
         <md-content class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column" ng- show="dataLoaded">
             <div layout="row" ng-if="activeSprint.length != 0">
-            
                 <h4>{{ activeSprint.title }}</h4>
-
                 <div ng-if="activeSprint">
                     <span day-difference start-date="activeSprint.start_date" end-date="activeSprint.end_date"></span>
                     <span days-remaining end-date="activeSprint.end_date"></span>
                 </div>
             </div>
-
             <div layout="row" ng-if="activeSprint.length == 0">
                 <h4>Active Sprint not found.</h4>
             </div>
-
             <div layout="row" flex="100">
                 <div flex="40" flex-xs="100" layout="column" ng-repeat="board in activeSprint.boards">
                     <div layout="row">
                         <div>
-                            <label> {{ board.title }} </label>
+                            <label>{{ board.title }}</label>
                         </div>
                     </div>
                     <md-card ng-show="(board.tasks.length == 0)" rj-drag>
@@ -38,7 +33,6 @@
                         <rj-task task=task hide-remove-button="true" sprint-id="activeSprint.id" get-data="getData(param)"> </rj-task>
                     </md-card>
                 </div>
-
                 <div flex="40" ng-if="activeSprint.length != 0">
                     <md-input-container class="md-block" ng-show="addingBoard">
                         <label>Board Title</label>
@@ -46,9 +40,9 @@
                     </md-input-container>
                     <md-button ng-hide="addingBoard" class="md-raised md-primary" ng-click="toggleInput($event,'addingBoard')">Add Board</md-button>
                 </div>
-                
             </div>
             </div>
         </md-content>
+        <right-nav task-id="selectedTaskID" project-id="project_id"></right-nav>
     </md-card-content>
 </md-card>

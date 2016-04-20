@@ -38,8 +38,11 @@ class Project extends Model
     public function getBacklogId()
     {
         return $this->sprints()->where('title', 'Backlog')->first()->id;
-
     }
-    
+ 
+    public function getTestingBoardId()
+    {
+        return $this->sprints()->where('title', 'Testing')->first()->id;
+    }
 
 }

@@ -9,13 +9,7 @@ use Illuminate\Http\Request;
 class ProjectsController extends Controller
 {
     protected $project;
-
     protected $per_page = 100;
-
-    /**
-     * Default page no. for pagination.
-     * @var integer
-     */
     protected $current_page = 1;
 
     public function __construct(Project $project)
@@ -23,11 +17,7 @@ class ProjectsController extends Controller
         $this->project = $project;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $query = $this->project;
@@ -42,30 +32,25 @@ class ProjectsController extends Controller
         return $result;
     }
 
-    /**
-     * Store a newly created resource in storage.     
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-
         $project = $this->project->create($request->input('data'));
-        $sprint  = new \App\Models\Sprint(['title' => 'Backlog']);
+
+        $sprint  = new \App\Models\Sprint(['title' => 'Backlog']); // this will create backlog sprint.
+        $sprint2  = new \App\Models\Sprint(['title' => 'Testing']); // this will create testing sprint.
         $project->sprints()->save($sprint);
+        $project->sprints()->save($sprint2);
+
+        $boards = $this->board->where('testing_board_default', 1)->get();
+        $sprint2->addBoards($boards);  // this will create default boards for testing sprint.
 
         $result['data']    = $project;
         $result['success'] = true;
         return $result;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $input   = $request->input('data');

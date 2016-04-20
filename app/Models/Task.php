@@ -56,6 +56,56 @@ class Task extends Node
 
     }
 
+    public function updateBug($data)
+    {
+
+        if(!isset($data['sprint_id'])){            
+
+            $project            = $this->project->findOrFail($data['project_id']);
+
+            if($data['task_type']=='Bug'){
+
+                $data['sprint_id'] = $project->getTestingBoardId();     
+            }
+            $data['sprint_id'] = $project->getBacklogId(); 
+        }
+        
+        $data['board_id']  = $this->board->getDefaultBoardId();
+        $data['author_id'] = $this->user->currentUserId();
+
+        $result['data']     = $this->create($data);
+
+        $this->updateRowOrder($result['data'], $request);
+
+        $result['success'] = true;
+
+        return $result;
+    }
+
+    public function createTask($data){
+
+        if(!isset($data['sprint_id'])){            
+
+            $project            = $this->project->findOrFail($data['project_id']);
+
+            if($data['task_type']=='Bug'){
+
+                $data['sprint_id'] = $project->getTestingBoardId();     
+            }
+            $data['sprint_id'] = $project->getBacklogId(); 
+        }
+        
+        $data['board_id']  = $this->board->getDefaultBoardId();
+        $data['author_id'] = $this->user->currentUserId();
+
+        $result['data']     = $this->create($data);
+        $this->updateRowOrder($result['data'], $request);
+        $result['success'] = true;
+
+        return $result;
+    }
+
+
     // public function updateRowOrder($request)
     // {
 

@@ -58,22 +58,13 @@ class TasksController extends Controller
     {
         $input = $request->input('data');
 
-        if(!isset($input['sprint_id'])){
+        if($input['task_type'=='Bug']){
 
-            $project            = $this->project->findOrFail($input['project_id']);
-            $input['sprint_id'] = $project->getBacklogId(); 
-
+            return $this->updateBug($input);
+        }else{
+            return $this->createTask($input);
         }
-        
-        $input['board_id']  = $this->board->getDefaultBoardId();
-        $input['author_id'] = $this->user->currentUserId();
-        $result['data']     = $this->task->create($input);
 
-        $this->updateRowOrder($result['data'], $request);
-
-        $result['success'] = true;
-
-        return $result;
     }
 
 
@@ -160,6 +151,40 @@ class TasksController extends Controller
         return $result;
     }    
 
+
+    public function getSubTasks(Request $request){
+
+        $query = $this->task->with(['board','assigne'])->orderBy('lft', 'asc');
+
+        if ($request->has('project_id')) {            
+            $query = $query->where('project_id', $request->input('project_id'));
+        }
+
+        if ($request->has('parent_id')) {            
+            $query = $query->where('parent_id', $request->input('parent_id'));
+        }
+        
+        if ($request->has('task_type')) {            
+            $query = $query->where('task_type', $request->input('task_type'));
+        }
+
+
+        if ($request->has('priority')) {            
+            $query = $query->where('priority', $request->input('priority'));
+        }
+                        
+        
+        if ($request->has('currentPage')) {
+            $this->current_page = $request->input('currentPage');
+        }
+
+        $skip            = ($this->current_page - 1) * $this->per_page;
+        $result['total'] = $query->get()->count();
+        $result['data']  = $query->skip($skip)->take($this->per_page)->get();
+
+        return $result;
+
+    }
 
     protected function updateRowOrder(task $task, Request $request)
     {

@@ -22,6 +22,7 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
     fac.reorderTasks = reorderTasks;
     fac.list = list;
     fac.getStories = getStories;
+    fac.getSubtasks = getSubtasks;
 
     function getDataItem(id) {
         return BaseModelFactory.getDataItem(res, id);
@@ -90,12 +91,26 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
 
     }
 
+    function getSubtasks(param) {
+
+        var queryString = makeQueryString(param),
+            url = "/get_sub_tasks?" + queryString,
+            deferred = $q.defer();
+
+        $http.get(url).then(function(response) {
+            deferred.resolve(response.data.data);
+        });
+
+        return deferred.promise;
+
+    }
+
     function makeQueryString(param) {
 
-        this.queryString='';
+        this.queryString = '';
 
         angular.forEach(param, function(value, key) {
-            
+
             this.queryString += key + '=' + value + '&';
 
         }, this);

@@ -8,7 +8,8 @@
         'file',
         'member',
         'overview',
-        'project'
+        'project',
+        'testing'
     ]);
 
     angular.module('project').controller('ProjectController', ProjectController);
