@@ -13,7 +13,7 @@ class TestBoardSeeder extends Seeder
     {
 
         DB::table('boards')->insert([
-            'title'                 => 'Active Backlog',
+            'title'                 => 'Testing Backlog',
             'sprint_default'        => 0,
             'task_default'          => 0,
             'testing_board_default' => 1,
@@ -25,7 +25,7 @@ class TestBoardSeeder extends Seeder
             'sprint_default'        => 0,
             'task_default'          => 0,
             'testing_board_default' => 1,
-            'bug_default'           => 1            
+            'bug_default'           => 0            
         ]);
 
         DB::table('boards')->insert([
@@ -33,7 +33,7 @@ class TestBoardSeeder extends Seeder
             'sprint_default'        => 0,
             'task_default'          => 0,
             'testing_board_default' => 1,
-            'bug_default'           => 1
+            'bug_default'           => 0
         ]);
 
 

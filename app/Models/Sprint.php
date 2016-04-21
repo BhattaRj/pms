@@ -55,19 +55,21 @@ class Sprint extends Model
 
     public function addBoards($boards)
     {
-        $baordData = [];
+        $baordData = [];        
         foreach ($boards as $board) {
             $baordData[] = $board->id;
         }
 
-        $this->boards()->attach($baordData);
-
-        return $sprint;        
+        return $this->boards()->attach($baordData);
     }
 
 
     public function getActivateSprint($project_id)
     {
         return $this->where('project_id', $project_id)->where('status', 5)->first();
+    }
+
+    public function getTestingSprint($project_id){
+        return $this->where('project_id', $project_id)->where('title', 'Testing')->first();   
     }
 }

@@ -15,7 +15,7 @@
         $scope.sprintParam = {
             project_id: $stateParams.id
         }
-        
+
         $scope.addSprintTask = addSprintTask;
         getSprint($scope.sprintParam)
         $scope.sprintForm = sprintForm;
@@ -58,6 +58,7 @@
                 data.title = sprint.issue_title;
                 data.sprint_id = sprint.id;
                 data.project_id = $stateParams.id;
+                data.task_type = "Task";
                 TaskFactory.save(data).then(function(response) {
                     $scope.sprint.tasks.push(response)
                     $scope.sprint.issue_title = "";

@@ -58,13 +58,36 @@ class TasksController extends Controller
     {
         $input = $request->input('data');
 
-        if($input['task_type'=='Bug']){
+        
 
-            return $this->updateBug($input);
+        if(!isset($input['sprint_id'])){            
+
+            $project            = $this->project->findOrFail($input['project_id']);
+
+            if($input['task_type']=='Bug'){
+
+                $input['sprint_id'] = $project->getTestingBoardId();     
+
+            }else{
+
+                $input['sprint_id'] = $project->getBacklogId();                                 
+            }        
+        }
+        
+        if($input['task_type']=='Bug'){
+
+            $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
         }else{
-            return $this->createTask($input);
+
+            $input['board_id']  = $this->board->getDefaultBoardId();
         }
 
+        $input['author_id'] = $this->user->currentUserId();
+        $result['data']     = $this->task->create($input);
+        $this->updateRowOrder($result['data'], $request);
+        $result['success'] = true;
+
+        return $result;
     }
 
 

@@ -32,4 +32,9 @@ class Board extends Model
     {
         return $this->where('task_default', 1)->first()->id;
     }
+
+    public function getDefaultTestingBoardId()
+    {
+        return $this->where('bug_default',1)->first()->id;
+    }
 }

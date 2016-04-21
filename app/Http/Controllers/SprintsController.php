@@ -99,4 +99,24 @@ class SprintsController extends Controller
         $result['success'] = true;
         return $result;
     }
+
+    public function getTestingSprint(Request $request)
+    {
+        $sprint = $this->sprint->getTestingSprint($request->input('project_id'));
+        if ($sprint) {
+
+            $query = $sprint->load(['boards' => function ($query) use ($sprint) {                
+                $query->with(['tasks' => function ($query) use ($sprint) {
+                    $query->where('sprint_id', $sprint->id)->orderBy('order')->with('assigne');
+                }]);
+            }]);
+            $result['data'] = $query;
+        } else {
+            $result['data'] = null;
+        }
+
+        $result['success'] = true;
+        return $result;
+    }
+
 }

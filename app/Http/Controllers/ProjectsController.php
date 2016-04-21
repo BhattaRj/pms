@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Sprint;
+use App\Models\Board;
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
     protected $project;
+    protected $board;
     protected $per_page = 100;
     protected $current_page = 1;
 
-    public function __construct(Project $project)
+    public function __construct(Project $project, Board $board)
     {
-        $this->project = $project;
+        $this->project  = $project;
+        $this->board    = $board;
     }
 
 
@@ -39,10 +42,12 @@ class ProjectsController extends Controller
 
         $sprint  = new \App\Models\Sprint(['title' => 'Backlog']); // this will create backlog sprint.
         $sprint2  = new \App\Models\Sprint(['title' => 'Testing']); // this will create testing sprint.
+
         $project->sprints()->save($sprint);
         $project->sprints()->save($sprint2);
 
         $boards = $this->board->where('testing_board_default', 1)->get();
+        
         $sprint2->addBoards($boards);  // this will create default boards for testing sprint.
 
         $result['data']    = $project;

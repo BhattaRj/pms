@@ -21,6 +21,9 @@ Route::get('project_user/{project_id}', 'UsersController@getProjectUser');
 
 Route::resource('sprint', 'SprintsController');
 Route::get('active_sprint', 'SprintsController@getActivateSprint');
+Route::get('testing_sprint', 'SprintsController@getTestingSprint');
+
+
 
 Route::resource('board', 'BoardsController');
 

@@ -1,4 +1,4 @@
-<h4>{{ project.currentProject.title }} - Active Sprint</h4>
+<h4>{{ project.currentProject.title }} - Active Board</h4>
 <md-card>
     <md-card-content>
         <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="dataLoaded">
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div layout="row" ng-if="activeSprint.length == 0">
-                <h4>Active Sprint not found.</h4>
+                <h4>Active Board not found.</h4>
             </div>
             <div layout="row" flex="100">
                 <div flex="40" flex-xs="100" layout="column" ng-repeat="board in activeSprint.boards">
