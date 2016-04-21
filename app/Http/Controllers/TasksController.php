@@ -20,7 +20,6 @@ class TasksController extends Controller
     protected $per_page = 100;
     protected $current_page = 1;
 
-
     public function __construct(Task $task, Board $board, User $user , Sprint $sprint, Project $project,TaskRepository $taskRepository)
     {
         $this->task  = $task;
@@ -31,9 +30,6 @@ class TasksController extends Controller
         $this->taskRepository = $taskRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $query = $this->task->orderBy('order');
@@ -56,68 +52,19 @@ class TasksController extends Controller
         return $result;
     }
 
-
     public function store(Request $request)
     {
         $input = $request->input('data');
 
-
-        if($input['task_type'] == 'Test Case')
-        {
+        if($input['task_type'] == 'Test Case'){
             return $this->taskRepository->createTestCase($input);
         }
         
-        if($input['task_type'] == 'Bug')
-        {
+        if($input['task_type'] == 'Bug'){
             return $this->taskRepository->createBug($input);
         }
 
         return $this->taskRepository->createTask($input);
-
-
-        
-        // if(!isset($input['sprint_id'])){            
-
-        //     $project            = $this->project->findOrFail($input['project_id']);
-
-        //     if($input['task_type'] == 'Test Case'){
-
-        //         $input['sprint_id'] = $project->getTestingBoardId();     
-
-        //     }else{
-
-        //         $input['sprint_id'] = $project->getBacklogId();                                 
-        //     }        
-        // }
-        
-        // if($input['task_type'] == 'Test Case'){
-
-        //     $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
-        // }else{
-
-        //     $input['board_id']  = $this->board->getDefaultBoardId();
-        // }
-
-        // $input['author_id'] = $this->user->currentUserId();
-        // $result['data']     = $this->task->create($input);
-        // $this->updateRowOrder($result['data'], $request);
-        // $result['success'] = true;
-
-        // return $result;
-    }
-
-    public function createTestCase($input)
-    {
-        $input['sprint_id'] = $this->project->findOrFail($input['project_id'])->getTestingSprintID();;
-        $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
-        $input['author_id'] = $this->user->currentUserId();
-        $result['data']     = $this->task->create($input);
-
-        $this->updateRowOrder($result['data'], $request);
-
-        $result['success'] = true;
-
-        return $result;             
     }
 
     public function update(Request $request, $id)
@@ -143,7 +90,6 @@ class TasksController extends Controller
         return $result;
     }
 
-
     /**
      * Reorder the task in sprint.
      * if default_board change the board id into the default board.
@@ -163,12 +109,9 @@ class TasksController extends Controller
         return $result;
     }
 
-
     /** Return tasks heirarchically for stroy board. */
-
     public function getStories(Request $request)
     {        
-
         $query = $this->task->with(['board','assigne'])->orderBy('lft', 'asc');
 
         if ($request->has('project_id')) {            
@@ -179,12 +122,10 @@ class TasksController extends Controller
             $query = $query->where('task_type', $request->input('task_type'));
         }
 
-
         if ($request->has('priority')) {            
             $query = $query->where('priority', $request->input('priority'));
         }
-                        
-        
+                                
         if ($request->has('currentPage')) {
             $this->current_page = $request->input('currentPage');
         }
@@ -203,7 +144,6 @@ class TasksController extends Controller
         return $result;
     }    
 
-
     public function getSubTasks(Request $request){
 
         $query = $this->task->with(['board','assigne'])->orderBy('lft', 'asc');
@@ -220,12 +160,10 @@ class TasksController extends Controller
             $query = $query->where('task_type', $request->input('task_type'));
         }
 
-
         if ($request->has('priority')) {            
             $query = $query->where('priority', $request->input('priority'));
         }
-                        
-        
+                                
         if ($request->has('currentPage')) {
             $this->current_page = $request->input('currentPage');
         }
@@ -235,24 +173,5 @@ class TasksController extends Controller
         $result['data']  = $query->skip($skip)->take($this->per_page)->get();
 
         return $result;
-
-    }
-
-    protected function updateRowOrder(task $task, Request $request)
-    {
-
-        if (array_key_exists('order', $request->input('data')) && array_key_exists('ordertask', $request->input('data'))) {
-
-            try
-            {
-
-                $task->updateOrder($request->input('data')['order'], $request->input('data')['ordertask']);
-            } catch (MoveNotPossibleException $e) {
-                $result['success'] = false;
-                $result['msg']     = "Cannot make a page a child of self.";
-                return $result;
-            }
-        }
-    }
-    
+    }    
 }
