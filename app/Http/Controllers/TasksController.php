@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\Sprint;
 use App\Models\Project;
 use App\User;
+use App\Repositories\TaskRepository;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -19,13 +20,15 @@ class TasksController extends Controller
     protected $per_page = 100;
     protected $current_page = 1;
 
-    public function __construct(Task $task, Board $board, User $user , Sprint $sprint, Project $project)
+
+    public function __construct(Task $task, Board $board, User $user , Sprint $sprint, Project $project,TaskRepository $taskRepository)
     {
         $this->task  = $task;
         $this->board = $board;
         $this->user  = $user;
         $this->sprint = $sprint;
         $this->project = $project;
+        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -58,38 +61,64 @@ class TasksController extends Controller
     {
         $input = $request->input('data');
 
-        
 
-        if(!isset($input['sprint_id'])){            
-
-            $project            = $this->project->findOrFail($input['project_id']);
-
-            if($input['task_type']=='Bug'){
-
-                $input['sprint_id'] = $project->getTestingBoardId();     
-
-            }else{
-
-                $input['sprint_id'] = $project->getBacklogId();                                 
-            }        
+        if($input['task_type'] == 'Test Case')
+        {
+            return $this->taskRepository->createTestCase($input);
         }
         
-        if($input['task_type']=='Bug'){
-
-            $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
-        }else{
-
-            $input['board_id']  = $this->board->getDefaultBoardId();
+        if($input['task_type'] == 'Bug')
+        {
+            return $this->taskRepository->createBug($input);
         }
 
-        $input['author_id'] = $this->user->currentUserId();
-        $result['data']     = $this->task->create($input);
-        $this->updateRowOrder($result['data'], $request);
-        $result['success'] = true;
+        return $this->taskRepository->createTask($input);
 
-        return $result;
+
+        
+        // if(!isset($input['sprint_id'])){            
+
+        //     $project            = $this->project->findOrFail($input['project_id']);
+
+        //     if($input['task_type'] == 'Test Case'){
+
+        //         $input['sprint_id'] = $project->getTestingBoardId();     
+
+        //     }else{
+
+        //         $input['sprint_id'] = $project->getBacklogId();                                 
+        //     }        
+        // }
+        
+        // if($input['task_type'] == 'Test Case'){
+
+        //     $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
+        // }else{
+
+        //     $input['board_id']  = $this->board->getDefaultBoardId();
+        // }
+
+        // $input['author_id'] = $this->user->currentUserId();
+        // $result['data']     = $this->task->create($input);
+        // $this->updateRowOrder($result['data'], $request);
+        // $result['success'] = true;
+
+        // return $result;
     }
 
+    public function createTestCase($input)
+    {
+        $input['sprint_id'] = $this->project->findOrFail($input['project_id'])->getTestingSprintID();;
+        $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
+        $input['author_id'] = $this->user->currentUserId();
+        $result['data']     = $this->task->create($input);
+
+        $this->updateRowOrder($result['data'], $request);
+
+        $result['success'] = true;
+
+        return $result;             
+    }
 
     public function update(Request $request, $id)
     {

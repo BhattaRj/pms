@@ -36,7 +36,12 @@ class TestBoardSeeder extends Seeder
             'bug_default'           => 0
         ]);
 
-
-
+        DB::table('boards')->insert([
+            'title'                 => 'Redo',
+            'sprint_default'        => 0,
+            'task_default'          => 0,
+            'testing_board_default' => 1,
+            'bug_default'           => 0
+        ]);        
     }
 }

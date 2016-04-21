@@ -7,9 +7,11 @@
         <md-button ng-hide="hideRemoveButton" class="md-icon-button md-accent" aria-label="Favorite" ng-click="removeTask(task,$index,$event)">
         <md-icon md-svg-icon="/assets/svg/cross.svg"></md-icon>        
         </md-button>       
-    <md-button class="md-icon-button" aria-label="More" ng-click="toggleLeft(task.id)" class="pull-right">
-        <md-icon md-svg-icon="bug"></md-icon>
-    </md-button>        
+
+        <md-button class="md-icon-button" aria-label="More" ng-click="toggleLeft(task.id)" class="pull-right" ng-show="task.board.title=='In Progress'">
+            <md-icon md-svg-icon="bug"></md-icon>
+        </md-button>        
+
     </span>
     </p>
 </md-card-content>

@@ -40,7 +40,7 @@ class Project extends Model
         return $this->sprints()->where('title', 'Backlog')->first()->id;
     }
  
-    public function getTestingBoardId()
+    public function getTestingSprintID()
     {
         return $this->sprints()->where('title', 'Testing')->first()->id;
     }

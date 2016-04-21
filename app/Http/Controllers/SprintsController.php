@@ -88,7 +88,7 @@ class SprintsController extends Controller
         if ($sprint) {
             $query = $sprint->load(['boards' => function ($query) use ($sprint) {
                 $query->with(['tasks' => function ($query) use ($sprint) {
-                    $query->where('sprint_id', $sprint->id)->orderBy('order')->with('assigne');
+                    $query->where('sprint_id', $sprint->id)->orderBy('order')->with(['assigne']);
                 }]);
             }]);
             $result['data'] = $query;
@@ -107,7 +107,9 @@ class SprintsController extends Controller
 
             $query = $sprint->load(['boards' => function ($query) use ($sprint) {                
                 $query->with(['tasks' => function ($query) use ($sprint) {
-                    $query->where('sprint_id', $sprint->id)->orderBy('order')->with('assigne');
+
+                    $query->where('sprint_id', $sprint->id)->orderBy('order')->with(['assigne','board']);
+
                 }]);
             }]);
             $result['data'] = $query;

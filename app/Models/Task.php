@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Baum\Node;
-
 class Task extends Node
 {
     protected $table    = 'tasks';
@@ -37,7 +36,7 @@ class Task extends Node
             ->orderBy('lft', 'asc')->get();
     }
 
-    public function updateOrder($order, $orderPage)
+    public function updateOrder($order, $orderPage)    
     {
         $orderPage = $this->findOrFail($orderPage);
 
