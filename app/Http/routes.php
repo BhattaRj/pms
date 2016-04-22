@@ -2,6 +2,8 @@
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
+
+
 Route::resource('project', 'ProjectsController');
 Route::get('recent_project', 'ProjectsController@recentProject');
 
@@ -11,9 +13,7 @@ Route::post('reorder_task', 'TasksController@reorderTasks');
 Route::get('get_sotries','TasksController@getStories');
 Route::get('task_list','TasksController@taskList');
 Route::get('get_sub_tasks','TasksController@getSubTasks');
-
-
-
+Route::post('move_to_testing_backlog', 'TasksController@moveToTestingBacklog');
 
 
 Route::resource('user', 'UsersController');
@@ -22,7 +22,6 @@ Route::get('project_user/{project_id}', 'UsersController@getProjectUser');
 Route::resource('sprint', 'SprintsController');
 Route::get('active_sprint', 'SprintsController@getActivateSprint');
 Route::get('testing_sprint', 'SprintsController@getTestingSprint');
-
 
 
 Route::resource('board', 'BoardsController');

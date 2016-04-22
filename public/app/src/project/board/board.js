@@ -22,12 +22,6 @@
         $scope.toggleInput = toggleInput;
         getData();
 
-        $scope.toggleLeft = toggleLeft;
-
-        function toggleLeft(task_id) {
-            $scope.selectedTaskID = task_id;
-            $mdSidenav('right').toggle();
-        }
 
         function toggleInput($event, val) {
             $event.preventDefault();
@@ -73,9 +67,28 @@
             }
 
             if ($scope.sourceTask.board_id != scope.task.board_id) {
+
+                if (scope.board.title == "Done" && $scope.sourceTask.task_type == 'Bug') {
+
+                    moveToTestingBacklog($scope.sourceTask.id);
+                }
+
                 swapBoardTask(scope);
             }
         });
+
+
+        // change board_id of task to the Testing board's testing_backlog_id 
+        function moveToTestingBacklog(task_id) { 
+
+            $scope.movedToTestingBacklog = false;            
+            TaskFactory.moveToTestingBacklog({ task_id: task_id }).then(function(response) {
+                if (response) {
+                    $scope.movedToTestingBacklog = true;
+                }
+            });
+
+        }
 
         $scope.$on('$destroy', rjEventHandler);
 

@@ -82,4 +82,13 @@ class TaskRepository
             }
         }
     }
+
+    public function moveToTestingBacklog($data)
+    {
+
+        $task               = $this->task->findOrFail($data['task_id']);
+        $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
+
+        return $task->update($input);        
+    }
 }

@@ -23,6 +23,7 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
     fac.list = list;
     fac.getStories = getStories;
     fac.getSubtasks = getSubtasks;
+    fac.moveToTestingBacklog = moveToTestingBacklog;
 
     function getDataItem(id) {
         return BaseModelFactory.getDataItem(res, id);
@@ -42,6 +43,28 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
     function remove(id) {
         return BaseModelFactory.remove(res, id);
     }
+
+    function moveToTestingBacklog(data) {
+
+        var deferred = $q.defer();
+
+        $http({
+                url: '/move_to_testing_backlog',
+                method: "POST",
+                data: data
+            })
+            .then(function(response) {
+
+                if (response.data.success) {
+                    deferred.resolve(response.data.success);
+                } else {
+                    console.log('error occoured..!!!')
+                }
+            });
+
+        return deferred.promise;
+    }
+
 
     function reorderTasks(data) {
 
@@ -105,6 +128,7 @@ function TaskFactory(Task, BaseModelFactory, $q, $http) {
 
     }
 
+    // trnasform json boject into the query string.
     function makeQueryString(param) {
 
         this.queryString = '';

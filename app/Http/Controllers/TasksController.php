@@ -22,12 +22,12 @@ class TasksController extends Controller
 
     public function __construct(Task $task, Board $board, User $user , Sprint $sprint, Project $project,TaskRepository $taskRepository)
     {
-        $this->task  = $task;
-        $this->board = $board;
-        $this->user  = $user;
-        $this->sprint = $sprint;
-        $this->project = $project;
-        $this->taskRepository = $taskRepository;
+        $this->task             = $task;
+        $this->board            = $board;
+        $this->user             = $user;
+        $this->sprint           = $sprint;
+        $this->project          = $project;
+        $this->taskRepository   = $taskRepository;
     }
 
     public function index(Request $request)
@@ -172,5 +172,14 @@ class TasksController extends Controller
         $result['data']  = $query->skip($skip)->take($this->per_page)->get();
 
         return $result;
-    }    
+    }   
+
+
+    //  Move Bug to the Testing backlog of the current project.
+    public function moveToTestingBacklog(Request $request)
+    {
+        $result['success'] = $this->taskRepository->moveToTestingBacklog($request->all());
+        return $result;
+    }
+
 }
