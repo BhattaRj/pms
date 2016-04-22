@@ -22,86 +22,87 @@ md-tooltip .md-content {
 }
 </style>
 <h4>{{ project.currentProject.title }} - WBS Board</h4>
-<div flex layout="row">
-    <md-card flex id="content">
-        <md-card-content>
-            <form name="Form">
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Filter by Type</label>
-                        <md-select ng-model="param.task_type" ng-change="getData(param)">
-                            <md-option value="">All</md-option>
-                            <md-option value="User Story">User Story</md-option>
-                            <md-option value="Epic">Epic</md-option>
-                            <md-option value="Task">Task</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Filter by Priority</label>
-                        <md-select ng-model="param.priority" ng-change="getData(param)">
-                            <md-option value="">All</md-option>
-                            <md-option value="Highest">Highest</md-option>
-                            <md-option value="High">High</md-option>
-                            <md-option value="Low">Low</md-option>
-                            <md-option value="Lowest">Lowest</md-option>
-                        </md-select>
-                    </md-input-container>
-                </div>
-            </form>
-        </md-card-content>
-    </md-card>
-    <div flex="30"></div>
-</div>
-<table class="mdl-data-table mdl-js-data-table" width="750">
-    <thead>
-        <tr>
-            <th class="mdl-data-table__cell--non-numeric">Sr.No.</th>
-            <th class="mdl-data-table__cell--non-numeric">Title</th>
-            <th class="mdl-data-table__cell--non-numeric">Type</th>
-            <th class="mdl-data-table__cell--non-numeric">Priority</th>
-            <th class="mdl-data-table__cell--non-numeric">Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-hide="dataLoaded">
-            <td colspan="5">
-                <div layout="row" layout-sm="column" layout-align="space-around">
-                    <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
-                </div>
-            </td>
-        </tr>
-        <tr ng-repeat="dataModel in issues">
-            <td class="mdl-data-table__cell--non-numeric">{{ ($index+1)+(itemsPerPage*(currentPage-1))}}</td>
-            <td class="mdl-data-table__cell--non-numeric">
-                <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title>
+<md-card flex id="content">
+    <md-card-content>
+        <form name="Form">
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Filter by Type</label>
+                    <md-select ng-model="param.task_type" ng-change="getData(param)">
+                        <md-option value="">All</md-option>
+                        <md-option value="User Story">User Story</md-option>
+                        <md-option value="Epic">Epic</md-option>
+                        <md-option value="Task">Task</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Filter by Priority</label>
+                    <md-select ng-model="param.priority" ng-change="getData(param)">
+                        <md-option value="">All</md-option>
+                        <md-option value="Highest">Highest</md-option>
+                        <md-option value="High">High</md-option>
+                        <md-option value="Low">Low</md-option>
+                        <md-option value="Lowest">Lowest</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Filter by Status</label>
+                    <md-select ng-model="param.board_id" ng-change="getData(param)">
+                        <md-option ng-repeat="board in boards" value="{{ board.id }}">
+                            {{ board.title }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </form>
+    </md-card-content>
+</md-card>
+<md-card flex id="content">
+    <table class="mdl-data-table mdl-js-data-table">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">Sr.No.</th>
+                <th class="mdl-data-table__cell--non-numeric">Title</th>
+                <th class="mdl-data-table__cell--non-numeric">Type</th>
+                <th class="mdl-data-table__cell--non-numeric">Priority</th>
+                <th class="mdl-data-table__cell--non-numeric">Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-hide="dataLoaded">
+                <td colspan="6">
+                    <div layout="row" layout-sm="column" layout-align="space-around">
+                        <md-progress-circular md-mode="indeterminate" md-diameter="100%"></md-progress-circular>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-repeat="dataModel in issues">
+                <td class="mdl-data-table__cell--non-numeric">{{ ($index+1)+(itemsPerPage*(currentPage-1))}}</td>
+                <td class="mdl-data-table__cell--non-numeric">
+                    <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title>
                     <md-tooltip>
                         Status : {{ dataModel.board.title }}<br>
                         Assigne : {{ dataModel.assigne.name }}                                                    
                     </md-tooltip>
                 </span>
-            </td>
-            <td class="mdl-data-table__cell--non-numeric">
-                {{ dataModel.task_type }}
-            </td>
-            <td class="mdl-data-table__cell--non-numeric">
-                {{ dataModel.priority }}
-            </td>
-            <td class="mdl-data-table__cell--non-numeric">{{ dataModel.board.title }}</td>
-            <td>
-                <a href="javascript:;" ng-click="CreateForm($event,dataModel.id)">Edit</a> |
-                <a href="javascript:;" ng-click="remove(dataModel.id,$index,$event)">Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <div ng-show="totalItems > itemsPerPage">
-                    <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-click="pageChanged()"></uib-pagination>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">
+                    {{ dataModel.task_type }}
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">
+                    {{ dataModel.priority }}
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">{{ dataModel.board.title }}</td>
+                <td>
+                    <a href="javascript:;" ng-click="CreateForm($event,dataModel.id)">Edit</a> |
+                    <a href="javascript:;" ng-click="remove(dataModel.id,$index,$event)">Remove</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+</md-card>
 <div layout="row">
     <md-button class="md-primary md-fab md-fab-bottom-right" ng-click="CreateForm($event)">Add</md-button>
 </div>

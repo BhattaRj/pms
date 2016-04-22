@@ -1,20 +1,32 @@
 angular.module('issue', [
     'resources.task',
-    'resources.project'
+    'resources.project',
+    'resources.sprint'
 ]);
 
 angular.module('issue').controller('IssueListController', IssueListController);
 
-function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalFactory, TaskFactory, $stateParams) {
+function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalFactory, TaskFactory, $stateParams, SprintFactory) {
     $scope.getData = getData;
     $scope.remove = remove;
     $scope.CreateForm = CreateForm;
     $scope.pageChanged = pageChanged;
     $scope.dataLoaded = false;
     $scope.param = {};
-    $scope.param.project_id = $stateParams.id;    
+    $scope.param.project_id = $stateParams.id;
+    init();
 
-    getData($scope.param);
+        SprintFactory.getDataItem($scope.sprint_id).then(function(response) {
+            debugger;
+            $scope.boards = response.boards;
+        });
+        
+    function init() {
+        debugger;
+        getData($scope.param);
+
+
+    }
 
     function pageChanged(page) {
         $scope.param.currentPage = $scope.currentPage;
@@ -22,7 +34,7 @@ function IssueListController($scope, $mdDialog, $mdMedia, ConfirmFactory, ModalF
     };
 
     //Retrive all dataList.         
-    function getData(param) {        
+    function getData(param) {
         $scope.dataLoaded = false;
         $scope.issues = [];
         TaskFactory.getStories(param).then(function(response) {
@@ -84,7 +96,6 @@ function SaveIssueController(data, $scope, $mdDialog, TaskFactory, $mdToast, dat
         ProjectFactory.getDataItem($state.params.id).then(function(response) {
             $scope.users = response.users;
         });
-
     }
 
     function save(data) {
@@ -94,5 +105,4 @@ function SaveIssueController(data, $scope, $mdDialog, TaskFactory, $mdToast, dat
             $mdDialog.hide(response);
         });
     }
-
 }

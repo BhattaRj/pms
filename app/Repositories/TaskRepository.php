@@ -37,10 +37,10 @@ class TaskRepository
 
 	public function createBug($input)	
 	{
-        if(!isset($input['sprint_id']))
-        {                                    
+        if(!isset($input['sprint_id'])){                                    
             $input['sprint_id'] = $this->sprint->getActivateSprint($input['project_id'])->id;
         }       
+
 		$input['board_id']  = $this->board->getDefaultBoardId(); 
         $input['author_id'] = $this->user->currentUserId();
              
@@ -70,12 +70,12 @@ class TaskRepository
     {    	
         if (array_key_exists('order', $input) && array_key_exists('ordertask', $input)) {
 
-            try
-            {            	
+            try {
+
                 $task->updateOrder($input['order'], $input['ordertask']);
-            }
-            catch (MoveNotPossibleException $e) 
-            {
+
+            } catch (MoveNotPossibleException $e) {
+
                 $result['success'] = false;
                 $result['msg']     = "Cannot make a page a child of self.";
                 return $result;

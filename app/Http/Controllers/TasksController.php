@@ -63,7 +63,7 @@ class TasksController extends Controller
         if($input['task_type'] == 'Bug'){
             return $this->taskRepository->createBug($input);
         }
-
+        
         return $this->taskRepository->createTask($input);
     }
 
@@ -136,7 +136,6 @@ class TasksController extends Controller
 
         return $result;
     }
-
 
     public function taskList()
     {
