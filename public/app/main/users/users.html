@@ -1,0 +1,59 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
+                <span class="parent">Users</span>
+            </div>
+            <div class="title">Users</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+    <!-- CONTENT -->
+    <div class="content">
+        <div class="simple-table-container md-whiteframe-4dp">
+            <table class="simple" ms-responsive-table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="user in vm.users">
+                        <td class="text-left avatar-cell" ng-if="user.image_url">
+                            <img class="avatar" alt="{{user.name}}" ng-src="{{user.image_url}}">
+                        </td>
+                        <td class="name">{{user.name}}</td>
+                        <td class="position">{{user.email}}</td>
+                        <td class="office">
+                            <i class="mdi mdi-bell"></i>
+                            <md-button class="md-icon-button md-primary" aria-label="Custom Icon Button">
+                                <i class="icon icon-table-edit"></i>
+                            </md-button>
+                            <md-button class="md-icon-button md-warn" aria-label="Custom Icon Button">
+                                <i class="icon icon-close"></i>
+                            </md-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- / CONTENT -->
+    <div layout="row">
+        <md-button class="add-event-button md-warn md-fab md-fab-bottom-right" ng-click="CreateForm($event)" aria-label="Add event">
+            <md-icon md-font-icon="icon-plus"></md-icon>
+        </md-button>
+    </div>
+</div>
