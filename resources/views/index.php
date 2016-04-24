@@ -56,6 +56,8 @@
         <ms-theme-options></ms-theme-options>
 
         <script src="scripts/vendor.js"></script>
+        
+        <script src="./bower_components/ng-file-upload/ng-file-upload.js"></script>
 
         <!-- inject:js -->
         <script src="app/quick-panel/quick-panel.module.js"></script>
@@ -97,6 +99,14 @@
         <script src="app/core/services/ms-api.provider.js"></script>
         <script src="app/core/services/api-resolver.service.js"></script>
         <script src="app/core/services/rj-common.service.js"></script>
+
+
+        <!-- resource -->
+        <script src="app/resource/board.js"></script>
+        <script src="app/resource/project.js"></script>
+        <script src="app/resource/sprint.js"></script>
+        <script src="app/resource/task.js"></script>
+        <script src="app/resource/user.js"></script>
 
         <script src="app/core/directives/highlight.directive.js"></script>
         <script src="app/core/filters/tag.filter.js"></script>

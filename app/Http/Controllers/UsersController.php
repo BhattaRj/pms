@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-
     protected $user;
     protected $project;
     protected $iamge_url_path = "upload/profile_pic";
@@ -19,11 +18,6 @@ class UsersController extends Controller
         $this->project = $project;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $query = $this->user;
@@ -39,12 +33,6 @@ class UsersController extends Controller
         return $result;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $input = $request->input('data');
@@ -65,13 +53,6 @@ class UsersController extends Controller
         return $result;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $user              = $this->user->findOrFail($id);
@@ -80,23 +61,19 @@ class UsersController extends Controller
         return $result;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id)
+    {
+        $result['data']    = $this->user->findOrFail($id);
+        $result['success'] = true;
+        return $result;
+    }
+
     public function destroy($id)
     {
         $this->user->destroy($id) ? $result['success'] = true : $result['success'] = false;
         return $result;
     }
 
-    /**
-     * Returns all user except users already in project.
-     * @param  [integer] $project_id
-     * @return [array]
-     */
     public function getProjectUser($project_id)
     {
         $project_users = $this->project->findOrFail($project_id)->users;

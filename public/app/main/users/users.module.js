@@ -1,7 +1,9 @@
 (function() {
     'use strict';
 
-    angular.module('app.users', []).config(config);
+    angular.module('app.users', [
+        'ngFileUpload'
+    ]).config(config);
 
     function config($stateProvider, $translatePartialLoaderProvider, msApiProvider, msNavigationServiceProvider) {
 
@@ -30,7 +32,7 @@
         // Navigation
         msNavigationServiceProvider.saveItem('user', {
             title: 'Users',
-            icon  : 'icon-account',            
+            icon: 'icon-account',
             state: 'app.users',
             /*stateParams: {
                 'param1': 'page'

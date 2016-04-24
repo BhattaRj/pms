@@ -60,7 +60,6 @@ class BoardsController extends Controller
         return $result;
     }
 
-
     public function destroy($id)
     {
         $this->board->destroy($id) ? $result['success'] = true : $result['success'] = false;

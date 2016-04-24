@@ -8,9 +8,10 @@
                 <span class="parent">Users</span>
             </div>
             <div class="title">Users</div>
-        </div>
+        </div>        
     </div>
     <!-- / HEADER -->
+
     <!-- CONTENT -->
     <div class="content">
         <div class="simple-table-container md-whiteframe-4dp">
@@ -30,17 +31,17 @@
                 </tfoot>
                 <tbody>
                     <tr ng-repeat="user in vm.users">
-                        <td class="text-left avatar-cell" ng-if="user.image_url">
-                            <img class="avatar" alt="{{user.name}}" ng-src="{{user.image_url}}">
+                        <td class="text-left avatar-cell">
+                            <img class="avatar" alt="{{ user.name }}" ng-src="{{ user.image_url }}">
                         </td>
-                        <td class="name">{{user.name}}</td>
-                        <td class="position">{{user.email}}</td>
+                        <td class="name">{{ user.name }}</td>
+                        <td class="position">{{ user.email }}</td>
                         <td class="office">
                             <i class="mdi mdi-bell"></i>
-                            <md-button class="md-icon-button md-primary" aria-label="Custom Icon Button">
+                            <md-button class="md-icon-button md-primary" aria-label="Custom Icon Button" ng-click="vm.create($event, user.id)">
                                 <i class="icon icon-table-edit"></i>
                             </md-button>
-                            <md-button class="md-icon-button md-warn" aria-label="Custom Icon Button">
+                            <md-button class="md-icon-button md-warn" aria-label="Custom Icon Button" ng-click="vm.remove(user.id,$index,$event)">
                                 <i class="icon icon-close"></i>
                             </md-button>
                         </td>
@@ -52,7 +53,7 @@
     
     <!-- / CONTENT -->
     <div layout="row">
-        <md-button class="add-event-button md-warn md-fab md-fab-bottom-right" ng-click="CreateForm($event)" aria-label="Add event">
+        <md-button class="add-event-button md-warn md-fab md-fab-bottom-right" ng-click="vm.create($event)" aria-label="Add event">
             <md-icon md-font-icon="icon-plus"></md-icon>
         </md-button>
     </div>
