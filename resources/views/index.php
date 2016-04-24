@@ -96,6 +96,8 @@
         <script src="app/core/services/ms-utils.service.js"></script>
         <script src="app/core/services/ms-api.provider.js"></script>
         <script src="app/core/services/api-resolver.service.js"></script>
+        <script src="app/core/services/rj-common.service.js"></script>
+
         <script src="app/core/directives/highlight.directive.js"></script>
         <script src="app/core/filters/tag.filter.js"></script>
         <script src="app/core/filters/basic.filter.js"></script>
