@@ -1,0 +1,58 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
+                <span class="parent">Project</span>
+            </div>
+            <div class="title">Project</div>
+        </div>        
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+        <div class="simple-table-container md-whiteframe-4dp">
+            <table class="simple" ms-responsive-table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="dataItem in vm.dataList">
+                        <td class="name">{{ dataItem.title }}</td>
+                        <td class="position">{{ dataItem.start_date }}</td>
+                        <td class="position">{{ dataItem.end_date }}</td>
+                        <td class="office">
+                            <i class="mdi mdi-bell"></i>
+                            <md-button class="md-icon-button md-primary" aria-label="Custom Icon Button" ng-click="vm.create($event, dataItem.id)">
+                                <i class="icon icon-table-edit"></i>
+                            </md-button>
+                            <md-button class="md-icon-button md-warn" aria-label="Custom Icon Button" ng-click="vm.remove(dataItem.id,$index,$event)">
+                                <i class="icon icon-close"></i>
+                            </md-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- / CONTENT -->
+    <div layout="row">
+        <md-button class="add-event-button md-warn md-fab md-fab-bottom-right" ng-click="vm.create($event)" aria-label="Add event">
+            <md-icon md-font-icon="icon-plus"></md-icon>
+        </md-button>
+    </div>
+</div>

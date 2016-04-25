@@ -23,6 +23,10 @@
             // Sample
             'app.sample',
 
-            'app.users'
+            // User
+            'app.users',
+
+            // Project
+            'app.project'
         ]);
 })();

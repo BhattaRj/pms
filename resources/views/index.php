@@ -88,6 +88,9 @@
         <script src="app/main/users/users.module.js"></script>
         <script src="app/main/users/users.controller.js"></script>
 
+        <script src="app/main/project/project.module.js"></script>
+        <script src="app/main/project/project.controller.js"></script>
+
         <script src="app/core/theming/fuse-theming.provider.js"></script>
         <script src="app/core/theming/fuse-theming.config.js"></script>
         <script src="app/core/theming/fuse-themes.constant.js"></script>
