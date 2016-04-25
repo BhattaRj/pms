@@ -32,11 +32,11 @@
             var templateUrl = '/app/main/project/project-form.html',
                 contrl = 'SaveProjectController as vm',
                 data = {};
-            data.title = id ? "Edit User" : "Add User";
+            data.title = id ? "Edit Project" : "Add Project";
             data.id = id ? id : null;
 
             ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
-                if (response.data.data != true) {
+                if (response != true) {
                     vm.dataList.push(response.data.data);
                 } else {
                     getData();
@@ -63,23 +63,10 @@
         }
 
         function save(data) {
-            $scope.dataSaved = false;
-            if (data.file) {
-                data.image_url = data.file.name;
-            }
-            var url = '/user';
-            Upload.upload({
-                url: url,
-                data: {
-                    file: data.file,
-                    data
-                }
-            }).then(function(response) {
+            ProjectFactory.save(data).then(function(response) {
                 $scope.dataSaved = true;
                 $mdDialog.hide(response);
-            }, function(response) {
-
             });
-        }
+        }        
     }
 })();

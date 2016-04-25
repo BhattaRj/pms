@@ -31,7 +31,7 @@
         // Navigation
         msNavigationServiceProvider.saveItem('project', {
             title: 'Project',
-            icon: 'icon-account',
+            icon: 'icon-window-restore',
             state: 'app.project',
             /*stateParams: {
                 'param1': 'page'

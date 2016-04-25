@@ -16,6 +16,24 @@
         <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700italic,700,900,900italic'
               rel='stylesheet' type='text/css'>
 
+<?php
+
+if (!Auth::guest()) {
+    $login = 'true';
+    $user  = Auth::user()->toArray();
+} else {
+    $login = 'false';
+    $user  = null;
+}
+
+?>
+
+<script type="text/javascript">    
+        user        =   <?php echo json_encode($user) ?>,
+        login       =   <?php echo $login ?>;
+
+</script>
+
     </head>
 
     <!--[if lt IE 10]>
@@ -53,7 +71,7 @@
 
         <div id="main" class="animate-slide-up" ui-view="main" layout="column"></div>
 
-        <ms-theme-options></ms-theme-options>
+        <!-- <ms-theme-options></ms-theme-options> -->
 
         <script src="scripts/vendor.js"></script>
         

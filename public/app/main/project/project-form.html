@@ -10,45 +10,27 @@
         </md-toolbar>
         <md-dialog-content ms-scroll>
             <div layout="column" layout-gt-sm="row">
+
                 <md-input-container flex>
-                    <input type="text" name="username" ng-model="vm.dataModel.name" placeholder="Username" required>
-                    <div ng-messages="Form.username.$error" role="alert">
-                        <div ng-message="required"><span>Username field is required.</span></div>
-                    </div>
-                </md-input-container>
-                <md-input-container flex>
-                    <input type="text" name="email" type="email" ng-model="vm.dataModel.email" placeholder="Email" required ng-pattern="/^.+@.+\..+$/" minlength="10" maxlength="100">
-                    <div ng-messages="Form.email.$error" role="alert">
-                        <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                            Your email must be between 10 and 100 characters long and look like an e-mail address.
-                        </div>
+                    <input type="text" name="title" ng-model="vm.dataModel.title" placeholder="Title" required>
+                    <div ng-messages="Form.title.$error" role="alert">
+                        <div ng-message="required"><span>Title field is required.</span></div>
                     </div>
                 </md-input-container>
             </div>
-            </md-input-container class="md-block">
-            <label>Profile Pic</label>
-            <input type="text" name="image_url" ng-model="vm.dataModel.image_url" ng-hide="true">
-            <md-input-container class="md-block">
-                <input type="file" ngf-select ng-model="vm.dataModel.file" name="file" accept="image/*" ngf-max-size="2MB" aria-label="Upload file">
-                <div ng-messages="Form.file.$error" ng-hide="true">
-                    <div ng-message="maxSize">File too large [[picFile.size / 1000000|number:1]]MB: max 2M</div>
-                </div>
+
+            <div layout="row" class="date-row">
+                <md-datepicker ng-model="vm.dataModel.start_date" md-placeholder="Project Start Date"></md-datepicker>
+                <md-datepicker ng-model="vm.dataModel.end_date" md-placeholder="Project End Date"></md-datepicker>
+            </div>
+
+            <md-input-container flex class="md-block textarea-container">
+                <label>Description</label>
+                <textarea ng-model="vm.dataModel.description" md-maxlength="250"></textarea>
             </md-input-container>
-            <md-input-container class="md-block">
-                <label>Password</label>
-                <input type="password" name="password" ng-model="vm.dataModel.password">
-                <div ng-messages="Form.password.$error">
-                    <div ng-message="required">This is required.</div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" ng-model="vm.dataModel.confirm_password">
-                <div ng-messages="Form.confirm_password.$error">
-                    <div ng-message="required">This is required.</div>
-                </div>
-            </md-input-container>
+
         </md-dialog-content>
+        
         <md-dialog-actions layout="row" layout-align="space-between center">
             <md-button class="save-button md-accent md-raised" aria-label="SAVE" ng-click="vm.save(vm.dataModel)" can-save-form ng-disabled="!canSave(Form)">
                 <span ng-if="dataSaved">Save</span>

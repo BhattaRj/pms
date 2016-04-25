@@ -1,0 +1,6 @@
+ssh dev@104.251.215.86
+madera16
+
+
+root 
+madera16
