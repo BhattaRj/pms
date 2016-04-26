@@ -1,6 +1,7 @@
 (function ()
 {
     'use strict';
+
     /**
      * Main module of the Fuse
      */
@@ -19,15 +20,31 @@
             // Quick panel
             'app.quick-panel',
 
-            // Sample
-            'app.sample',
-
+            // Apps
+            'app.dashboards',
+            'app.calendar',
+            'app.mail',
+            'app.file-manager',
+            'app.scrumboard',
+            'app.gantt-chart',
+            'app.todo',
             // User
             'app.users',
 
             // Project
             'app.project',
 
-            'app.scrumboard'
+            'app.scrumboard',
+            
+            'app.board'
+
+            // // Pages
+            // 'app.pages',
+
+            // // User Interface
+            // 'app.ui',
+
+            // // Components
+            // 'app.components'
         ]);
 })();

@@ -40,15 +40,16 @@ class ProjectsController extends Controller
     {
         $project = $this->project->create($request->input('data'));
 
-        $sprint  = new \App\Models\Sprint(['title' => 'Backlog']); // this will create backlog sprint.
-        $sprint2  = new \App\Models\Sprint(['title' => 'Testing']); // this will create testing sprint.
+        // User will crate sprint and board.
+        // $sprint  = new \App\Models\Sprint(['title' => 'Backlog']); // this will create backlog sprint.
+        // $sprint2  = new \App\Models\Sprint(['title' => 'Testing']); // this will create testing sprint.
 
-        $project->sprints()->save($sprint);
-        $project->sprints()->save($sprint2);
+        // $project->sprints()->save($sprint);
+        // $project->sprints()->save($sprint2);
 
-        $boards = $this->board->where('testing_board_default', 1)->get();
+        // $boards = $this->board->where('testing_board_default', 1)->get();
         
-        $sprint2->addBoards($boards);  // this will create default boards for testing sprint.
+        // $sprint2->addBoards($boards);  // this will create default boards for testing sprint.
 
         $result['data']    = $project;
         $result['success'] = true;
@@ -76,7 +77,7 @@ class ProjectsController extends Controller
 
     public function show($id)
     {
-        $result['data']    = $this->project->findOrFail($id)->load('users');
+        $result['data']    = $this->project->findOrFail($id)->load(['users','sprints']);
         $result['success'] = true;
         return $result;
     }

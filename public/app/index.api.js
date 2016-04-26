@@ -1,10 +1,14 @@
-(function() {
+(function ()
+{
     'use strict';
 
-    angular.module('fuse').factory('api', apiService);
+    angular
+        .module('fuse')
+        .factory('api', apiService);
 
     /** @ngInject */
-    function apiService($resource) {
+    function apiService($resource)
+    {
         /**
          * You can use this service to define your API urls. The "api" service
          * is designed to work in parallel with "apiResolver" service which you can
@@ -176,7 +180,80 @@
         // Base Url
         api.baseUrl = 'app/data/';
 
-        // api.sample = $resource(api.baseUrl + 'sample/sample.json');
+        /**
+         * Here you can find all the definitions that the Demo Project requires
+         *
+         * If you wish to use this method, you can create your API definitions
+         * in a similar way.
+         */
+
+        /*
+         api.dashboard = {
+         project  : $resource(api.baseUrl + 'dashboard/project/data.json'),
+         server   : $resource(api.baseUrl + 'dashboard/server/data.json'),
+         analytics: $resource(api.baseUrl + 'dashboard/analytics/data.json')
+         };
+
+         api.cards = $resource(api.baseUrl + 'cards/cards.json');
+
+         api.fileManager = {
+         documents: $resource(api.baseUrl + 'file-manager/documents.json')
+         };
+
+         api.ganttChart = {
+         tasks: $resource(api.baseUrl + 'gantt-chart/tasks.json'),
+         timespans : $resource(api.baseUrl + 'gantt-chart/timespans.json')
+         };
+
+         api.icons = $resource('assets/icons/selection.json');
+
+         api.invoice = $resource(api.baseUrl + 'invoice/invoice.json');
+
+         api.mail = {
+         inbox: $resource(api.baseUrl + 'mail/inbox.json')
+         };
+
+         api.profile = {
+         timeline    : $resource(api.baseUrl + 'profile/timeline.json'),
+         about       : $resource(api.baseUrl + 'profile/about.json'),
+         photosVideos: $resource(api.baseUrl + 'profile/photos-videos.json')
+         };
+
+         api.quickPanel = {
+         activities: $resource(api.baseUrl + 'quick-panel/activities.json'),
+         contacts  : $resource(api.baseUrl + 'quick-panel/contacts.json'),
+         events    : $resource(api.baseUrl + 'quick-panel/events.json'),
+         notes     : $resource(api.baseUrl + 'quick-panel/notes.json')
+         };
+
+         api.search = {
+         classic : $resource(api.baseUrl + 'search/classic.json'),
+         mails   : $resource(api.baseUrl + 'search/mails.json'),
+         users   : $resource(api.baseUrl + 'search/users.json'),
+         contacts: $resource(api.baseUrl + 'search/contacts.json')
+         };
+
+         api.scrumboard = {
+         boardList: $resource(api.baseUrl + 'scrumboard/boardList.json'),
+         board    : $resource(api.baseUrl + 'scrumboard/boards/:id.json')
+         };
+
+         api.tables = {
+         employees   : $resource(api.baseUrl + 'tables/employees.json'),
+         employees100: $resource(api.baseUrl + 'tables/employees100.json')
+         };
+
+         api.timeline = {
+         page1: $resource(api.baseUrl + 'timeline/page-1.json'),
+         page2: $resource(api.baseUrl + 'timeline/page-2.json'),
+         page3: $resource(api.baseUrl + 'timeline/page-3.json')
+         };
+
+         api.todo = {
+         tasks: $resource(api.baseUrl + 'todo/tasks.json'),
+         tags : $resource(api.baseUrl + 'todo/tags.json')
+         };
+         */
 
         return api;
     }

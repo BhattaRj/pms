@@ -1,4 +1,5 @@
-(function() {
+(function ()
+{
     'use strict';
 
     angular
@@ -9,7 +10,8 @@
         .directive('msWidgetBack', msWidgetBackDirective);
 
     /** @ngInject */
-    function MsWidgetController($scope, $element) {
+    function MsWidgetController($scope, $element)
+    {
         var vm = this;
 
         // Data
@@ -23,8 +25,10 @@
         /**
          * Flip the widget
          */
-        function flip() {
-            if (!isFlippable()) {
+        function flip()
+        {
+            if ( !isFlippable() )
+            {
                 return;
             }
 
@@ -40,26 +44,31 @@
          *
          * @returns {boolean}
          */
-        function isFlippable() {
+        function isFlippable()
+        {
             return (angular.isDefined($scope.flippable) && $scope.flippable === true);
         }
     }
 
     /** @ngInject */
-    function msWidgetDirective() {
+    function msWidgetDirective()
+    {
         return {
-            restrict: 'E',
-            scope: {
+            restrict  : 'E',
+            scope     : {
                 flippable: '=?'
             },
             controller: 'MsWidgetController',
             transclude: true,
-            compile: function(tElement) {
+            compile   : function (tElement)
+            {
                 tElement.addClass('ms-widget');
 
-                return function postLink(scope, iElement, iAttrs, MsWidgetCtrl, transcludeFn) {
+                return function postLink(scope, iElement, iAttrs, MsWidgetCtrl, transcludeFn)
+                {
                     // Custom transclusion
-                    transcludeFn(function(clone) {
+                    transcludeFn(function (clone)
+                    {
                         iElement.empty();
                         iElement.append(clone);
                     });
@@ -71,17 +80,21 @@
     }
 
     /** @ngInject */
-    function msWidgetFrontDirective() {
+    function msWidgetFrontDirective()
+    {
         return {
-            restrict: 'E',
-            require: '^msWidget',
+            restrict  : 'E',
+            require   : '^msWidget',
             transclude: true,
-            compile: function(tElement) {
+            compile   : function (tElement)
+            {
                 tElement.addClass('ms-widget-front');
 
-                return function postLink(scope, iElement, iAttrs, MsWidgetCtrl, transcludeFn) {
+                return function postLink(scope, iElement, iAttrs, MsWidgetCtrl, transcludeFn)
+                {
                     // Custom transclusion
-                    transcludeFn(function(clone) {
+                    transcludeFn(function (clone)
+                    {
                         iElement.empty();
                         iElement.append(clone);
                     });
@@ -94,17 +107,21 @@
     }
 
     /** @ngInject */
-    function msWidgetBackDirective() {
+    function msWidgetBackDirective()
+    {
         return {
-            restrict: 'E',
-            require: '^msWidget',
+            restrict  : 'E',
+            require   : '^msWidget',
             transclude: true,
-            compile: function(tElement) {
+            compile   : function (tElement)
+            {
                 tElement.addClass('ms-widget-back');
 
-                return function postLink(scope, iElement, iAttrs, MsWidgetCtrl, transcludeFn) {
+                return function postLink(scope, iElement, iAttrs, MsWidgetCtrl, transcludeFn)
+                {
                     // Custom transclusion
-                    transcludeFn(function(clone) {
+                    transcludeFn(function (clone)
+                    {
                         iElement.empty();
                         iElement.append(clone);
                     });

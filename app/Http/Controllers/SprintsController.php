@@ -41,10 +41,8 @@ class SprintsController extends Controller
 
     public function store(Request $request)
     {
-        $boards            = $this->board->where('sprint_default', 1)->get();
-        
+        $boards            = $this->board->where('sprint_default', 1)->get();        
         $sprint            = $this->sprint->addSprint($request->input('data'), $boards);
-
         $result['data']    = $sprint->load('tasks');
         $result['success'] = true;
         return $result;

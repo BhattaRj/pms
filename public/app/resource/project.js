@@ -19,7 +19,7 @@ function ProjectFactory(Project, BaseModelFactory, $q, $http) {
     fac.remove = remove;
     fac.recentProjects = recentProjects;
 
-    function getDataItem(id) {
+    function getDataItem(id) {        
         return BaseModelFactory.getDataItem(res, id);
     }
 

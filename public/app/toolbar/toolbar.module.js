@@ -1,11 +1,14 @@
-(function() {
+(function ()
+{
     'use strict';
 
-    angular.module('app.toolbar', []).config(config);
+    angular
+        .module('app.toolbar', [])
+        .config(config);
 
     /** @ngInject */
-    function config($translatePartialLoaderProvider) {
+    function config($translatePartialLoaderProvider)
+    {
         $translatePartialLoaderProvider.addPart('app/toolbar');
     }
-    
 })();

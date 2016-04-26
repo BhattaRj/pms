@@ -1,13 +1,19 @@
-(function() {
+(function ()
+{
     'use strict';
 
-    angular.module('fuse').controller('IndexController', IndexController);
+    angular
+        .module('fuse')
+        .controller('IndexController', IndexController);
 
-    function IndexController(fuseTheming) {
+    /** @ngInject */
+    function IndexController(fuseTheming)
+    {
         var vm = this;
 
+        // Data
         vm.themes = fuseTheming.themes;
-        vm.user = user;
-        vm.login = login
+
+        //////////
     }
 })();

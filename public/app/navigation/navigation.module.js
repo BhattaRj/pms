@@ -1,10 +1,15 @@
-(function() {
+(function ()
+{
     'use strict';
 
-    angular.module('app.navigation', []).config(config);
+    angular
+        .module('app.navigation', [])
+        .config(config);
 
-    function config() {
-
+    /** @ngInject */
+    function config()
+    {
+        
     }
 
 })();
