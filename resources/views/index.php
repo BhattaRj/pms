@@ -1,7 +1,7 @@
 <!doctype html>
 <html ng-app="fuse">
     <head>
-        <base href="/">
+        <!-- <base href="/"> -->
         <meta charset="utf-8">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -114,6 +114,7 @@
         <script src="app/main/apps/board/board.module.js"></script>
         <script src="app/main/apps/board/views/boards/board-list.controller.js"></script>
 
+        <script src="app/main/apps/board/wbs-board/wbs-board.controller.js"></script>
 
         <script src="app/core/core.module.js"></script>
 

@@ -22,12 +22,12 @@
 
             // Apps
             'app.dashboards',
-            'app.calendar',
-            'app.mail',
-            'app.file-manager',
-            'app.scrumboard',
-            'app.gantt-chart',
-            'app.todo',
+            // 'app.calendar',
+            // 'app.mail',
+            // 'app.file-manager',
+            // 'app.scrumboard',
+            // 'app.gantt-chart',
+            // 'app.todo',
             // User
             'app.users',
 

@@ -28,6 +28,24 @@
             }
         })
 
+        // WBS Board.        
+        .state('app.board.wbs', {
+            url: '/wbs',
+            views: {
+                'content@app': {
+                    templateUrl: 'app/main/apps/board/wbs-board/wbs-board.html',
+                    controller: 'WbsBoardController as vm'
+                }
+            },
+            resolve: {
+                TaskData: function($stateParams, TaskFactory) {
+                    return TaskFactory.getStories({ project_id: $stateParams.id });
+                }
+            }
+        })
+
+
+
         // // Board
         // .state('app.scrumboard.boards.board', {
         //     url: '/:id/:uri',

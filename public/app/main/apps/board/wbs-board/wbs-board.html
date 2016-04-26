@@ -1,0 +1,146 @@
+<div id="scrumboard" class="page-layout simple fullwidth" layout="column">
+    <!-- HEADER -->
+    <div class="header md-accent-bg" ng-class="'md-'+vm.board.settings.color+'-bg'" layout="column">
+        <div class="header-content" layout="row" layout-align="space-between" layout-wrap flex>
+            <!-- BOARD SELECTION BUTTON -->
+            <div layout="row" layout-align="center center" flex-order="1" flex-order-xs="2">
+                <md-button class="md-accent md-raised md-hue-2 header-boards-button" ng-class="'md-'+vm.board.settings.color+'-700-bg'" ng-click="vm.boardSelectorVisible = !vm.boardSelectorVisible" aria-label="boards button" translate translate-attr-aria-label="SB.BOARDS_BUTTON">
+                    <md-icon md-font-icon="icon-trello" class="icon"></md-icon>
+                    <span translate="SB.BOARDS">BOARDS</span>
+                </md-button>
+            </div>
+            <!-- / BOARD SELECTION BUTTON -->
+            <!-- BOARD NAME -->
+            <div class="header-board-name" layout="row" layout-align="center center" flex-order="2" flex-order-xs="1" flex-xs="100">
+                <i ng-if="vm.board.settings.subscribed" class="board-subscribe s16 icon-eye"></i>
+                <span editable-text="vm.board.name" onaftersave="vm.updateBoardUri()">WBS Board</span>
+            </div>
+            <!-- / BOARD NAME -->
+            <!-- TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" flex-order="3">
+                <!-- CLEAR FILTERS BUTTON -->
+                <md-button ng-if="vm.filteringIsOn()" class="md-icon-button" ng-click="vm.clearFilters()" aria-label="Clear Filters" translate translate-attr-aria-label="SB.CLEAR_FILTERS">
+                    <md-icon md-font-icon="icon-filter-remove"></md-icon>
+                    <md-tooltip SB.CLEAR_FILTERS>Clear Filters</md-tooltip>
+                </md-button>
+                <!-- / CLEAR FILTERS BUTTON -->
+                <!-- FILTERS SIDENAV BUTTON -->
+                <md-button class="md-icon-button" ng-click="vm.toggleSidenav('filters-sidenav')" aria-label="Filter Cards" translate translate-attr-aria-label="SB.FILTER_CARDS">
+                    <md-icon md-font-icon="icon-filter-variant"></md-icon>
+                    <md-tooltip><span translate="SB.FILTER_CARDS">Filter Cards</span></md-tooltip>
+                </md-button>
+                <!-- / FILTERS SIDENAV BUTTON -->
+            </div>
+            <!-- / TOOLBAR -->
+        </div>
+    </div>
+    <!-- / HEADER -->
+    <!-- BOARD SELECTION -->
+    <div ng-show="vm.boardSelectorVisible" id="board-selector" class="md-accent-bg animate-slide-down board-list md-whiteframe-3dp" ng-class="'md-'+vm.board.settings.color+'-bg'" layout="row" layout-align="start center">
+        <div class="board-list-item" layout="column" layout-align="space-between center">
+            <div class="board-icon">
+                <i class="icon-trello s64"></i>
+            </div>
+            <div flex class="board-name">WBS Board</div>
+            <div class="board-options">
+                <i class="icon-dots-horizontal"></i>
+            </div>
+            <div class="selected-icon green-bg"><i class="icon-check s24"></i></div>
+        </div>
+        <div class="board-list-item" ng-repeat="board in vm.project.sprints" ui-sref="app.scrumboard.boards.board({id:board.id, uri:board.uri})" layout="column" layout-align="space-between center">
+            <div class="board-icon">
+                <i class="icon-trello s64"></i>
+            </div>
+            <div flex class="board-name">{{board.title}}</div>
+            <div class="board-options">
+                <i class="icon-dots-horizontal"></i>
+            </div>
+            <div ng-if="board.id === vm.board.id" class="selected-icon green-bg">
+                <i class="icon-check s24"></i>
+            </div>
+        </div>
+        <div class="board-list-item add-new-board" ui-sref="app.scrumboard.boards.addBoard" ui-sref-active="hidden" layout="column" layout-align="space-between center">
+            <div class="board-icon">
+                <i class="icon-trello s64"></i>
+            </div>
+            <div flex class="board-name" translate="SB.ADD_NEW_BOARD">Add New Board</div>
+        </div>
+    </div>
+    <md-backdrop class="board-selector-backdrop md-dialog-backdrop md-opaque" ng-show="vm.boardSelectorVisible" ng-click="vm.boardSelectorVisible = false" aria-hidden="true">
+    </md-backdrop>
+    <!-- / BOARD SELECTION -->
+
+
+    <!-- CONTENT -->
+    <md-content class="content" flex layout="column">
+        <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+            <!-- CONTENT -->
+            <div class="content">
+                <div class="simple-table-container md-whiteframe-4dp">
+                    <table class="simple" ms-responsive-table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr ng-repeat="dataModel in vm.tasks">
+                                <td class="name">
+                                    <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title>
+                                    <md-tooltip>
+                                        Status : {{ dataModel.board.title }}<br>
+                                        Assigne : {{ dataModel.assigne.name }}                                                    
+                                    </md-tooltip>
+                                </td>
+
+                                <td class="position">
+                                    {{ dataModel.task_type }}
+                                </td>
+                                <td class="position">
+                                    {{ dataModel.priority }}
+                                </td>
+                                <td class="position">{{ dataModel.board.title }}</td>
+
+                                <td class="office">
+                                    <i class="mdi mdi-bell"></i>
+                                    <md-button class="md-icon-button md-primary" aria-label="Custom Icon Button" ng-click="vm.create($event, dataItem.id)">
+                                        <i class="icon icon-table-edit"></i>
+                                    </md-button>
+                                    <md-button class="md-icon-button md-warn" aria-label="Custom Icon Button" ng-click="vm.remove(dataItem.id,$index,$event)">
+                                        <i class="icon icon-close"></i>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+            <!-- / CONTENT -->
+            <div layout="row">
+                <md-button class="add-event-button md-warn md-fab md-fab-bottom-right" ng-click="vm.CreateForm($event)" aria-label="Add event">
+                    <md-icon md-font-icon="icon-plus"></md-icon>
+                </md-button>
+            </div>
+
+    </md-content>
+    <!-- / CONTENT -->
+
+    <!-- FILTERS SIDENAV -->
+    <md-sidenav class="filters-sidenav md-sidenav-right" md-component-id="filters-sidenav" ng-include="'app/main/apps/scrumboard/sidenavs/filters/filters-sidenav.html'" ng-controller="FiltersSidenavController as vm" ms-sidenav-helper>
+    </md-sidenav>
+    <!-- / FILTERS SIDENAV -->
+</div>

@@ -3,8 +3,7 @@
 
     angular.module('app.board').controller('BoardListController', BoardListController);
 
-    function BoardListController(ProjectData) {
-    	debugger;
+    function BoardListController(ProjectData) {    	
         var vm = this;
         vm.project = ProjectData;
     }

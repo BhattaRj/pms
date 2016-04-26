@@ -1,0 +1,129 @@
+<style type="text/css">
+.ta-editor {
+    min-height: 100px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+.text-editor {
+    width: auto;
+}
+</style>
+<md-dialog aria-label="Issue" ng-cloak flex="60">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>{{ title }}</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon aria-label="Close dialog">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div layout="column" ng-cloak>
+            <md-content layout-padding>
+                <form name="Form">
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Title</label>
+                            <input md-maxlength="200" required name="title" ng-model="vm.dataModel.title">
+                            <div ng-messages="Form.title.$error">
+                                <div ng-message="required">This is required.</div>
+                                <div ng-message="md-maxlength">The title has to be less than 200 characters long.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Page Order</label>
+                            <md-select ng-model="vm.dataModel.order">
+                                <md-option value="before">Before</md-option>
+                                <md-option value="after">After</md-option>
+                                <md-option value="childOf">Child of</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label></label>
+                            <md-select ng-model="vm.dataModel.ordertask" aria-label="Select Order">
+                                <md-option ng-repeat="issue in issues" value="{{ issue.id }}">
+                                    <span ng-bind-html="[[ makePadding(issue.title,issue.depth) ]]" padded-title></span>
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Priority</label>
+                            <md-select ng-model="vm.dataModel.priority">
+                                <md-option value="Highest">Highest</md-option>
+                                <md-option value="High">High</md-option>
+                                <md-option value="Low">Low</md-option>
+                                <md-option value="Lowest">Lowest</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Type</label>
+                            <md-select ng-model="vm.dataModel.task_type">
+                                <md-option value="User Story" selected>User Story</md-option>
+                                <md-option value="Epic">Epic</md-option>
+                                <md-option value="Task">Task</md-option>
+                                <md-option value="Test Case">Test Case</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Story Point</label>
+                            <input name="story_point" ng-model="vm.dataModel.story_point">
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Reporter </label>
+                            <md-select ng-model="vm.dataModel.reporter_id">
+                                <md-option ng-repeat="user in users" value="{{ user.id }}">
+                                    {{ user.name }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Assigne </label>
+                            <md-select ng-model="vm.dataModel.assigne_id">
+                                <md-option ng-repeat="user in users" value="{{ user.id }}">
+                                    {{ user.name }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <!-- <md-input-container class="md-block" flex-gt-sm>
+                            <label>Board Status </label>
+                            <md-select ng-model="dataModel.board_id">
+                                <md-option ng-repeat="board in boards" value="{{ board.id }}">
+                                    {{ board.title }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container> -->
+                    </div>
+                    <label>Description</label>
+                    <md-input-container class="md-block">
+                        <div class="container app text-editor">
+                            <div text-angular="text-angular" name="description" ng-model="vm.dataModel.description"></div>
+                        </div>
+                    </md-input-container>
+                </form>
+            </md-content>
+        </div>
+    </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <md-button class="save-button md-accent md-raised" aria-label="SAVE" ng-click="vm.save(vm.dataModel)" can-save-form ng-disabled="!canSave(Form)">
+                <span ng-if="dataSaved">Save</span>
+                <span ng-if="!dataSaved">Saving...</span>
+            </md-button>
+            <md-button ng-click="cancel()" modal-cancel-buttton class="save-button md-warn md-raised" aria-label="SAVE">CANCEL</md-button>
+        </md-dialog-actions>
+
+
+
+</md-dialog>
