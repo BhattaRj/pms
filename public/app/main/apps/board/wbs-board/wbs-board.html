@@ -1,4 +1,4 @@
-<div id="scrumboard" class="page-layout simple fullwidth" layout="column">
+<div id="scrumboard" class="page-layout simple fullwidth" layout="column" >
     <!-- HEADER -->
     <div class="header md-accent-bg" ng-class="'md-'+vm.board.settings.color+'-bg'" layout="column">
         <div class="header-content" layout="row" layout-align="space-between" layout-wrap flex>
@@ -13,7 +13,7 @@
             <!-- BOARD NAME -->
             <div class="header-board-name" layout="row" layout-align="center center" flex-order="2" flex-order-xs="1" flex-xs="100">
                 <i ng-if="vm.board.settings.subscribed" class="board-subscribe s16 icon-eye"></i>
-                <span editable-text="vm.board.name" onaftersave="vm.updateBoardUri()">WBS Board</span>
+                <span>WBS Board</span>
             </div>
             <!-- / BOARD NAME -->
             <!-- TOOLBAR -->
@@ -72,11 +72,11 @@
 
 
     <!-- CONTENT -->
-    <md-content class="content" flex layout="column">
+    <md-content class="content" flex layout="column" ms-scroll>
         <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
-
+        
             <!-- CONTENT -->
-            <div class="content">
+            <div class="content" ms-scroll>
                 <div class="simple-table-container md-whiteframe-4dp">
                     <table class="simple" ms-responsive-table>
                         <thead>
@@ -113,10 +113,10 @@
 
                                 <td class="office">
                                     <i class="mdi mdi-bell"></i>
-                                    <md-button class="md-icon-button md-primary" aria-label="Custom Icon Button" ng-click="vm.create($event, dataItem.id)">
+                                    <md-button class="md-icon-button md-primary" aria-label="Custom Icon Button" ng-click="vm.create($event, dataModel.id)">
                                         <i class="icon icon-table-edit"></i>
                                     </md-button>
-                                    <md-button class="md-icon-button md-warn" aria-label="Custom Icon Button" ng-click="vm.remove(dataItem.id,$index,$event)">
+                                    <md-button class="md-icon-button md-warn" aria-label="Custom Icon Button" ng-click="vm.remove(dataModel.id,$index,$event)">
                                         <i class="icon icon-close"></i>
                                     </md-button>
                                 </td>
@@ -126,12 +126,11 @@
                 </div>
             </div>
 
-
         </div>
 
             <!-- / CONTENT -->
             <div layout="row">
-                <md-button class="add-event-button md-warn md-fab md-fab-bottom-right" ng-click="vm.CreateForm($event)" aria-label="Add event">
+                <md-button class="add-event-button md-warn md-fab md-fab-bottom-right" ng-click="vm.create($event)" aria-label="Add event">
                     <md-icon md-font-icon="icon-plus"></md-icon>
                 </md-button>
             </div>

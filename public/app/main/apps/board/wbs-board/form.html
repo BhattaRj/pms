@@ -1,15 +1,3 @@
-<style type="text/css">
-.ta-editor {
-    min-height: 100px;
-    height: auto;
-    overflow: auto;
-    font-family: inherit;
-    font-size: 100%;
-}
-
-.text-editor {
-    width: auto;
-}
 </style>
 <md-dialog aria-label="Issue" ng-cloak flex="60">
     <md-toolbar>
@@ -49,7 +37,7 @@
                         <md-input-container class="md-block" flex-gt-sm>
                             <label></label>
                             <md-select ng-model="vm.dataModel.ordertask" aria-label="Select Order">
-                                <md-option ng-repeat="issue in issues" value="{{ issue.id }}">
+                                <md-option ng-repeat="issue in vm.issues" value="{{ issue.id }}">
                                     <span ng-bind-html="[[ makePadding(issue.title,issue.depth) ]]" padded-title></span>
                                 </md-option>
                             </md-select>
@@ -96,14 +84,6 @@
                                 </md-option>
                             </md-select>
                         </md-input-container>
-                        <!-- <md-input-container class="md-block" flex-gt-sm>
-                            <label>Board Status </label>
-                            <md-select ng-model="dataModel.board_id">
-                                <md-option ng-repeat="board in boards" value="{{ board.id }}">
-                                    {{ board.title }}
-                                </md-option>
-                            </md-select>
-                        </md-input-container> -->
                     </div>
                     <label>Description</label>
                     <md-input-container class="md-block">

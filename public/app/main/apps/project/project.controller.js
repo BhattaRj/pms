@@ -37,7 +37,7 @@
 
             ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
                 if (response != true) {
-                    vm.dataList.push(response.data.data);
+                    vm.dataList.push(response);
                 } else {
                     getData();
                 }
@@ -67,6 +67,6 @@
                 $scope.dataSaved = true;
                 $mdDialog.hide(response);
             });
-        }        
+        }
     }
 })();

@@ -25,6 +25,7 @@ class TaskRepository
 	public function createTestCase($input)	
 	{
 		$project            = $this->project->findOrFail($input['project_id']);
+        
 		$input['sprint_id'] = $project->getTestingSprintID();     
 		$input['board_id']  = $this->board->getDefaultTestingBoardId(); 
         $input['author_id'] = $this->user->currentUserId();        
@@ -52,12 +53,12 @@ class TaskRepository
 
 	public function createTask($input)	
 	{
-        if(!isset($input['sprint_id']))
-        {            
-            $project            = $this->project->findOrFail($input['project_id']);
-            $input['sprint_id'] = $project->getBacklogId();                                 
-        }       
-		$input['board_id']  = $this->board->getDefaultBoardId(); 
+  //       if(!isset($input['sprint_id']))
+  //       {            
+  //           $project            = $this->project->findOrFail($input['project_id']);
+  //           $input['sprint_id'] = $project->getBacklogId();                                 
+  //       }       
+		// $input['board_id']  = $this->board->getDefaultBoardId(); 
         $input['author_id'] = $this->user->currentUserId();
              
         $result['data']     = $this->task->create($input);		       
@@ -83,12 +84,19 @@ class TaskRepository
         }
     }
 
+    public function updateTask($input,$id)
+    {
+        $task = $this->task->findOrFail($id);
+        $this->updateRowOrder($task, $input);
+        $result['data']    = $task->update($input);
+        $result['success'] = true;
+        return $result;
+    }
+
     public function moveToTestingBacklog($data)
     {
-
         $task               = $this->task->findOrFail($data['task_id']);
         $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
-
         return $task->update($input);        
     }
 }

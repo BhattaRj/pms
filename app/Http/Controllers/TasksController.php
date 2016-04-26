@@ -56,25 +56,21 @@ class TasksController extends Controller
     {
         $input = $request->input('data');
 
-        if($input['task_type'] == 'Test Case'){
-            return $this->taskRepository->createTestCase($input);
-        }
+        // if($input['task_type'] == 'Test Case'){
+        //     return $this->taskRepository->createTestCase($input);
+        // }
         
-        if($input['task_type'] == 'Bug'){
-            return $this->taskRepository->createBug($input);
-        }
+        // if($input['task_type'] == 'Bug'){
+        //     return $this->taskRepository->createBug($input);
+        // }
         
         return $this->taskRepository->createTask($input);
     }
 
     public function update(Request $request, $id)
     {
-        $task = $this->task->findOrFail($id);
-        $this->updateRowOrder($task, $request);
-
-        $result['data']    = $task->update($request->input('data'));
-        $result['success'] = true;
-        return $result;
+        $input = $request->input('data');
+        return $this->taskRepository->updateTask($input, $id);
     }
 
     public function show($id)

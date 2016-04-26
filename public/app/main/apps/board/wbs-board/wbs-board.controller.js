@@ -4,7 +4,7 @@
     angular.module('app.board').controller('WbsBoardController', WbsBoardController);
     angular.module('app.board').controller('SaveIssueController', SaveIssueController);
 
-    function WbsBoardController($mdSidenav, CardFilters, ProjectData, TaskData, TaskFactory, ModalFactory, $stateParams) {
+    function WbsBoardController($mdSidenav, CardFilters, ProjectData, TaskData, TaskFactory, ModalFactory, $stateParams, ConfirmFactory) {
         var vm = this;
         vm.currentView = 'board';
         vm.tasks = TaskData;
@@ -13,22 +13,8 @@
 
         // Methods
         vm.toggleSidenav = toggleSidenav;
-        vm.updateBoardUri = updateBoardUri;
         vm.clearFilters = CardFilters.clear;
         vm.filteringIsOn = CardFilters.isOn;
-
-        /**
-         * Update Board Uri
-         *
-         * Once you connect your app to your server,
-         * you would do this on your API server.
-         */
-        function updateBoardUri() {
-            if (vm.boardList.getById(vm.board.id)) {
-                vm.boardList.getById(vm.board.id).name = vm.board.name;
-                vm.boardList.getById(vm.board.id).uri = vm.board.uri = encodeURIComponent(vm.board.name).replace(/%20/g, '-').toLowerCase();
-            }
-        }
 
         /**
          * Toggle sidenav
@@ -40,34 +26,14 @@
         }
 
 
-        /**
-         * Array prototype
-         *
-         * Get by id
-         *
-         * @param value
-         * @returns {T}
-         */
-        Array.prototype.getById = function(value) {
-            return this.filter(function(x) {
-                return x.id === value;
-            })[0];
-        };
-
 
         vm.getData = getData;
         vm.remove = remove;
-        vm.CreateForm = CreateForm;
+        vm.create = create;
         vm.pageChanged = pageChanged;
         vm.dataLoaded = false;
         vm.param = {};
         vm.param.project_id = $stateParams.id;
-
-
-        // SprintFactory.getDataItem(vm.sprint_id).then(function(response) {            
-        //     vm.boards = response.boards;
-        // });
-
 
         function pageChanged(page) {
             vm.param.currentPage = vm.currentPage;
@@ -88,6 +54,7 @@
             ConfirmFactory.show($event, 'You really want to remove this !!').then(function() {
                 TaskFactory.remove(id).then(function(response) {
                     if (response) {
+                        // vm.tasks.splice($index, 1);
                         vm.getData(vm.param);
                     }
                 });
@@ -95,7 +62,7 @@
         }
 
         // Create form for create and Save.
-        function CreateForm($event, id) {
+        function create($event, id) {
             var templateUrl = '/app/main/apps/board/wbs-board/form.html',
                 contrl = 'SaveIssueController as vm',
                 data = {
@@ -103,7 +70,7 @@
                 };
 
             ModalFactory.showModal($event, contrl, templateUrl, data).then(function(response) {
-                // vm.getData(vm.param);
+                vm.getData(vm.param);
             });
         }
     }
@@ -142,7 +109,6 @@
         }
 
         function save(data) {
-            debugger;
             $scope.dataSaved = false;
             TaskFactory.save(data).then(function(response) {
                 $scope.dataSaved = true;

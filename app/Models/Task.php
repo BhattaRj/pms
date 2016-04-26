@@ -83,18 +83,18 @@ class Task extends Node
 
     public function createTask($data){
 
-        if(!isset($data['sprint_id'])){            
+        // if(!isset($data['sprint_id'])){            
 
-            $project            = $this->project->findOrFail($data['project_id']);
+        //     $project            = $this->project->findOrFail($data['project_id']);
 
-            if($data['task_type']=='Bug'){
+        //     if($data['task_type']=='Bug'){
 
-                $data['sprint_id'] = $project->getTestingBoardId();     
-            }
-            $data['sprint_id'] = $project->getBacklogId(); 
-        }
+        //         $data['sprint_id'] = $project->getTestingBoardId();     
+        //     }
+        //     $data['sprint_id'] = $project->getBacklogId(); 
+        // }
         
-        $data['board_id']  = $this->board->getDefaultBoardId();
+        // $data['board_id']  = $this->board->getDefaultBoardId();
         $data['author_id'] = $this->user->currentUserId();
 
         $result['data']     = $this->create($data);
@@ -103,42 +103,4 @@ class Task extends Node
 
         return $result;
     }
-
-
-    // public function updateRowOrder($request)
-    // {
-
-    //     if (array_key_exists('order', $request->input('data')) && array_key_exists('ordertask', $request->input('data'))) {
-
-    //         dd($request);
-            
-    //         try
-    //         {
-
-    //             $this->updateOrder($request->input('data')['order'], $request->input('data')['ordertask']);
-
-    //         } catch (MoveNotPossibleException $e) {
-
-    //             $result['success'] = false;
-    //             $result['msg']     = "Cannot make a page a child of self.";
-    //             return $result;
-    //         }
-    //     }
-    // }
-
-
-    // public function reorderTasks($request){
-
-    //     foreach ($tasks as $task) {
-
-    //         if (isset($task['default_board']) && $task['default_board'] == true) {
-
-    //             $task['board_id'] = $this->board->getDefaultTaskBoardId();
-    //         }
-
-    //         $this->task->findOrFail($task['id'])->update($task);
-    //     }
-    //     return true;
-    // }
-
 }
