@@ -1,14 +1,9 @@
-(function ()
-{
+(function() {
     'use strict';
 
-    angular
-        .module('fuse')
-        .config(config);
+    angular.module('fuse').config(config);
 
-    /** @ngInject */
-    function config()
-    {
+    function config() {
         // Put your custom configurations here
     }
 

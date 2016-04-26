@@ -6,7 +6,6 @@
         .module('app.sample', [])
         .config(config);
 
-    /** @ngInject */
     function config($stateProvider, $translatePartialLoaderProvider, msApiProvider, msNavigationServiceProvider)
     {
         // State
@@ -30,6 +29,14 @@
         // Translation
         $translatePartialLoaderProvider.addPart('app/main/sample');
 
+        // Navigation
+        msNavigationServiceProvider.saveItem('apps', {
+            title : 'APPS',
+            group : true,
+            weight: 1
+        });
+
+        
         // Api
         msApiProvider.register('sample', ['app/data/sample/sample.json']);
 

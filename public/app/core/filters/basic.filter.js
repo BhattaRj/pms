@@ -1,5 +1,4 @@
-(function ()
-{
+(function() {
     'use strict';
 
     angular
@@ -10,45 +9,34 @@
         .filter('humanizeDoc', humanizeDocFilter);
 
     /** @ngInject */
-    function toTrustedFilter($sce)
-    {
-        return function (value)
-        {
+    function toTrustedFilter($sce) {
+        return function(value) {
             return $sce.trustAsHtml(value);
         };
     }
 
     /** @ngInject */
-    function htmlToPlainTextFilter()
-    {
-        return function (text)
-        {
+    function htmlToPlainTextFilter() {
+        return function(text) {
             return String(text).replace(/<[^>]+>/gm, '');
         };
     }
 
     /** @ngInject */
-    function nospaceFilter()
-    {
-        return function (value)
-        {
+    function nospaceFilter() {
+        return function(value) {
             return (!value) ? '' : value.replace(/ /g, '');
         };
     }
 
     /** @ngInject */
-    function humanizeDocFilter()
-    {
-        return function (doc)
-        {
-            if ( !doc )
-            {
+    function humanizeDocFilter() {
+        return function(doc) {
+            if (!doc) {
                 return;
             }
-            if ( doc.type === 'directive' )
-            {
-                return doc.name.replace(/([A-Z])/g, function ($1)
-                {
+            if (doc.type === 'directive') {
+                return doc.name.replace(/([A-Z])/g, function($1) {
                     return '-' + $1.toLowerCase();
                 });
             }

@@ -1,5 +1,4 @@
-(function ()
-{
+(function() {
     'use strict';
 
     angular
@@ -8,27 +7,20 @@
         .filter('filterSingleByTags', filterSingleByTags);
 
     /** @ngInject */
-    function filterByTags()
-    {
-        return function (items, tags)
-        {
-            if ( items.length === 0 || tags.length === 0 )
-            {
+    function filterByTags() {
+        return function(items, tags) {
+            if (items.length === 0 || tags.length === 0) {
                 return items;
             }
 
             var filtered = [];
 
-            items.forEach(function (item)
-            {
-                var match = tags.every(function (tag)
-                {
+            items.forEach(function(item) {
+                var match = tags.every(function(tag) {
                     var tagExists = false;
 
-                    item.tags.forEach(function (itemTag)
-                    {
-                        if ( itemTag.name === tag.name )
-                        {
+                    item.tags.forEach(function(itemTag) {
+                        if (itemTag.name === tag.name) {
                             tagExists = true;
                             return;
                         }
@@ -37,8 +29,7 @@
                     return tagExists;
                 });
 
-                if ( match )
-                {
+                if (match) {
                     filtered.push(item);
                 }
             });
@@ -48,30 +39,23 @@
     }
 
     /** @ngInject */
-    function filterSingleByTags()
-    {
-        return function (itemTags, tags)
-        {
-            if ( itemTags.length === 0 || tags.length === 0 )
-            {
+    function filterSingleByTags() {
+        return function(itemTags, tags) {
+            if (itemTags.length === 0 || tags.length === 0) {
                 return;
             }
 
-            if ( itemTags.length < tags.length )
-            {
+            if (itemTags.length < tags.length) {
                 return [];
             }
 
             var filtered = [];
 
-            var match = tags.every(function (tag)
-            {
+            var match = tags.every(function(tag) {
                 var tagExists = false;
 
-                itemTags.forEach(function (itemTag)
-                {
-                    if ( itemTag.name === tag.name )
-                    {
+                itemTags.forEach(function(itemTag) {
+                    if (itemTag.name === tag.name) {
                         tagExists = true;
                         return;
                     }
@@ -80,8 +64,7 @@
                 return tagExists;
             });
 
-            if ( match )
-            {
+            if (match) {
                 filtered.push(itemTags);
             }
 

@@ -1,7 +1,6 @@
 (function ()
 {
     'use strict';
-
     /**
      * Main module of the Fuse
      */
@@ -27,6 +26,8 @@
             'app.users',
 
             // Project
-            'app.project'
+            'app.project',
+
+            'app.scrumboard'
         ]);
 })();

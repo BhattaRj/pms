@@ -1,5 +1,4 @@
-(function ()
-{
+(function() {
     'use strict';
 
     angular
@@ -7,15 +6,11 @@
         .controller('SampleController', SampleController);
 
     /** @ngInject */
-    function SampleController(SampleData)
-    {
+    function SampleController(SampleData) {
         var vm = this;
 
         // Data
         vm.helloText = SampleData.data.helloText;
 
-        // Methods
-
-        //////////
     }
 })();

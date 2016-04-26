@@ -109,6 +109,30 @@ if (!Auth::guest()) {
         <script src="app/main/project/project.module.js"></script>
         <script src="app/main/project/project.controller.js"></script>
 
+
+
+        <script src="app/main/apps/scrumboard/scrumboard.module.js"></script>
+        <script src="app/main/apps/scrumboard/views/calendar/dialogs/event/event-dialog.controller.js"></script>
+        <script src="app/main/apps/scrumboard/sidenavs/settings/menus/members/members-menu.controller.js"></script>
+        <script src="app/main/apps/scrumboard/sidenavs/settings/menus/labels/labels-menu.controller.js"></script>
+        <script src="app/main/apps/scrumboard/sidenavs/settings/menus/color/color-menu.controller.js"></script>
+
+        <script src="app/main/apps/scrumboard/views/calendar/calendar-view.controller.js"></script>
+        <script src="app/main/apps/scrumboard/views/boards/boards-view.controller.js"></script>
+        <script src="app/main/apps/scrumboard/views/board/board-view.controller.js"></script>
+        <script src="app/main/apps/scrumboard/sidenavs/settings/settings-sidenav.controller.js"></script>
+        <script src="app/main/apps/scrumboard/sidenavs/filters/filters-sidenav.controller.js"></script>
+        <script src="app/main/apps/scrumboard/directives/ms-sb-add-card/ms-sb-add-card.directive.js"></script>
+        <script src="app/main/apps/scrumboard/dialogs/card/card-dialog.controller.js"></script>
+
+
+        <script src="app/main/apps/scrumboard/services/filters.service.js"></script>
+        <script src="app/main/apps/scrumboard/services/dialog.service.js"></script>
+        <script src="app/main/apps/scrumboard/services/board.service.js"></script>
+
+        <script src="app/main/apps/scrumboard/scrumboard.controller.js"></script>
+
+
         <script src="app/core/theming/fuse-theming.provider.js"></script>
         <script src="app/core/theming/fuse-theming.config.js"></script>
         <script src="app/core/theming/fuse-themes.constant.js"></script>
