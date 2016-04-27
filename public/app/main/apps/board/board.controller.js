@@ -9,7 +9,6 @@
         vm.currentView = 'board';
         vm.project = ProjectData;
         vm.board = SprintFactory.data;
-        debugger;
         vm.boardSelectorVisible = false;
 
         // Methods
@@ -26,6 +25,7 @@
          * you would do this on your API server.
          */
         function updateBoardUri() {
+            debugger;
             SprintFactory.save(vm.board);
         }
 

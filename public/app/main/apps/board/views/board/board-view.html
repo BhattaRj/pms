@@ -1,12 +1,13 @@
 <!-- BOARD -->
-<div id="board" ng-class="vm.board.settings.color+'-100-bg'" ui-sortable="vm.sortableListOptions" ng-model="vm.board.lists" layout="row">
-    <!-- LIST -->
+
+<div id="board" ng-class="vm.board.settings.color+'-100-bg'" ui-sortable="vm.sortableListOptions" ng-model="vm.board.boards" layout="row">
+    <!-- LIST -->    
     <div class="list-wrapper" ng-repeat="list in vm.board.boards">
         <div class="list md-whiteframe-1dp" layout="column">
             <!-- LIST HEADER -->
             <div class="list-header" layout="row" layout-align="space-between center">
                 <div class="list-header-name">
-                    <span editable-text="list.name">{{ list.title }}</span>
+                    <span editable-text="list.title" onaftersave="vm.updateListTitle(list)">{{ list.title }}</span>
                 </div>
                 <md-menu md-offset="0 48px" class="options list-header-option-button">
                     <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)" aria-label="Options" translate translate-attr-aria-label="SB.OPTIONS">
@@ -133,8 +134,11 @@
                     <span translate="SB.ADD_A_LIST">Add a list</span>
                 </div>
             </md-button>
-        </div>
+        </div>     
     </div>
+
     <!-- / NEW LIST BUTTON-->
 </div>
 <!-- / BOARD -->
+
+    <pre>{{ vm.board.boards | json }}</pre>   

@@ -47,7 +47,7 @@
             </div>
             <div class="selected-icon green-bg"><i class="icon-check s24"></i></div>
         </div>
-        <div class="board-list-item" ng-repeat="board in vm.project.sprints" ui-sref="app.scrumboard.boards.board({id:board.id, uri:board.uri})" layout="column" layout-align="space-between center">
+        <div class="board-list-item" ng-repeat="board in vm.project.sprints" ui-sref="app.board.show({board_id:board.id, id:board.project_id})" layout="column" layout-align="space-between center">
             <div class="board-icon">
                 <i class="icon-trello s64"></i>
             </div>

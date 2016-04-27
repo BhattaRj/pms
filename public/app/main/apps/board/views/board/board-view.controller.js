@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('app.board').controller('BoardViewController', BoardViewController);
-    
-    function BoardViewController($document, $window, $timeout, $mdDialog, msUtils, CardFilters, DialogService, SprintFactory, ProjectData,BoardFactory) {
-        var vm = this;        
+
+    function BoardViewController($document, $window, $timeout, $mdDialog, msUtils, CardFilters, DialogService, SprintFactory, ProjectData, BoardFactory) {
+        var vm = this;
         vm.currentView = 'board';
         vm.board = SprintFactory.data;
         vm.boardList = ProjectData.sprints;
@@ -15,7 +15,6 @@
         vm.cardOptions = {};
         vm.newListName = '';
 
-        debugger;
 
         vm.sortableListOptions = {
             axis: 'x',
@@ -26,7 +25,6 @@
             placeholder: 'list-wrapper list-sortable-placeholder',
             tolerance: 'pointer',
             start: function(event, ui) {
-
                 var width = ui.item[0].children[0].clientWidth;
                 var height = ui.item[0].children[0].clientHeight;
                 ui.placeholder.css({
@@ -103,8 +101,12 @@
         vm.removeList = removeList;
         vm.cardFilter = cardFilter;
         vm.isOverdue = isOverdue;
+        vm.updateListTitle = updateListTitle;
 
-        //////////
+        function  updateListTitle(list) {            
+            BoardFactory.save(list).then(function(response){                
+            });
+        }
 
         init();
 
@@ -188,7 +190,11 @@
                 cancel: 'Cancel'
             });
             $mdDialog.show(confirm).then(function() {
-                vm.board.lists.splice(vm.board.lists.indexOf(list), 1);
+                BoardFactory.remove(list.id).then(function(response){
+                    vm.board.boards.splice(vm.board.boards.indexOf(list),1);
+                });
+                // vm.board.lists.splice(vm.board.lists.indexOf(list), 1);
+
             }, function() {
                 // Canceled
             });
