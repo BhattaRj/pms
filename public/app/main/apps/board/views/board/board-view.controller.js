@@ -1,17 +1,15 @@
 (function() {
     'use strict';
 
-    angular
-        .module('app.board').controller('BoardViewController', BoardViewController);
-
-    /** @ngInject */
-    function BoardViewController($document, $window, $timeout, $mdDialog, msUtils, BoardService, CardFilters, DialogService, ListFactory, BoardData) {
-        var vm = this;
-
-        // Data
+    angular.module('app.board').controller('BoardViewController', BoardViewController);
+    
+    function BoardViewController($document, $window, $timeout, $mdDialog, msUtils, CardFilters, DialogService, SprintFactory, ProjectData,BoardFactory) {
+        var vm = this;        
         vm.currentView = 'board';
-        vm.board = BoardService.data;
-        // vm.boardList = BoardList.data;
+        vm.board = SprintFactory.data;
+        vm.boardList = ProjectData.sprints;
+
+
         vm.cardFilters = CardFilters;
         vm.card = {};
         vm.cardOptions = {};
@@ -164,8 +162,8 @@
             // Add new List.
             var data = {};
             data.title = vm.newListName;
-            data.sprint_id = board_id;
-            ListFactory.save(data).then(function(response) {
+            data.sprint_id = vm.board.id;
+            BoardFactory.save(data).then(function(response) {
                 vm.board.boards.push(response);
                 vm.newListName = '';
             });

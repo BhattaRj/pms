@@ -1,14 +1,10 @@
-(function ()
-{
+(function() {
     'use strict';
 
-    angular
-        .module('app.core')
-        .provider('msApi', msApiProvider);
+    angular.module('app.core').provider('msApi', msApiProvider);
 
     /** @ngInject **/
-    function msApiProvider()
-    {
+    function msApiProvider() {
         /* ----------------- */
         /* Provider          */
         /* ----------------- */
@@ -35,8 +31,7 @@
          *
          * @param url {string}
          */
-        function setBaseUrl(url)
-        {
+        function setBaseUrl(url) {
             baseUrl = url;
         }
 
@@ -45,8 +40,7 @@
          *
          * @returns {string}
          */
-        function getBaseUrl()
-        {
+        function getBaseUrl() {
             return baseUrl;
         }
 
@@ -55,8 +49,7 @@
          *
          * @returns {object}
          */
-        function getApiObject()
-        {
+        function getApiObject() {
             return api;
         }
 
@@ -66,26 +59,23 @@
          * @param key
          * @param resource
          */
-        function register(key, resource)
-        {
-            if ( !angular.isString(key) )
-            {
+        function register(key, resource) {
+            if (!angular.isString(key)) {
                 $log.error('"path" must be a string (eg. `dashboard.project`)');
                 return;
             }
 
-            if ( !angular.isArray(resource) )
-            {
+            if (!angular.isArray(resource)) {
                 $log.error('"resource" must be an array and it must follow $resource definition');
                 return;
             }
 
             // Prepare the resource object
             var resourceObj = {
-                url          : baseUrl + (resource[0] || ''),
+                url: baseUrl + (resource[0] || ''),
                 paramDefaults: resource[1] || [],
-                actions      : resource[2] || [],
-                options      : resource[3] || {}
+                actions: resource[2] || [],
+                options: resource[3] || {}
             };
 
             // Assign the resource
@@ -95,17 +85,16 @@
         /* ----------------- */
         /* Service           */
         /* ----------------- */
-        this.$get = function ($q, $log)
-        {
+        this.$get = function($q, $log) {
             // Data
 
             // Methods
             var service = {
                 setBaseUrl: setBaseUrl,
                 getBaseUrl: getBaseUrl,
-                register  : register,
-                resolve   : resolve,
-                request   : request
+                register: register,
+                resolve: resolve,
+                request: request
             };
 
             return service;
@@ -119,15 +108,13 @@
              * @param parameters {object}
              * @returns {promise|boolean}
              */
-            function resolve(action, parameters)
-            {
+            function resolve(action, parameters) {
                 var actionParts = action.split('@'),
                     resource = actionParts[0],
                     method = actionParts[1],
                     params = parameters || {};
 
-                if ( !resource || !method )
-                {
+                if (!resource || !method) {
                     $log.error('msApi.resolve requires correct action parameter (resourceName@methodName)');
                     return false;
                 }
@@ -138,24 +125,19 @@
                 // Get the correct resource definition from api object
                 var apiObject = api[resource];
 
-                if ( !apiObject )
-                {
+                if (!apiObject) {
                     $log.error('Resource "' + resource + '" is not defined in the api service!');
                     deferred.reject('Resource "' + resource + '" is not defined in the api service!');
-                }
-                else
-                {
+                } else {
                     apiObject[method](params,
 
                         // Success
-                        function (response)
-                        {
+                        function(response) {
                             deferred.resolve(response);
                         },
 
                         // Error
-                        function (response)
-                        {
+                        function(response) {
                             deferred.reject(response);
                         }
                     );
@@ -175,15 +157,13 @@
              *
              * @returns {promise|boolean}
              */
-            function request(action, parameters, success, error)
-            {
+            function request(action, parameters, success, error) {
                 var actionParts = action.split('@'),
                     resource = actionParts[0],
                     method = actionParts[1],
                     params = parameters || {};
 
-                if ( !resource || !method )
-                {
+                if (!resource || !method) {
                     $log.error('msApi.resolve requires correct action parameter (resourceName@methodName)');
                     return false;
                 }
@@ -194,37 +174,30 @@
                 // Get the correct resource definition from api object
                 var apiObject = api[resource];
 
-                if ( !apiObject )
-                {
+                if (!apiObject) {
                     $log.error('Resource "' + resource + '" is not defined in the api service!');
                     deferred.reject('Resource "' + resource + '" is not defined in the api service!');
-                }
-                else
-                {
+                } else {
                     apiObject[method](params,
 
                         // SUCCESS
-                        function (response)
-                        {
+                        function(response) {
                             // Resolve the promise
                             deferred.resolve(response);
 
                             // Call the success function if there is one
-                            if ( angular.isDefined(success) && angular.isFunction(success) )
-                            {
+                            if (angular.isDefined(success) && angular.isFunction(success)) {
                                 success(response);
                             }
                         },
 
                         // ERROR
-                        function (response)
-                        {
+                        function(response) {
                             // Reject the promise
                             deferred.reject(response);
 
                             // Call the error function if there is one
-                            if ( angular.isDefined(error) && angular.isFunction(error) )
-                            {
+                            if (angular.isDefined(error) && angular.isFunction(error)) {
                                 error(response);
                             }
                         }

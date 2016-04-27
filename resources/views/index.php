@@ -58,59 +58,25 @@
         <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
 
         <!-- inject:js -->
-        <script src="app/main/apps/scrumboard/scrumboard.module.js"></script>
-        <script src="app/main/apps/scrumboard/views/calendar/dialogs/event/event-dialog.controller.js"></script>
-        <script src="app/main/apps/scrumboard/sidenavs/settings/menus/members/members-menu.controller.js"></script>
-        <script src="app/main/apps/scrumboard/sidenavs/settings/menus/labels/labels-menu.controller.js"></script>
-        <script src="app/main/apps/scrumboard/sidenavs/settings/menus/color/color-menu.controller.js"></script>
 
-
-        <script src="app/main/apps/todo/todo.module.js"></script>
-        <script src="app/main/apps/todo/dialogs/task/task-dialog.controller.js"></script>
-
-        <script src="app/main/apps/scrumboard/views/calendar/calendar-view.controller.js"></script>
-        <script src="app/main/apps/scrumboard/views/boards/boards-view.controller.js"></script>
-        <script src="app/main/apps/scrumboard/views/board/board-view.controller.js"></script>
-        <script src="app/main/apps/scrumboard/sidenavs/settings/settings-sidenav.controller.js"></script>
-        <script src="app/main/apps/scrumboard/sidenavs/filters/filters-sidenav.controller.js"></script>
-        <script src="app/main/apps/scrumboard/directives/ms-sb-add-card/ms-sb-add-card.directive.js"></script>
-        <script src="app/main/apps/scrumboard/dialogs/card/card-dialog.controller.js"></script>
-        <script src="app/main/apps/mail/mail.module.js"></script>
-        <script src="app/main/apps/mail/dialogs/compose/compose-dialog.controller.js"></script>
-        <script src="app/main/apps/gantt-chart/gantt-chart.module.js"></script>
-        <script src="app/main/apps/gantt-chart/dialogs/add-edit/add-edit-dialog.controller.js"></script>
-        <script src="app/main/apps/calendar/calendar.module.js"></script>
-        <script src="app/main/apps/calendar/dialogs/event-form/event-form-dialog.controller.js"></script>
-        <script src="app/main/apps/calendar/dialogs/event-detail/event-detail-dialog.controller.js"></script>
-
-        <script src="app/main/apps/scrumboard/services/filters.service.js"></script>
-        <script src="app/main/apps/scrumboard/services/dialog.service.js"></script>
-        <script src="app/main/apps/scrumboard/services/board.service.js"></script>
         <script src="app/main/apps/dashboards/server/dashboard-server.module.js"></script>
         <script src="app/main/apps/dashboards/server/dashboard-server.controller.js"></script>
         <script src="app/main/apps/dashboards/project/dashboard-project.module.js"></script>
         <script src="app/main/apps/dashboards/project/dashboard-project.controller.js"></script>
         <script src="app/main/apps/dashboards/analytics/dashboard-analytics.module.js"></script>
         <script src="app/main/apps/dashboards/analytics/dashboard-analytics.controller.js"></script>
+
         <script src="app/quick-panel/quick-panel.module.js"></script>
         <script src="app/quick-panel/tabs/chat/chat-tab.controller.js"></script>
 
-        <script src="app/main/apps/todo/todo.controller.js"></script>
-        <script src="app/main/apps/scrumboard/scrumboard.controller.js"></script>
-        <script src="app/main/apps/mail/mail.controller.js"></script>
-        <script src="app/main/apps/gantt-chart/gantt-chart.controller.js"></script>
-        <script src="app/main/apps/file-manager/file-manager.module.js"></script>
-        <script src="app/main/apps/file-manager/file-manager.controller.js"></script>
-        <script src="app/main/apps/calendar/calendar.controller.js"></script>
-
-
-
+        <!-- Custome app. -->
         <script src="app/main/apps/users/users.module.js"></script>
         <script src="app/main/apps/users/users.controller.js"></script>
 
         <script src="app/main/apps/project/project.module.js"></script>
         <script src="app/main/apps/project/project.controller.js"></script>
 
+        <!-- Board App. -->
         <script src="app/main/apps/board/board.module.js"></script>
         <script src="app/main/apps/board/views/boards/board-list.controller.js"></script>
 
@@ -120,12 +86,24 @@
         <script src="app/main/apps/board/views/boards/board-list.controller.js"></script>
         <script src="app/main/apps/board/views/board/board-view.controller.js"></script>
 
+        <script src="app/main/apps/board/directives/ms-sb-add-card/ms-sb-add-card.directive.js"></script>
+        <script src="app/main/apps/board/services/filters.service.js"></script>
+        <script src="app/main/apps/board/services/dialog.service.js"></script>
+        <script src="app/main/apps/board/services/board.service.js"></script>
+
+        <script src="app/main/apps/board/sidenavs/settings/settings-sidenav.controller.js"></script>
+        <script src="app/main/apps/board/sidenavs/settings/menus/color/color-menu.controller.js"></script>
+        <script src="app/main/apps/board/sidenavs/settings/menus/labels/labels-menu.controller.js"></script>
+        <script src="app/main/apps/board/sidenavs/settings/menus/members/members-menu.controller.js"></script>
+
+        <script src="app/main/apps/board/sidenavs/filters/filters-sidenav.controller.js"></script>
+
+
         <script src="app/main/apps/board/wbs-board/wbs-board.controller.js"></script>
 
 
-
+        <!--  Core Module. -->
         <script src="app/core/core.module.js"></script>
-
         <script src="app/core/directives/ms-widget/ms-widget.directive.js"></script>
         <script src="app/core/directives/ms-timeline/ms-timeline.js"></script>
         <script src="app/core/directives/ms-stepper/ms-stepper.directive.js"></script>
@@ -154,7 +132,6 @@
         <script src="app/core/services/ms-utils.service.js"></script>
         <script src="app/core/services/ms-api.provider.js"></script>
         <script src="app/core/services/api-resolver.service.js"></script>
-
         <script src="app/core/services/rj-common.service.js"></script>
 
         <!-- resource -->
@@ -190,7 +167,7 @@
         <script src="app/main/pages/auth/login-v2/login-v2.module.js"></script>
 
         <script src="app/main/apps/dashboards/dashboards.module.js"></script>
-        <!-- endinject -->
+        
 
     </body>
 </html>

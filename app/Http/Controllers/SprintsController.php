@@ -41,10 +41,18 @@ class SprintsController extends Controller
 
     public function store(Request $request)
     {
-        $boards            = $this->board->where('sprint_default', 1)->get();        
-        $sprint            = $this->sprint->addSprint($request->input('data'), $boards);
-        $result['data']    = $sprint->load('tasks');
+        // $boards            = $this->board->where('sprint_default', 1)->get();   
+
+        // $sprint            = $this->sprint->addSprint($request->input('data'), $boards);
+
+        $sprint=$this->sprint->create($request->input('data'));
+
+        $result['data']    = $sprint->load(['tasks','boards'=>function($query){
+            $query->with('tasks');
+        }]);
+
         $result['success'] = true;
+
         return $result;
     }
 
@@ -67,7 +75,9 @@ class SprintsController extends Controller
 
     public function show($id)
     {
-        $result['data']    = $this->sprint->findOrFail($id)->load('boards');
+        $result['data']    = $this->sprint->findOrFail($id)->load(['boards'=>function($query){
+            $query->with('tasks');
+        }]);
         $result['success'] = true;
         return $result;
     }

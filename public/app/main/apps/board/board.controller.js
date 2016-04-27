@@ -3,12 +3,13 @@
 
     angular.module('app.board').controller('BoardController', BoardController);
 
-    function BoardController($mdSidenav, BoardData, CardFilters, ProjectData , SprintFactory) {
-        var vm = this;        
-        // Data
-        vm.project = ProjectData;
+    function BoardController($mdSidenav, CardFilters, ProjectData, SprintFactory) {
+        var vm = this;
+
         vm.currentView = 'board';
-        vm.board = BoardData;                
+        vm.project = ProjectData;
+        vm.board = SprintFactory.data;
+        debugger;
         vm.boardSelectorVisible = false;
 
         // Methods
@@ -17,7 +18,6 @@
         vm.clearFilters = CardFilters.clear;
         vm.filteringIsOn = CardFilters.isOn;
 
-        ////////
 
         /**
          * Update Board Uri
@@ -25,7 +25,7 @@
          * Once you connect your app to your server,
          * you would do this on your API server.
          */
-        function updateBoardUri() {            
+        function updateBoardUri() {
             SprintFactory.save(vm.board);
         }
 

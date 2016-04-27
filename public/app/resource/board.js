@@ -2,7 +2,7 @@
  *  Resourse for creates read update delete.
  */
 angular.module('app.core').factory('Board', Board);
-angular.module('app.core').factory('ListFactory', ListFactory);
+angular.module('app.core').factory('BoardFactory', BoardFactory);
 
 
 function Board(ResourseFactory) {
@@ -10,7 +10,7 @@ function Board(ResourseFactory) {
 }
 
 
-function ListFactory(Board, BaseModelFactory, $q, $http) {
+function BoardFactory(Board, BaseModelFactory, $q, $http) {
     var fac = {},
         res = Board;
     fac.getDataList = getDataList;

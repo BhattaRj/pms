@@ -37,7 +37,7 @@ class CreateTasksTable extends Migration
             $table->integer('assigne_id')->unsigned()->nullable();
             $table->foreign('assigne_id')->references('id')->on('users');
             
-            $table->integer('project_id')->unsigned();
+            $table->integer('project_id')->unsigned()->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 
         });

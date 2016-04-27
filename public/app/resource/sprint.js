@@ -19,17 +19,32 @@ function SprintFactory(Sprint, BaseModelFactory, $q, $http) {
     fac.remove = remove;
     fac.activeSprint = activeSprint;
     fac.testingSprint = testingSprint;
+    fac.data = {};
 
     function getDataItem(id) {
-        return BaseModelFactory.getDataItem(res, id);
+        var deferred = $q.defer();
+        return BaseModelFactory.getDataItem(res, id).then(function(response) {
+            fac.data = response;
+            // Resolve the response
+            deferred.resolve(response);
+        }, function(response) {
+            deferred.reject(response);
+        });
     }
 
     function getDataList(param) {
         return BaseModelFactory.getDataList(res, param);
     }
 
-    function save(data) {        
-        return BaseModelFactory.save(res, data);
+    function save(data) {
+        var deferred = $q.defer();
+        return BaseModelFactory.save(res, data).then(function(response) {
+            fac.data = response;
+            // Resolve the response
+            deferred.resolve(response);
+        }, function(response) {
+            deferred.reject(response);
+        });
     }
 
     function remove(id) {
