@@ -114,7 +114,15 @@
         <script src="app/main/apps/board/board.module.js"></script>
         <script src="app/main/apps/board/views/boards/board-list.controller.js"></script>
 
+        <script src="app/main/apps/board/board.module.js"></script>
+        <script src="app/main/apps/board/board.controller.js"></script>
+        
+        <script src="app/main/apps/board/views/boards/board-list.controller.js"></script>
+        <script src="app/main/apps/board/views/board/board-view.controller.js"></script>
+
         <script src="app/main/apps/board/wbs-board/wbs-board.controller.js"></script>
+
+
 
         <script src="app/core/core.module.js"></script>
 

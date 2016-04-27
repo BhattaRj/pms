@@ -41,9 +41,6 @@
 
                 <div class="list-cards" ui-sortable="vm.sortableCardOptions" ng-model="list.idCards" ms-scroll>
 
-                <pre>
-                    {{ list.idCards | json }}
-                </pre>
                     <!-- CARD -->
                     <div ng-if="cardId" class="list-card md-whiteframe-2dp"
                          ng-repeat="cardId in list.idCards | filter: vm.cardFilter track by $index"
@@ -199,12 +196,8 @@
                 </div>
             </md-button>
         </div>
-
-    <pre>{{ vm.board.lists | json }}</pre>
-
     </div>
     <!-- / NEW LIST BUTTON-->
 
 </div>
 <!-- / BOARD -->
-

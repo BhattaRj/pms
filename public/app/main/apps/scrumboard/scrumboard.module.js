@@ -10,8 +10,7 @@
                 abstract: true,
                 url: '/scrumboard',
                 resolve: {
-                    BoardList: function(msApi) {
-                        debugger;
+                    BoardList: function(msApi) {                        
                         return msApi.resolve('scrumboard.boardList@get');
                     }
                 },

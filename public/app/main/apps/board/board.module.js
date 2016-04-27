@@ -66,25 +66,26 @@
         //     }
         // })
 
-        // // Add board
-        // .state('app.scrumboard.boards.addBoard', {
-        //     url: '/add',
-        //     views: {
-        //         'content@app': {
-        //             templateUrl: 'app/main/apps/scrumboard/scrumboard.html',
-        //             controller: 'ScrumboardController as vm'
-        //         },
-        //         'scrumboardContent@app.scrumboard.boards.addBoard': {
-        //             templateUrl: 'app/main/apps/scrumboard/views/board/board-view.html',
-        //             controller: 'BoardViewController as vm'
-        //         }
-        //     },
-        //     resolve: {
-        //         BoardData: function($stateParams, BoardService) {
-        //             return BoardService.addNewBoard();
-        //         }
-        //     }
-        // });
+        // Add board
+        .state('app.board.addBoard', {
+            url: '/add',
+            views: {
+                'content@app': {
+                    templateUrl: 'app/main/apps/board/board.html',
+                    controller: 'BoardController as vm'
+                },
+                'scrumboardContent@app.board.addBoard': {
+                    templateUrl: 'app/main/apps/board/views/board/board-view.html',
+                    controller: 'BoardViewController as vm'
+                }
+            },
+            resolve: {
+                BoardData: function($stateParams, SprintFactory) {                    
+                    var data = { project_id: $stateParams.id,title:'Untitled Board' };
+                    return SprintFactory.save(data);
+                }
+            }
+        });
 
         // Api
         // msApiProvider.register('scrumboard.boardList', ['app/data/scrumboard/board-list.json']);
