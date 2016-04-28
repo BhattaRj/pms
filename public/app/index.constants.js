@@ -1,7 +1,6 @@
-(function ()
-{
+(function() {
     'use strict';
 
-    angular
-        .module('fuse');
+    angular.module('fuse');
+
 })();

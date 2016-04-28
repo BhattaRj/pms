@@ -1,45 +1,34 @@
-(function ()
-{
+(function() {
     'use strict';
 
     /**
      * Main module of the Fuse
      */
-    angular
-        .module('fuse', [
+    angular.module('fuse', [
 
-            // Core
-            'app.core',
+        // Core
+        'app.core',
 
-            // Navigation
-            'app.navigation',
+        // Navigation
+        'app.navigation',
 
-            // Toolbar
-            'app.toolbar',
+        // Toolbar
+        'app.toolbar',
 
-            // Quick panel
-            'app.quick-panel',
+        // Quick panel
+        'app.quick-panel',
 
-            // Apps
-            'app.dashboards',
-            
-            // User
-            'app.users',
+        // Apps
+        'app.dashboards',
 
-            // Project
-            'app.project',
+        // User
+        'app.users',
 
-            // 'app.scrumboard',
-            
-            'app.board'
+        // Project
+        'app.project',
 
-            // // Pages
-            // 'app.pages',
-
-            // // User Interface
-            // 'app.ui',
-
-            // // Components
-            // 'app.components'
-        ]);
+        // Board
+        'app.board'
+    ]);
+    
 })();
