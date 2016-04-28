@@ -66,4 +66,22 @@ class BoardsController extends Controller
         return $result;
     }
 
+    /**
+     * Reorder the list in sprint.
+     * @param  Request $request
+     * @return [array]
+     */
+    public function reorderList(Request $request)
+    {
+        // dd($request->all());
+        
+        foreach ($request->all() as $data) {
+            $this->board->findOrFail($data['id'])->update($data);
+        }
+
+        $result['success'] = true;
+        return $result;
+    }
+
+
 }

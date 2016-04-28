@@ -48,7 +48,9 @@ class SprintsController extends Controller
         $sprint=$this->sprint->create($request->input('data'));
 
         $result['data']    = $sprint->load(['tasks','boards'=>function($query){
-            $query->with('tasks');
+            $query->with(['tasks'=>function($query){
+                $query->orderBy('order');
+            }])->orderBy('order');
         }]);
 
         $result['success'] = true;
@@ -76,7 +78,9 @@ class SprintsController extends Controller
     public function show($id)
     {
         $result['data']    = $this->sprint->findOrFail($id)->load(['boards'=>function($query){
-            $query->with('tasks');
+            $query->with(['tasks'=>function($query){
+                $query->orderBy('order');
+            }])->orderBy('order');
         }]);
         $result['success'] = true;
         return $result;

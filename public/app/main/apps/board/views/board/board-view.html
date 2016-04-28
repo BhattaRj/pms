@@ -7,7 +7,8 @@
             <!-- LIST HEADER -->
             <div class="list-header" layout="row" layout-align="space-between center">
                 <div class="list-header-name">
-                    <span editable-text="list.title" onaftersave="vm.updateListTitle(list)">{{ list.title }}</span>
+                    <span editable-text="list.title" onaftersave="vm.updateListTitle(list)">{{ list.title }}-{{ list.tasks.length }}</span>
+                    <span ng-hide="true">{{ list.order = $index }}</span>
                 </div>
                 <md-menu md-offset="0 48px" class="options list-header-option-button">
                     <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)" aria-label="Options" translate translate-attr-aria-label="SB.OPTIONS">
@@ -27,7 +28,7 @@
             <!-- LIST CONTENT -->
             <div class="list-content" layout="column">
                 <div class="list-cards" ui-sortable="vm.sortableCardOptions" ng-model="list.tasks" ms-scroll>
-                    <!-- CARD -->
+                    <!-- CARD -->                    
                     <div  class="list-card md-whiteframe-2dp" ng-repeat="card in list.tasks" ng-click="vm.openCardDialog($event, card.id)">
                         <!-- CARD COVER -->
                         <div ng-if="vm.board.settings.cardCoverImages && vm.board.cards.getById(cardId).idAttachmentCover" class="list-card-cover">
@@ -52,6 +53,7 @@
                             <!-- / CARD LABELS -->
                             <!-- CARD NAME -->
                             <div class="list-card-name">{{ card.title }}</div>
+                            <span ng-hide="true">{{ card.order = $index }}</span>
                             <!-- / CARD NAME -->
                             <div ng-if="vm.board.cards.getById(cardId).due || vm.board.cards.getById(cardId).checkItems" class="list-card-badges" layout="row" layout-align="start center">
                                 <!-- CARD DUE -->

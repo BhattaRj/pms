@@ -1,9 +1,15 @@
 (function() {
     'use strict';
 
+    /**
+     * Maping of model.
+     * Backend  Frontend
+     * Board  -- List
+     * Sprint  -- Board
+     */
     angular.module('app.board').controller('BoardViewController', BoardViewController);
 
-    function BoardViewController($document, $window, $timeout, $mdDialog, msUtils, CardFilters, DialogService, SprintFactory, ProjectData, BoardFactory) {
+    function BoardViewController($scope, $document, $window, $timeout, $mdDialog, msUtils, CardFilters, DialogService, SprintFactory, ProjectData, BoardFactory, TaskFactory) {
         var vm = this;
         vm.currentView = 'board';
         vm.board = SprintFactory.data;
@@ -14,8 +20,55 @@
         vm.card = {};
         vm.cardOptions = {};
         vm.newListName = '';
+        vm.sourceCard = {};
+        _registerWatch();
 
+        // Register watch for card swaping in list.
+        function _registerWatch() {
 
+            // Temp hack for swap vard in list.
+            if (vm.board.boards.length > 0) {
+                $scope.$watchCollection('vm.board.boards[0].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.boards[0];
+                });
+            }
+
+            if (vm.board.boards.length > 1) {
+                $scope.$watchCollection('vm.board.boards[1].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.boards[1];
+                });
+            }
+
+            if (vm.board.boards.length > 2) {
+                $scope.$watchCollection('vm.board.boards[2].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.boards[2];
+                });
+            }
+
+            if (vm.board.boards.length > 3) {
+                $scope.$watchCollection('vm.board.boards[3].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.boards[3];
+                });
+            }
+
+            if (vm.board.boards.length > 4) {
+                $scope.$watchCollection('vm.board.boards[4].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.boards[4];
+                });
+            }
+
+            if (vm.board.boards.length > 5) {
+                $scope.$watchCollection('vm.board.boards[5].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.boards[5];
+                });
+            }
+
+            if (vm.board.boards.length > 6) {
+                $scope.$watchCollection('vm.board.boards[6].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.boards[6];
+                });
+            }
+        }
         vm.sortableListOptions = {
             axis: 'x',
             delay: 75,
@@ -32,8 +85,20 @@
                     'width': width + 'px',
                     'height': height + 'px'
                 });
+            },
+            stop: function(e, ui) {
+                _reorderBoardList();
             }
         };
+
+        function _reorderBoardList() {
+            vm.updateStatus = false;
+            BoardFactory.reorderList(vm.board.boards).then(function(response) {
+                if (response) {
+                    vm.updateStatus = true;
+                }
+            });
+        }
 
         vm.sortableCardOptions = {
             appendTo: 'body',
@@ -92,6 +157,14 @@
                         }
                     }
                 }
+            },
+            stop: function(event, ui) {
+                if ($scope.vm.dropTarget.id == ui.item.sortable.model.board_id) {
+                    TaskFactory.reorderTasks($scope.vm.dropTarget.tasks);
+                } else {
+                    ui.item.sortable.moved.board_id = $scope.vm.dropTarget.id
+                    TaskFactory.reorderTasks($scope.vm.dropTarget.tasks);
+                }
             }
         };
 
@@ -103,9 +176,8 @@
         vm.isOverdue = isOverdue;
         vm.updateListTitle = updateListTitle;
 
-        function  updateListTitle(list) {            
-            BoardFactory.save(list).then(function(response){                
-            });
+        function updateListTitle(list) {
+            BoardFactory.save(list).then(function(response) {});
         }
 
         init();
@@ -167,6 +239,7 @@
             data.sprint_id = vm.board.id;
             BoardFactory.save(data).then(function(response) {
                 vm.board.boards.push(response);
+                _registerWatch();
                 vm.newListName = '';
             });
         }
@@ -190,8 +263,8 @@
                 cancel: 'Cancel'
             });
             $mdDialog.show(confirm).then(function() {
-                BoardFactory.remove(list.id).then(function(response){
-                    vm.board.boards.splice(vm.board.boards.indexOf(list),1);
+                BoardFactory.remove(list.id).then(function(response) {
+                    vm.board.boards.splice(vm.board.boards.indexOf(list), 1);
                 });
                 // vm.board.lists.splice(vm.board.lists.indexOf(list), 1);
 

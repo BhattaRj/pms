@@ -99,8 +99,7 @@ class TasksController extends Controller
                 $data['board_id'] = $this->board->getDefaultTaskBoardId();
             }
             $this->task->findOrFail($data['id'])->update($data);
-        }
-
+        }       
         $result['success'] = true;
         return $result;
     }

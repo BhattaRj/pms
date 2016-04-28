@@ -16,7 +16,8 @@ function BoardFactory(Board, BaseModelFactory, $q, $http) {
     fac.getDataList = getDataList;
     fac.getDataItem = getDataItem;
     fac.save = save;
-    fac.remove = remove;    
+    fac.remove = remove;
+    fac.reorderList = reorderList;
 
     function getDataItem(id) {
         return BaseModelFactory.getDataItem(res, id);
@@ -32,6 +33,27 @@ function BoardFactory(Board, BaseModelFactory, $q, $http) {
 
     function remove(id) {
         return BaseModelFactory.remove(res, id);
+    }
+
+    function reorderList(data) {
+
+        var deferred = $q.defer();
+
+        $http({
+                url: '/reorder_list',
+                method: "POST",
+                data: data
+            })
+            .then(function(response) {
+
+                if (response.data.success) {
+                    deferred.resolve(response.data.success);
+                } else {
+                    console.log('error occoured..!!!')
+                }
+            });
+
+        return deferred.promise;
     }
 
     return fac;

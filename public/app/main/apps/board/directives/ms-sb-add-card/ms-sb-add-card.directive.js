@@ -19,37 +19,17 @@
         /**
          * Add New Card
          */
-        function addNewCard() {
-            debugger
+        function addNewCard() {            
             if (vm.newCardName === '') {
                 return;
-            }
-            debugger;
+            }            
             var data = {
                 title: vm.newCardName,
-                description: '',
                 board_id: vm.list.id
             }
             TaskFactory.save(data).then(function(response) {
                 vm.list.tasks.push(response);
             });
-
-            // vm.cards.push({
-            //     id: newCardId,
-            //     name: vm.newCardName,
-            //     description: '',
-            //     idAttachmentCover: '',
-            //     idMembers: [],
-            //     idLabels: [],
-            //     attachments: [],
-            //     subscribed: false,
-            //     checklists: [],
-            //     checkItems: 0,
-            //     checkItemsChecked: 0,
-            //     comments: [],
-            //     activities: [],
-            //     due: null
-            // });            
 
             $timeout(function() {
                 $scope.scrollListContentBottom();

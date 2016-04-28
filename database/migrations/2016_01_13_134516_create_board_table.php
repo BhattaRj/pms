@@ -20,7 +20,7 @@ class CreateBoardTable extends Migration
             $table->text('description');
             $table->boolean('sprint_default')->default(0); // default for sprint;
             $table->boolean('task_default')->default(0); // default for task.
-            $table->boolean('order');
+            $table->integer('order');
         });
     }
 

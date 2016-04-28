@@ -25,6 +25,7 @@ Route::get('testing_sprint', 'SprintsController@getTestingSprint');
 
 
 Route::resource('board', 'BoardsController');
+Route::post('reorder_list','BoardsController@reorderList');
 
 Route::controller('auth/password', 'Auth\PasswordController', [
     'getEmail' => 'auth.password.email',

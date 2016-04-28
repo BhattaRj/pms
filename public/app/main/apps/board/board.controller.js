@@ -24,8 +24,7 @@
          * Once you connect your app to your server,
          * you would do this on your API server.
          */
-        function updateBoardUri() {
-            debugger;
+        function updateBoardUri() {            
             SprintFactory.save(vm.board);
         }
 
