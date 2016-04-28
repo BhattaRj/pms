@@ -28,7 +28,7 @@
             <div class="list-content" layout="column">
                 <div class="list-cards" ui-sortable="vm.sortableCardOptions" ng-model="list.tasks" ms-scroll>
                     <!-- CARD -->
-                    <div  class="list-card md-whiteframe-2dp" ng-repeat="card in list.tasks" ng-click="vm.openCardDialog($event, cardId)">
+                    <div  class="list-card md-whiteframe-2dp" ng-repeat="card in list.tasks" ng-click="vm.openCardDialog($event, card.id)">
                         <!-- CARD COVER -->
                         <div ng-if="vm.board.settings.cardCoverImages && vm.board.cards.getById(cardId).idAttachmentCover" class="list-card-cover">
                             <img ng-src="{{vm.board.cards.getById(cardId).attachments.getById(vm.board.cards.getById(cardId).idAttachmentCover).src}}">
@@ -140,5 +140,4 @@
     <!-- / NEW LIST BUTTON-->
 </div>
 <!-- / BOARD -->
-
-    <pre>{{ vm.board.boards | json }}</pre>   
+    
