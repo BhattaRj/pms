@@ -4,11 +4,11 @@
     angular.module('app.board').controller('ScrumboardCardDialogController', ScrumboardCardDialogController);
 
     /** @ngInject */
-    function ScrumboardCardDialogController($document, $mdDialog, fuseTheming, fuseGenerator, msUtils, SprintFactory, card) {
+    function ScrumboardCardDialogController($document, $mdDialog, fuseTheming, fuseGenerator, msUtils, SprintFactory, card, TaskFactory) {
         var vm = this;
 
         // Data
-        vm.board = SprintFactory.data;        
+        vm.board = SprintFactory.data;
         vm.card = card;
         vm.newLabelColor = 'red';
         vm.members = vm.board.members;
@@ -41,8 +41,13 @@
         /* Comment */
         vm.addNewComment = addNewComment;
 
-        //////////
+        vm.updateCard = updateCard;
 
+        function updateCard(card) {
+            TaskFactory.save(card).then(function(response) {
+
+            });
+        }
         /**
          * Close Dialog
          */
@@ -55,9 +60,9 @@
          */
         function getCardList() {
             var response;
-            for (var i = 0, len = vm.board.lists.length; i < len; i++) {
-                if (vm.board.lists[i].idCards.indexOf(vm.card.id) > -1) {
-                    response = vm.board.lists[i];
+            for (var i = 0, len = vm.board.boards.length; i < len; i++) {
+                if (vm.board.boards[i].tasks.indexOf(vm.card) > -1) {
+                    response = vm.board.boards[i];
                     break;
                 }
             }
@@ -83,12 +88,10 @@
             });
 
             $mdDialog.show(confirm).then(function() {
-                var cardList = getCardList();
-
-                cardList.idCards.splice(cardList.idCards.indexOf(vm.card.id), 1);
-
-                vm.board.cards.splice(vm.board.cards.indexOf(vm.card), 1);
-
+                TaskFactory.remove(vm.card.id).then(function(response) {
+                    var cardList = getCardList();
+                    cardList.tasks.splice(cardList.tasks.indexOf(vm.card), 1);
+                });
             }, function() {
                 // Canceled
             });

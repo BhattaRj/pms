@@ -313,8 +313,8 @@
                     <md-icon ng-if="vm.card.subscribed" class="card-subscribe s18" md-font-icon="icon-eye"></md-icon>
 
                     <div class="card-name">
-                        <span editable-text="vm.card.name">
-                            {{vm.card.name}}
+                        <span editable-text="vm.card.title" onaftersave="vm.updateCard(vm.card)">
+                            {{vm.card.title}}
                         </span>
                     </div>
 
@@ -353,7 +353,7 @@
         <div class="description">
             <md-input-container class="md-block">
                 <label translate="SB.DESCRIPTION">Description</label>
-                <textarea ng-model="vm.card.description" columns="1" md-maxlength="150" rows="5"></textarea>
+                <textarea ng-model="vm.card.description" columns="1" md-maxlength="150" rows="5" ng-blur="vm.updateCard(vm.card)"></textarea>
             </md-input-container>
         </div>
         <!-- / DESCRIPTION -->
