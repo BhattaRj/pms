@@ -280,25 +280,26 @@
          * @param cardId
          * @returns {*}
          */
-        function cardFilter(cardId) {
-            var card = vm.board.cards.getById(cardId);
+        function cardFilter(card) {
+
+            // var card = vm.board.cards.getById(cardId);
 
             try {
-                if (angular.lowercase(card.name).indexOf(angular.lowercase(vm.cardFilters.name)) < 0) {
+                if (angular.lowercase(card.title).indexOf(angular.lowercase(vm.cardFilters.title)) < 0) {
                     throw false;
                 }
 
-                angular.forEach(vm.cardFilters.labels, function(label) {
-                    if (!msUtils.exists(label, card.idLabels)) {
-                        throw false;
-                    }
-                });
+                // angular.forEach(vm.cardFilters.labels, function(label) {
+                //     if (!msUtils.exists(label, card.idLabels)) {
+                //         throw false;
+                //     }
+                // });
 
-                angular.forEach(vm.cardFilters.members, function(member) {
-                    if (!msUtils.exists(member, card.idMembers)) {
-                        throw false;
-                    }
-                });
+                // angular.forEach(vm.cardFilters.members, function(member) {
+                //     if (!msUtils.exists(member, card.idMembers)) {
+                //         throw false;
+                //     }
+                // });
 
 
             } catch (err) {

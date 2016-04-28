@@ -1,19 +1,15 @@
-(function ()
-{
+(function() {
     'use strict';
 
-    angular
-        .module('app.scrumboard')
-        .controller('ScrumboardCardDialogController', ScrumboardCardDialogController);
+    angular.module('app.board').controller('ScrumboardCardDialogController', ScrumboardCardDialogController);
 
     /** @ngInject */
-    function ScrumboardCardDialogController($document, $mdDialog, fuseTheming, fuseGenerator, msUtils, BoardService, cardId)
-    {
+    function ScrumboardCardDialogController($document, $mdDialog, fuseTheming, fuseGenerator, msUtils, SprintFactory, card) {
         var vm = this;
 
         // Data
-        vm.board = BoardService.data;
-        vm.card = vm.board.cards.getById(cardId);
+        vm.board = SprintFactory.data;        
+        vm.card = card;
         vm.newLabelColor = 'red';
         vm.members = vm.board.members;
         vm.labels = vm.board.labels;
@@ -50,21 +46,17 @@
         /**
          * Close Dialog
          */
-        function closeDialog()
-        {
+        function closeDialog() {
             $mdDialog.hide();
         }
 
         /**
          * Get Card List
          */
-        function getCardList()
-        {
+        function getCardList() {
             var response;
-            for ( var i = 0, len = vm.board.lists.length; i < len; i++ )
-            {
-                if ( vm.board.lists[i].idCards.indexOf(vm.card.id) > -1 )
-                {
+            for (var i = 0, len = vm.board.lists.length; i < len; i++) {
+                if (vm.board.lists[i].idCards.indexOf(vm.card.id) > -1) {
                     response = vm.board.lists[i];
                     break;
                 }
@@ -77,30 +69,27 @@
          *
          * @param ev
          */
-        function removeCard(ev)
-        {
+        function removeCard(ev) {
             var confirm = $mdDialog.confirm({
-                title              : 'Remove Card',
-                parent             : $document.find('#scrumboard'),
-                textContent        : 'Are you sure want to remove card?',
-                ariaLabel          : 'remove card',
-                targetEvent        : ev,
+                title: 'Remove Card',
+                parent: $document.find('#scrumboard'),
+                textContent: 'Are you sure want to remove card?',
+                ariaLabel: 'remove card',
+                targetEvent: ev,
                 clickOutsideToClose: true,
-                escapeToClose      : true,
-                ok                 : 'Remove',
-                cancel             : 'Cancel'
+                escapeToClose: true,
+                ok: 'Remove',
+                cancel: 'Cancel'
             });
 
-            $mdDialog.show(confirm).then(function ()
-            {
+            $mdDialog.show(confirm).then(function() {
                 var cardList = getCardList();
 
                 cardList.idCards.splice(cardList.idCards.indexOf(vm.card.id), 1);
 
                 vm.board.cards.splice(vm.board.cards.indexOf(vm.card), 1);
 
-            }, function ()
-            {
+            }, function() {
                 // Canceled
             });
         }
@@ -110,14 +99,10 @@
          *
          * @param attachmentId
          */
-        function toggleCoverImage(attachmentId)
-        {
-            if ( attachmentId === vm.card.idAttachmentCover )
-            {
+        function toggleCoverImage(attachmentId) {
+            if (attachmentId === vm.card.idAttachmentCover) {
                 vm.card.idAttachmentCover = null;
-            }
-            else
-            {
+            } else {
                 vm.card.idAttachmentCover = attachmentId;
             }
         }
@@ -127,10 +112,8 @@
          *
          * @param item
          */
-        function removeAttachment(item)
-        {
-            if ( vm.card.idAttachmentCover === item.id )
-            {
+        function removeAttachment(item) {
+            if (vm.card.idAttachmentCover === item.id) {
                 vm.card.idAttachmentCover = '';
             }
             vm.card.attachments.splice(vm.card.attachments.indexOf(item), 1);
@@ -142,8 +125,7 @@
          * @param query
          * @returns {filterFn}
          */
-        function labelQuerySearch(query)
-        {
+        function labelQuerySearch(query) {
             return query ? vm.labels.filter(createFilterFor(query)) : [];
         }
 
@@ -153,10 +135,8 @@
          * @param label
          * @returns {boolean}
          */
-        function filterLabel(label)
-        {
-            if ( !vm.labelSearchText || vm.labelSearchText === '' )
-            {
+        function filterLabel(label) {
+            if (!vm.labelSearchText || vm.labelSearchText === '') {
                 return true;
             }
 
@@ -166,11 +146,10 @@
         /**
          * Add new label
          */
-        function addNewLabel()
-        {
+        function addNewLabel() {
             vm.board.labels.push({
-                id   : msUtils.guidGenerator(),
-                name : vm.newLabelName,
+                id: msUtils.guidGenerator(),
+                name: vm.newLabelName,
                 color: vm.newLabelColor
             });
 
@@ -180,15 +159,12 @@
         /**
          * Remove label
          */
-        function removeLabel()
-        {
+        function removeLabel() {
             var arr = vm.board.labels;
             arr.splice(arr.indexOf(arr.getById(vm.editLabelId)), 1);
 
-            angular.forEach(vm.board.cards, function (card)
-            {
-                if ( card.idLabels && card.idLabels.indexOf(vm.editLabelId) > -1 )
-                {
+            angular.forEach(vm.board.cards, function(card) {
+                if (card.idLabels && card.idLabels.indexOf(vm.editLabelId) > -1) {
                     card.idLabels.splice(card.idLabels.indexOf(vm.editLabelId), 1);
                 }
             });
@@ -202,8 +178,7 @@
          * @param query
          * @returns {Array}
          */
-        function memberQuerySearch(query)
-        {
+        function memberQuerySearch(query) {
             return query ? vm.members.filter(createFilterFor(query)) : [];
         }
 
@@ -213,10 +188,8 @@
          * @param member
          * @returns {boolean}
          */
-        function filterMember(member)
-        {
-            if ( !vm.memberSearchText || vm.memberSearchText === '' )
-            {
+        function filterMember(member) {
+            if (!vm.memberSearchText || vm.memberSearchText === '') {
                 return true;
             }
 
@@ -227,25 +200,21 @@
          * Update check list stats
          * @param list
          */
-        function updateCheckedCount(list)
-        {
+        function updateCheckedCount(list) {
             var checkItems = list.checkItems;
             var checkedItems = 0;
             var allCheckedItems = 0;
             var allCheckItems = 0;
 
-            angular.forEach(checkItems, function (checkItem)
-            {
-                if ( checkItem.checked )
-                {
+            angular.forEach(checkItems, function(checkItem) {
+                if (checkItem.checked) {
                     checkedItems++;
                 }
             });
 
             list.checkItemsChecked = checkedItems;
 
-            angular.forEach(vm.card.checklists, function (item)
-            {
+            angular.forEach(vm.card.checklists, function(item) {
                 allCheckItems += item.checkItems.length;
                 allCheckedItems += item.checkItemsChecked;
             });
@@ -260,15 +229,13 @@
          * @param text
          * @param checkList
          */
-        function addCheckItem(text, checkList)
-        {
-            if ( !text || text === '' )
-            {
+        function addCheckItem(text, checkList) {
+            if (!text || text === '') {
                 return;
             }
 
             var newCheckItem = {
-                'name'   : text,
+                'name': text,
                 'checked': false
             };
 
@@ -282,12 +249,10 @@
          *
          * @param item
          */
-        function removeChecklist(item)
-        {
+        function removeChecklist(item) {
             vm.card.checklists.splice(vm.card.checklists.indexOf(item), 1);
 
-            angular.forEach(vm.card.checklists, function (list)
-            {
+            angular.forEach(vm.card.checklists, function(list) {
                 updateCheckedCount(list);
             });
         }
@@ -295,13 +260,12 @@
         /**
          * Create checklist
          */
-        function createCheckList()
-        {
+        function createCheckList() {
             vm.card.checklists.push({
-                id               : msUtils.guidGenerator(),
-                name             : vm.newCheckListTitle,
+                id: msUtils.guidGenerator(),
+                name: vm.newCheckListTitle,
                 checkItemsChecked: 0,
-                checkItems       : []
+                checkItems: []
             });
 
             vm.newCheckListTitle = '';
@@ -312,12 +276,11 @@
          *
          * @param newCommentText
          */
-        function addNewComment(newCommentText)
-        {
+        function addNewComment(newCommentText) {
             var newComment = {
                 idMember: '36027j1930450d8bf7b10158',
-                message : newCommentText,
-                time    : 'now'
+                message: newCommentText,
+                time: 'now'
             };
 
             vm.card.comments.unshift(newComment);
@@ -329,11 +292,9 @@
          * @param query
          * @returns {filterFn}
          */
-        function createFilterFor(query)
-        {
+        function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
-            return function filterFn(item)
-            {
+            return function filterFn(item) {
                 return angular.lowercase(item.name).indexOf(lowercaseQuery) >= 0;
             };
         }

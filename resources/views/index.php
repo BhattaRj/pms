@@ -86,10 +86,15 @@
         <script src="app/main/apps/board/views/boards/board-list.controller.js"></script>
         <script src="app/main/apps/board/views/board/board-view.controller.js"></script>
 
+        <script src="app/main/apps/board/dialogs/card/card-dialog.controller.js"></script>
+
         <script src="app/main/apps/board/directives/ms-sb-add-card/ms-sb-add-card.directive.js"></script>
         <script src="app/main/apps/board/services/filters.service.js"></script>
         <script src="app/main/apps/board/services/dialog.service.js"></script>
         <script src="app/main/apps/board/services/board.service.js"></script>
+
+        <!-- <script src="app/main/apps/board/sidenavs/filters/filters-sidenav.controller.js"></script> -->
+        <!-- <script src="app/main/apps/board/sidenavs/settings/settings-sidenav.controller.js"></script> -->
 
         <script src="app/main/apps/board/sidenavs/settings/settings-sidenav.controller.js"></script>
         <script src="app/main/apps/board/sidenavs/settings/menus/color/color-menu.controller.js"></script>

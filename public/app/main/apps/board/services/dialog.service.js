@@ -2,14 +2,12 @@
     'use strict';
 
     angular.module('app.board').factory('DialogService', DialogService);
-
-    /** @ngInject */
+    
     function DialogService($mdDialog, $document) {
         var service = {
             openCardDialog: openCardDialog
         };
 
-        //////////
 
         /**
          * Open card dialog
@@ -17,9 +15,9 @@
          * @param ev
          * @param cardId
          */
-        function openCardDialog(ev, cardId) {
+        function openCardDialog(ev, card) {            
             $mdDialog.show({
-                templateUrl: 'app/main/apps/scrumboard/dialogs/card/card-dialog.html',
+                templateUrl: 'app/main/apps/board/dialogs/card/card-dialog.html',
                 controller: 'ScrumboardCardDialogController',
                 controllerAs: 'vm',
                 parent: $document.find('#scrumboard'),
@@ -27,7 +25,7 @@
                 clickOutsideToClose: true,
                 escapeToClose: true,
                 locals: {
-                    cardId: cardId
+                    card: card
                 }
             });
         }

@@ -6,7 +6,7 @@
     /** @ngInject */
     function CardFiltersService() {
         var service = {
-            name: '',
+            title: '',
             labels: [],
             members: [],
             clear: clear,
@@ -17,7 +17,7 @@
          * Clear
          */
         function clear() {
-            service.name = '';
+            service.title = '';
             service.labels = [];
             service.members = [];
         }
@@ -28,7 +28,7 @@
          * @returns {boolean}
          */
         function isOn() {
-            return (service.name === '' && service.labels.length === 0 && service.members.length === 0) ? false : true;
+            return (service.title === '' && service.labels.length === 0 && service.members.length === 0) ? false : true;
         }
 
         return service;
