@@ -23,12 +23,6 @@ function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
     fac.dataList = [];
     fac.getBoardList = getBoardList;
 
-    Array.prototype.getById = function(value) {
-        return this.filter(function(x) {
-            return x.id === value;
-        })[0];
-    };
-
     function getBoardList(param) {
 
         var queryString = CommonFactory.makeQueryString(param),
@@ -47,7 +41,6 @@ function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
         var deferred = $q.defer();
         return BaseModelFactory.getDataItem(res, id).then(function(response) {
             fac.data = response;
-            // Resolve the response
             deferred.resolve(response);
         }, function(response) {
             deferred.reject(response);
@@ -62,12 +55,16 @@ function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
         var deferred = $q.defer();
         return BaseModelFactory.save(res, data).then(function(response) {
             fac.data = response;
+
+            // Update Datalist.
             if (fac.dataList.getById(response.id)) {
                 fac.dataList.getById(response.id).title = fac.data.title;
             } else {
                 fac.dataList.push({ id: String(response.id), title: response.title });
             }
+
             deferred.resolve(response);
+
         }, function(response) {
             deferred.reject(fac.data);
         });

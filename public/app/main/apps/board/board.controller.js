@@ -36,17 +36,5 @@
         function toggleSidenav(sidenavId) {
             $mdSidenav(sidenavId).toggle();
         }
-
-        /**
-         * Array prototype get by id         
-         * @param value
-         * @returns {T}
-         */
-        Array.prototype.getById = function(value) {
-            return this.filter(function(x) {
-                return x.id === value;
-            })[0];
-        };
-
     }
 })();
