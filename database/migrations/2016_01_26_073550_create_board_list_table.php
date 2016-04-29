@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBoardSprintTable extends Migration
+class CreateBoardListTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreateBoardSprintTable extends Migration
      */
     public function up()
     {
-        Schema::create('board_sprint', function (Blueprint $table) {
+        Schema::create('board_list', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('sprint_id')->unsigned();
-            $table->foreign('sprint_id')->references('id')->on('sprints')->onDelete('cascade');
             $table->integer('board_id')->unsigned();
             $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
+            $table->integer('list_id')->unsigned();
+            $table->foreign('list_id')->references('id')->on('lists')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateBoardSprintTable extends Migration
      */
     public function down()
     {
-        Schema::drop('board_sprint');
+        Schema::drop('board_list');
     }
 }

@@ -19,9 +19,9 @@ class Project extends Model
         return $this->hasMany('App\Models\Issue');
     }
 
-    public function sprints()
+    public function boards()
     {
-        return $this->hasMany('App\Models\Sprint');
+        return $this->hasMany('App\Models\Board');
     }
 
     public function users()

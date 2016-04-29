@@ -2,9 +2,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Board;
+use App\Models\ListModel;
 use App\Models\Task;
-use App\Models\Sprint;
+use App\Models\Board;
 use App\Models\Project;
 use App\User;
 use App\Repositories\TaskRepository;
@@ -13,19 +13,19 @@ use Illuminate\Http\Request;
 class TasksController extends Controller
 {
     protected $task;
-    protected $board;
+    protected $list;
     protected $user;
-    protected $sprint;
+    protected $board;
     protected $project;
     protected $per_page = 100;
     protected $current_page = 1;
 
-    public function __construct(Task $task, Board $board, User $user , Sprint $sprint, Project $project,TaskRepository $taskRepository)
+    public function __construct(Task $task, ListModel $list, User $user , Board $board, Project $project,TaskRepository $taskRepository)
     {
         $this->task             = $task;
-        $this->board            = $board;
+        $this->list            = $list;
         $this->user             = $user;
-        $this->sprint           = $sprint;
+        $this->board           = $board;
         $this->project          = $project;
         $this->taskRepository   = $taskRepository;
     }
@@ -42,8 +42,8 @@ class TasksController extends Controller
             $query = $query->where('project_id', $request->input('project_id'));
         }
 
-        if ($request->has('sprint_id')) {
-            $query = $query->whereNull('sprint_id');
+        if ($request->has('board_id')) {
+            $query = $query->whereNull('board_id');
         }
 
         $skip            = ($this->current_page - 1) * $this->per_page;
@@ -87,16 +87,16 @@ class TasksController extends Controller
     }
 
     /**
-     * Reorder the task in sprint.
-     * if default_board change the board id into the default board.
+     * Reorder the task in board.
+     * if default_list change the list id into the default list.
      * @param  Request $request
      * @return [array]
      */
     public function reorderTasks(Request $request)
     {
         foreach ($request->all() as $data) {
-            if (isset($data['default_board']) && $data['default_board'] == true) {
-                $data['board_id'] = $this->board->getDefaultTaskBoardId();
+            if (isset($data['default_list']) && $data['default_list'] == true) {
+                $data['list_id'] = $this->list->getDefaultTaskListId();
             }
             $this->task->findOrFail($data['id'])->update($data);
         }       
@@ -104,10 +104,11 @@ class TasksController extends Controller
         return $result;
     }
 
-    /** Return tasks heirarchically for stroy board. */
+    /** Return tasks heirarchically for stroy list. */
     public function getStories(Request $request)
-    {        
-        $query = $this->task->with(['board','assigne'])->orderBy('lft', 'asc');
+    {                
+
+        $query = $this->task->with(['boardlist','assigne'])->orderBy('lft', 'asc');
 
         if ($request->has('project_id')) {            
             $query = $query->where('project_id', $request->input('project_id'));
@@ -140,7 +141,7 @@ class TasksController extends Controller
 
     public function getSubTasks(Request $request){
 
-        $query = $this->task->with(['board','assigne'])->orderBy('lft', 'asc');
+        $query = $this->task->with(['list','assigne'])->orderBy('lft', 'asc');
 
         if ($request->has('project_id')) {            
             $query = $query->where('project_id', $request->input('project_id'));

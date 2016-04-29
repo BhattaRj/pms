@@ -18,9 +18,16 @@ function ProjectFactory(Project, BaseModelFactory, $q, $http) {
     fac.save = save;
     fac.remove = remove;
     fac.recentProjects = recentProjects;
+    fac.data = {};
 
-    function getDataItem(id) {        
-        return BaseModelFactory.getDataItem(res, id);
+    function getDataItem(id) {
+        var deferred = $q.defer();
+        return BaseModelFactory.getDataItem(res, id).then(function(response) {
+            fac.data = response;
+            deferred.resolve(response);
+        }, function(response) {
+            deferred.reject(response);
+        });
     }
 
     function getDataList(param) {

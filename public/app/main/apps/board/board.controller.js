@@ -3,13 +3,15 @@
 
     angular.module('app.board').controller('BoardController', BoardController);
 
-    function BoardController($mdSidenav, CardFilters, ProjectData, SprintFactory) {
+    function BoardController($mdSidenav, CardFilters, BoardFactory, $stateParams) {
         var vm = this;
 
+        // Data
         vm.currentView = 'board';
-        vm.project = ProjectData;
-        vm.board = SprintFactory.data;
+        vm.boards = BoardFactory.dataList;
+        vm.board = BoardFactory.data;
         vm.boardSelectorVisible = false;
+
 
         // Methods
         vm.toggleSidenav = toggleSidenav;
@@ -19,18 +21,16 @@
 
 
         /**
-         * Update Board Uri
-         *
-         * Once you connect your app to your server,
-         * you would do this on your API server.
+         * Update Board Title
          */
-        function updateBoardUri() {            
-            SprintFactory.save(vm.board);
+        function updateBoardUri() {
+            var data = { id: vm.board.id, title: vm.board.title };
+            BoardFactory.save(data).then(function(response) {                
+            });
         }
 
         /**
-         * Toggle sidenav
-         *
+         * Toggle sidenav         
          * @param sidenavId
          */
         function toggleSidenav(sidenavId) {
@@ -38,10 +38,7 @@
         }
 
         /**
-         * Array prototype
-         *
-         * Get by id
-         *
+         * Array prototype get by id         
          * @param value
          * @returns {T}
          */

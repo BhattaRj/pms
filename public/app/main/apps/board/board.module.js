@@ -3,15 +3,14 @@
 
     angular.module('app.board', []).config(config).run(run);
 
-    /** @ngInject */
     function config($stateProvider, $translatePartialLoaderProvider, msApiProvider) {
         $stateProvider
             .state('app.board', {
                 abstract: true,
                 url: '/board/:id',
                 resolve: {
-                    ProjectData: function($stateParams, ProjectFactory) {
-                        return ProjectFactory.getDataItem($stateParams.id);
+                    BoardList: function($stateParams, BoardFactory) {
+                        return BoardFactory.getBoardList({ project_id: $stateParams.id });
                     }
                 },
                 bodyClass: 'scrumboard'
@@ -58,8 +57,8 @@
                 }
             },
             resolve: {
-                BoardData: function($stateParams, SprintFactory) {
-                    return SprintFactory.getDataItem($stateParams.board_id);
+                BoardData: function($stateParams, BoardFactory) {
+                    return BoardFactory.getDataItem($stateParams.board_id);
                 }
             }
         })
@@ -78,9 +77,9 @@
                 }
             },
             resolve: {
-                BoardData: function($stateParams, SprintFactory) {
+                BoardData: function($stateParams, BoardFactory) {
                     var data = { project_id: $stateParams.id, title: 'Untitled Board' };
-                    return SprintFactory.save(data);
+                    return BoardFactory.save(data);
                 }
             }
         });

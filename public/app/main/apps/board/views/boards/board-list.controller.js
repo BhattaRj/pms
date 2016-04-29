@@ -3,9 +3,9 @@
 
     angular.module('app.board').controller('BoardListController', BoardListController);
 
-    function BoardListController(ProjectData) {    	
-        var vm = this;
-        vm.project = ProjectData;
+    function BoardListController(BoardFactory) {
+        var vm = this;               
+        vm.boards = BoardFactory.dataList;
     }
 
 })();

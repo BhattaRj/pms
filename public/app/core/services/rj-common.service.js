@@ -9,6 +9,29 @@ angular.module('app.core').factory('AlertFactory', AlertFactory);
 angular.module('app.core').factory('ConfirmFactory', ConfirmFactory);
 angular.module('app.core').factory('ResourseFactory', ResourseFactory);
 angular.module('app.core').factory('BaseModelFactory', BaseModelFactory);
+angular.module('app.core').factory('CommonFactory', CommonFactory);
+
+
+// Returns common utility functions.
+function CommonFactory() {
+    var fac = {};
+    fac.makeQueryString = makeQueryString;
+
+    function makeQueryString(param) {
+        this.queryString = '';
+        angular.forEach(param, function(value, key) {
+
+            this.queryString += key + '=' + value + '&';
+
+        }, this);
+
+        return this.queryString;
+    }
+    return fac;
+}
+
+
+
 
 /**
  * ---------------------------------------------------------------------------
@@ -210,7 +233,7 @@ function BaseModelFactory($q, NotifyFactory, $mdToast, AlertFactory) {
                     NotifyFactory.show('Data successfully updated.');
                     deferred.resolve(response.data);
                 } else {
-                    AlertFactory.show(null,response.msg);
+                    AlertFactory.show(null, response.msg);
                 }
             }, function(error) {
                 if (422 == error.status) {
@@ -226,7 +249,7 @@ function BaseModelFactory($q, NotifyFactory, $mdToast, AlertFactory) {
                     NotifyFactory.show('Data successfully added.');
                     deferred.resolve(response.data);
                 } else {
-                    AlertFactory.show(null,response.msg);
+                    AlertFactory.show(null, response.msg);
                 }
 
             }, function(error) {

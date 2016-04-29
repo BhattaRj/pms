@@ -16,11 +16,14 @@ class CreateBoardTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('title');
-            $table->boolean('status')->default(1);
+            $table->datetime('start_date')->nullable();
+            $table->datetime('end_date')->nullable();
+            $table->integer('duration');
             $table->text('description');
-            $table->boolean('sprint_default')->default(0); // default for sprint;
-            $table->boolean('task_default')->default(0); // default for task.
-            $table->integer('order');
+            $table->integer('project_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->integer('status')->default(1); // 1-activate 5-started 10-Done  15-deactivate
+
         });
     }
 

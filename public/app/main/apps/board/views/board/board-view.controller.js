@@ -9,14 +9,11 @@
      */
     angular.module('app.board').controller('BoardViewController', BoardViewController);
 
-    function BoardViewController($scope, $document, $window, $timeout, $mdDialog, msUtils, CardFilters, DialogService, SprintFactory, ProjectData, BoardFactory, TaskFactory) {
+    function BoardViewController($scope, $document, $window, $timeout, $mdDialog, msUtils, CardFilters, DialogService, BoardFactory, ListFactory, TaskFactory) {
         var vm = this;
         vm.currentView = 'board';
-        vm.board = SprintFactory.data;
-        vm.boardList = ProjectData.sprints;
-
-
-        vm.cardFilters = CardFilters;
+        vm.board = BoardFactory.data;
+        vm.cardFilters = CardFilters;        
         vm.card = {};
         vm.cardOptions = {};
         vm.newListName = '';
@@ -27,45 +24,45 @@
         function _registerWatch() {
 
             // Temp hack for swap vard in list.
-            if (vm.board.boards.length > 0) {
-                $scope.$watchCollection('vm.board.boards[0].tasks', function(newVal, oldVal, scope) {
-                    vm.dropTarget = vm.board.boards[0];
+            if (vm.board.lists.length > 0) {
+                $scope.$watchCollection('vm.board.lists[0].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.lists[0];
                 });
             }
 
-            if (vm.board.boards.length > 1) {
-                $scope.$watchCollection('vm.board.boards[1].tasks', function(newVal, oldVal, scope) {
-                    vm.dropTarget = vm.board.boards[1];
+            if (vm.board.lists.length > 1) {
+                $scope.$watchCollection('vm.board.lists[1].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.lists[1];
                 });
             }
 
-            if (vm.board.boards.length > 2) {
-                $scope.$watchCollection('vm.board.boards[2].tasks', function(newVal, oldVal, scope) {
-                    vm.dropTarget = vm.board.boards[2];
+            if (vm.board.lists.length > 2) {
+                $scope.$watchCollection('vm.board.lists[2].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.lists[2];
                 });
             }
 
-            if (vm.board.boards.length > 3) {
-                $scope.$watchCollection('vm.board.boards[3].tasks', function(newVal, oldVal, scope) {
-                    vm.dropTarget = vm.board.boards[3];
+            if (vm.board.lists.length > 3) {
+                $scope.$watchCollection('vm.board.lists[3].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.lists[3];
                 });
             }
 
-            if (vm.board.boards.length > 4) {
-                $scope.$watchCollection('vm.board.boards[4].tasks', function(newVal, oldVal, scope) {
-                    vm.dropTarget = vm.board.boards[4];
+            if (vm.board.lists.length > 4) {
+                $scope.$watchCollection('vm.board.lists[4].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.lists[4];
                 });
             }
 
-            if (vm.board.boards.length > 5) {
-                $scope.$watchCollection('vm.board.boards[5].tasks', function(newVal, oldVal, scope) {
-                    vm.dropTarget = vm.board.boards[5];
+            if (vm.board.lists.length > 5) {
+                $scope.$watchCollection('vm.board.lists[5].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.lists[5];
                 });
             }
 
-            if (vm.board.boards.length > 6) {
-                $scope.$watchCollection('vm.board.boards[6].tasks', function(newVal, oldVal, scope) {
-                    vm.dropTarget = vm.board.boards[6];
+            if (vm.board.lists.length > 6) {
+                $scope.$watchCollection('vm.board.lists[6].tasks', function(newVal, oldVal, scope) {
+                    vm.dropTarget = vm.board.lists[6];
                 });
             }
         }
@@ -93,7 +90,7 @@
 
         function _reorderBoardList() {
             vm.updateStatus = false;
-            BoardFactory.reorderList(vm.board.boards).then(function(response) {
+            BoardFactory.reorderList(vm.board.lists).then(function(response) {
                 if (response) {
                     vm.updateStatus = true;
                 }
@@ -238,7 +235,7 @@
             data.title = vm.newListName;
             data.sprint_id = vm.board.id;
             BoardFactory.save(data).then(function(response) {
-                vm.board.boards.push(response);
+                vm.board.lists.push(response);
                 _registerWatch();
                 vm.newListName = '';
             });
@@ -264,7 +261,7 @@
             });
             $mdDialog.show(confirm).then(function() {
                 BoardFactory.remove(list.id).then(function(response) {
-                    vm.board.boards.splice(vm.board.boards.indexOf(list), 1);
+                    vm.board.lists.splice(vm.board.lists.indexOf(list), 1);
                 });
                 // vm.board.lists.splice(vm.board.lists.indexOf(list), 1);
 

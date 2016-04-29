@@ -2,86 +2,41 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Board;
 use Illuminate\Http\Request;
+use App\Repositories\BoardRepository;
 
 class BoardsController extends Controller
-{
-    protected $board;
-    protected $per_page = 100;
-    protected $current_page = 1;
+{    
+    protected $boardRepo;
 
-    public function __construct(Board $board)
+    public function __construct(BoardRepository $boardRepo)
     {
-        $this->board = $board;
+        $this->boardRepo 	= $boardRepo;
     }
 
-    public function index(Request $request)
-    {
-        $query = $this->board;
-
-        if ($request->has('currentPage')) {
-            $this->current_page = $request->input('currentPage');
-        }
-
-        $skip            = ($this->current_page - 1) * $this->per_page;
-        $result['total'] = $query->get()->count();
-        $result['data']  = $query->skip($skip)->take($this->per_page)->get();
-        return $result;
-    }
-
-    public function store(Request $request)
-    {
-        $input = $request->input('data');
-        $board = $this->board->create($input);
-
-        if (isset($input['sprint_id'])) {
-            $board->sprints()->attach($input['sprint_id']);
-        }
-
-        $result['data']    = $board->load('tasks');
-        $result['success'] = true;
-        return $result;
-    }
-
-    public function update(Request $request, $id)
-    {
-        $input             = $request->input('data');
-        $board             = $this->board->findOrFail($id);
-        $result['data']    = $board->update($input);
-        $result['success'] = true;
-        return $result;
-    }
-
+    // Returns board.
     public function show($id)
     {
-        $result['data']    = $this->board->findOrFail($id)->load('users');
-        $result['success'] = true;
-        return $result;
+    	return $this->boardRepo->showBoard($id);
     }
 
-    public function destroy($id)
+    // Create board.
+    public function store(Request $request)
     {
-        $this->board->destroy($id) ? $result['success'] = true : $result['success'] = false;
-        return $result;
+    	$data	=	$request->input('data');
+    	return $this->boardRepo->createBoard($data);
     }
 
-    /**
-     * Reorder the list in sprint.
-     * @param  Request $request
-     * @return [array]
-     */
-    public function reorderList(Request $request)
+    // Update board.
+    public function update(Request $request, $id)
     {
-        // dd($request->all());
-        
-        foreach ($request->all() as $data) {
-            $this->board->findOrFail($data['id'])->update($data);
-        }
-
-        $result['success'] = true;
-        return $result;
+        $data = $request->input('data');
+        return $this->boardRepo->updateBoard($data,$id);
     }
-
-
+    
+    // return board list.
+    public function getBoardList(Request $request)
+    {
+        return $this->boardRepo->getBoardList($request);
+    } 
 }

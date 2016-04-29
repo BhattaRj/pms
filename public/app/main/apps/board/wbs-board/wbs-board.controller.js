@@ -4,11 +4,11 @@
     angular.module('app.board').controller('WbsBoardController', WbsBoardController);
     angular.module('app.board').controller('SaveIssueController', SaveIssueController);
 
-    function WbsBoardController($mdSidenav, CardFilters, ProjectData, TaskData, TaskFactory, ModalFactory, $stateParams, ConfirmFactory) {
+    function WbsBoardController($mdSidenav, CardFilters, ProjectFactory, TaskData, TaskFactory, ModalFactory, $stateParams, ConfirmFactory) {
         var vm = this;
         vm.currentView = 'board';
         vm.tasks = TaskData;
-        vm.project = ProjectData;
+        vm.project = ProjectFactory.data;
         vm.boardSelectorVisible = false;
 
         // Methods

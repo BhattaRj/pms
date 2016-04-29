@@ -22,11 +22,11 @@ class CreateTasksTable extends Migration
             $table->string('task_type')->default('Task'); // Bug, Story, Epic , Task
             $table->integer('story_point');
 
-            $table->integer('sprint_id')->unsigned()->nullable();
-            $table->foreign('sprint_id')->references('id')->on('sprints')->onDelete('cascade');
-
             $table->integer('board_id')->unsigned()->nullable();
             $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
+
+            $table->integer('list_id')->unsigned()->nullable();
+            $table->foreign('list_id')->references('id')->on('lists')->onDelete('cascade');
 
             $table->integer('author_id')->unsigned()->nullable();
             $table->foreign('author_id')->references('id')->on('users');

@@ -142,7 +142,7 @@
         <!-- resource -->
         <script src="app/resource/board.js"></script>
         <script src="app/resource/project.js"></script>
-        <script src="app/resource/sprint.js"></script>
+        <script src="app/resource/list.js"></script>
         <script src="app/resource/task.js"></script>
         <script src="app/resource/user.js"></script>
 

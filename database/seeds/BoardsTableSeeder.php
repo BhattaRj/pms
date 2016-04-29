@@ -11,21 +11,21 @@ class BoardsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('boards')->insert([
+        DB::table('lists')->insert([
             'title'          => 'Active Backlog',
-            'sprint_default' => 1,
+            'board_default' => 1,
             'task_default'   => 1,
         ]);
 
-        DB::table('boards')->insert([
+        DB::table('lists')->insert([
             'title'          => 'In Progress',
-            'sprint_default' => 1,
+            'board_default' => 1,
             'task_default'   => 0,
         ]);
 
-        DB::table('boards')->insert([
+        DB::table('lists')->insert([
             'title'          => 'Done',
-            'sprint_default' => 1,
+            'board_default' => 1,
             'task_default'   => 0,
         ]);
     }

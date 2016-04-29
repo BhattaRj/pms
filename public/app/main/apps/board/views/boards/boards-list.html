@@ -15,7 +15,7 @@
             </div>
 
             <!-- BOARD -->
-            <div class="board-list-item" ng-repeat="board in vm.project.sprints" ui-sref="app.board.show({board_id:board.id, id:board.project_id})" layout="column" layout-align="center center">
+            <div class="board-list-item" ng-repeat="board in vm.boards" ui-sref="app.board.show({board_id:board.id, id:board.project_id})" layout="column" layout-align="center center">
                 <md-icon md-font-icon="icon-trello" class="icon s64"></md-icon>
                 <div class="board-name">{{board.title}}</div>
             </div>

@@ -12,33 +12,33 @@ class TestBoardSeeder extends Seeder
     public function run()
     {
 
-        DB::table('boards')->insert([
+        DB::table('lists')->insert([
             'title'                 => 'Testing Backlog',
-            'sprint_default'        => 0,
+            'board_default'        => 0,
             'task_default'          => 0,
             'testing_board_default' => 1,
             'bug_default'           => 1
         ]);
 
-        DB::table('boards')->insert([
+        DB::table('lists')->insert([
             'title'                 => 'In Progress',
-            'sprint_default'        => 0,
+            'board_default'        => 0,
             'task_default'          => 0,
             'testing_board_default' => 1,
             'bug_default'           => 0            
         ]);
 
-        DB::table('boards')->insert([
+        DB::table('lists')->insert([
             'title'                 => 'Done',
-            'sprint_default'        => 0,
+            'board_default'        => 0,
             'task_default'          => 0,
             'testing_board_default' => 1,
             'bug_default'           => 0
         ]);
 
-        DB::table('boards')->insert([
+        DB::table('lists')->insert([
             'title'                 => 'Redo',
-            'sprint_default'        => 0,
+            'board_default'        => 0,
             'task_default'          => 0,
             'testing_board_default' => 1,
             'bug_default'           => 0

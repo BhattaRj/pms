@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\Sprint;
 use App\Models\Board;
 use Illuminate\Http\Request;
 
@@ -77,7 +76,7 @@ class ProjectsController extends Controller
 
     public function show($id)
     {
-        $result['data']    = $this->project->findOrFail($id)->load(['users','sprints']);
+        $result['data']    = $this->project->findOrFail($id)->load(['users']);
         $result['success'] = true;
         return $result;
     }

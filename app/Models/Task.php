@@ -14,14 +14,14 @@ class Task extends Node
         return $this->belongsTo('App\Models\Project');
     }
 
-    public function sprint()
-    {
-        return $this->belongsTo('App\Models\Sprint');
-    }
-
     public function board()
     {
         return $this->belongsTo('App\Models\Board');
+    }
+
+    public function boardlist()
+    {
+        return $this->belongsTo('App\Models\ListModel');
     }
 
     public function assigne()

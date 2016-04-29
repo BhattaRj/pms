@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnToBoard extends Migration
+class AddColumnToList extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class AddColumnToBoard extends Migration
      */
     public function up()
     {
-        Schema::table('boards', function (Blueprint $table) {
+        Schema::table('lists', function (Blueprint $table) {
            $table->boolean('testing_board_default')->default(0); // default for testing board.
            $table->boolean('bug_default')->default(0); // default for Bug.
 
@@ -26,7 +26,7 @@ class AddColumnToBoard extends Migration
      */
     public function down()
     {
-        Schema::table('boards', function (Blueprint $table) {
+        Schema::table('lists', function (Blueprint $table) {
             $table->removeColumn(['testing_board_default','bug_default']);
         });
     }

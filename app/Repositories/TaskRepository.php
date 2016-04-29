@@ -1,33 +1,35 @@
-<?php namespace App\Repositories;
+<?php 
+namespace App\Repositories;
+
 use App\Models\Project;
-use App\Models\Board;
+use App\Models\ListModel;
 use App\User;
 use App\Models\Task;
-use App\Models\Sprint;
+use App\Models\Board;
 
 class TaskRepository
 {
     protected $project;
-    protected $board;
+    protected $list;
     protected $user;
     protected $task;
-    protected $sprint;
+    protected $board;
 
-    public function __construct(Project $project, Board $board, User $user,Task $task, Sprint $sprint)
+    public function __construct(Project $project, ListModel $list, User $user,Task $task, Board $board)
     {
         $this->project  = $project;
-        $this->board    = $board;
+        $this->list    = $list;
         $this->user     = $user;
         $this->task     = $task;
-        $this->sprint   = $sprint;
+        $this->board   = $board;
     }
 
 	public function createTestCase($input)	
 	{
 		$project            = $this->project->findOrFail($input['project_id']);
         
-		$input['sprint_id'] = $project->getTestingSprintID();     
-		$input['board_id']  = $this->board->getDefaultTestingBoardId(); 
+		$input['board_id'] = $project->getTestingBoardID();     
+		$input['list_id']  = $this->list->getDefaultTestingListModelId(); 
         $input['author_id'] = $this->user->currentUserId();        
 
         $result['data']     = $this->task->create($input);		       
@@ -38,11 +40,11 @@ class TaskRepository
 
 	public function createBug($input)	
 	{
-        if(!isset($input['sprint_id'])){                                    
-            $input['sprint_id'] = $this->sprint->getActivateSprint($input['project_id'])->id;
+        if(!isset($input['board_id'])){                                    
+            $input['board_id'] = $this->board->getActivateBoard($input['project_id'])->id;
         }       
 
-		$input['board_id']  = $this->board->getDefaultBoardId(); 
+		$input['list_id']  = $this->list->getDefaultListModelId(); 
         $input['author_id'] = $this->user->currentUserId();
              
         $result['data']     = $this->task->create($input);		       
@@ -53,12 +55,12 @@ class TaskRepository
 
 	public function createTask($input)	
 	{
-  //       if(!isset($input['sprint_id']))
+  //       if(!isset($input['board_id']))
   //       {            
   //           $project            = $this->project->findOrFail($input['project_id']);
-  //           $input['sprint_id'] = $project->getBacklogId();                                 
+  //           $input['board_id'] = $project->getBacklogId();                                 
   //       }       
-		// $input['board_id']  = $this->board->getDefaultBoardId(); 
+		// $input['list_id']  = $this->list->getDefaultListModelId(); 
         $input['author_id'] = $this->user->currentUserId();
              
         $result['data']     = $this->task->create($input);		       
@@ -96,7 +98,7 @@ class TaskRepository
     public function moveToTestingBacklog($data)
     {
         $task               = $this->task->findOrFail($data['task_id']);
-        $input['board_id']  = $this->board->getDefaultTestingBoardId(); 
+        $input['list_id']  = $this->list->getDefaultTestingListModelId(); 
         return $task->update($input);        
     }
 }
