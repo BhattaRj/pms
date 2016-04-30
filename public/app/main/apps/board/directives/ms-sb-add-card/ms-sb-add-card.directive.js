@@ -4,14 +4,14 @@
     angular.module('app.board').controller('msSbAddCardController', msSbAddCardController);
     angular.module('app.board').directive('msSbAddCard', msSbAddCardDirective);
 
-    function msSbAddCardController($scope, $timeout, SprintFactory, msUtils, TaskFactory) {
+    function msSbAddCardController($scope, $timeout, BoardFactory, msUtils, TaskFactory) {
 
         var vm = this;
         vm.newCardName = '';
         vm.listId = $scope.msListId;
-        vm.board = SprintFactory.data;
+        vm.board = BoardFactory.data;
         // vm.cards = vm.board.tasks;
-        vm.list = vm.board.boards.getById(vm.listId);
+        vm.list = vm.board.lists.getById(vm.listId);
 
         // Methods
         vm.addNewCard = addNewCard;
@@ -25,7 +25,7 @@
             }            
             var data = {
                 title: vm.newCardName,
-                board_id: vm.list.id
+                list_id: vm.list.id
             }
             TaskFactory.save(data).then(function(response) {
                 vm.list.tasks.push(response);

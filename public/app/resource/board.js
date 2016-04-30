@@ -62,7 +62,6 @@ function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
             } else {
                 fac.dataList.push({ id: String(response.id), title: response.title });
             }
-
             deferred.resolve(response);
 
         }, function(response) {

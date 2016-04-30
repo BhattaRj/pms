@@ -4,11 +4,11 @@
     angular.module('app.board').controller('ScrumboardCardDialogController', ScrumboardCardDialogController);
 
     /** @ngInject */
-    function ScrumboardCardDialogController($document, $mdDialog, fuseTheming, fuseGenerator, msUtils, SprintFactory, card, TaskFactory) {
+    function ScrumboardCardDialogController($document, $mdDialog, fuseTheming, fuseGenerator, msUtils, BoardFactory, card, TaskFactory) {
         var vm = this;
 
         // Data
-        vm.board = SprintFactory.data;
+        vm.board = BoardFactory.data;
         vm.card = card;
         vm.newLabelColor = 'red';
         vm.members = vm.board.members;
@@ -60,9 +60,9 @@
          */
         function getCardList() {
             var response;
-            for (var i = 0, len = vm.board.boards.length; i < len; i++) {
-                if (vm.board.boards[i].tasks.indexOf(vm.card) > -1) {
-                    response = vm.board.boards[i];
+            for (var i = 0, len = vm.board.lists.length; i < len; i++) {
+                if (vm.board.lists[i].tasks.indexOf(vm.card) > -1) {
+                    response = vm.board.lists[i];
                     break;
                 }
             }

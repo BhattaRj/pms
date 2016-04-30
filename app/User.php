@@ -52,6 +52,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('App\Models\Project', 'project_user', 'user_id', 'project_id');
     }
 
+    public function boards()
+    {
+        return $this->belongsToMany('App\Models\Board', 'board_user', 'user_id', 'board_id');
+    }
+
+
     public function assignedTasks()
     {
         return $this->hasMany('App\Models\Task', 'assigne_id', 'id');

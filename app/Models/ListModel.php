@@ -9,7 +9,7 @@ class ListModel extends Model
     protected $table    = 'lists';
     protected $fillable = ['title', 'status', 'description','order'];
 
-    public function Board()
+    public function boards()
     {
         return $this->belongsToMany('App\Models\Board', 'board_list', 'list_id', 'board_id');
     }
@@ -20,7 +20,7 @@ class ListModel extends Model
 
     public function tasks()
     {
-        return $this->hasMany('App\Models\Task');
+        return $this->hasMany('App\Models\Task','list_id');
     }
 
     public function getDefaultBoardId()

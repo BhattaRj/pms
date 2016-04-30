@@ -2,7 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\List;
+use App\Models\ListModel;
+use App\Repositories\ListRepository;
 use Illuminate\Http\Request;
 
 class ListsController extends Controller
@@ -10,10 +11,11 @@ class ListsController extends Controller
     protected $list;
     protected $per_page = 100;
     protected $current_page = 1;
-
-    public function __construct(List $list)
+    protected $listRepo;
+    public function __construct(ListModel $list,ListRepository $listRepo)
     {
-        $this->list = $list;
+        $this->list     = $list;
+        $this->listRepo = $listRepo;
     }
 
     public function index(Request $request)
@@ -32,16 +34,8 @@ class ListsController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->input('data');
-        $list = $this->list->create($input);
-
-        if (isset($input['sprint_id'])) {
-            $list->sprints()->attach($input['sprint_id']);
-        }
-
-        $result['data']    = $list->load('tasks');
-        $result['success'] = true;
-        return $result;
+        $data = $request->input('data');        
+        return $this->listRepo->createList($data);
     }
 
     public function update(Request $request, $id)

@@ -16,7 +16,7 @@ Route::get('get_sub_tasks','TasksController@getSubTasks');
 
 
 Route::resource('user', 'UsersController');
-Route::get('project_user/{project_id}', 'UsersController@getProjectUser');
+Route::get('users_for_board/{board_id}', 'UsersController@getUsersForBoard');
 
 Route::resource('board', 'BoardsController');
 Route::get('active_board', 'BoardsController@getActivateSprint');
@@ -25,7 +25,7 @@ Route::get('board_list', 'BoardsController@getBoardList');
 
 
 
-Route::resource('lsit', 'ListsController');
+Route::resource('list', 'ListsController');
 Route::post('reorder_list','ListsController@reorderList');
 
 Route::controller('auth/password', 'Auth\PasswordController', [

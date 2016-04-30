@@ -13,7 +13,7 @@
         var vm = this;
         vm.currentView = 'board';
         vm.board = BoardFactory.data;
-        vm.cardFilters = CardFilters;        
+        vm.cardFilters = CardFilters;
         vm.card = {};
         vm.cardOptions = {};
         vm.newListName = '';
@@ -66,6 +66,7 @@
                 });
             }
         }
+
         vm.sortableListOptions = {
             axis: 'x',
             delay: 75,
@@ -90,7 +91,7 @@
 
         function _reorderBoardList() {
             vm.updateStatus = false;
-            BoardFactory.reorderList(vm.board.lists).then(function(response) {
+            ListFactory.reorderList(vm.board.lists).then(function(response) {
                 if (response) {
                     vm.updateStatus = true;
                 }
@@ -156,11 +157,13 @@
                 }
             },
             stop: function(event, ui) {
-                if ($scope.vm.dropTarget.id == ui.item.sortable.model.board_id) {
+                if ($scope.vm.dropTarget.id == ui.item.sortable.model.list_id) {
                     TaskFactory.reorderTasks($scope.vm.dropTarget.tasks);
                 } else {
-                    ui.item.sortable.moved.board_id = $scope.vm.dropTarget.id
-                    TaskFactory.reorderTasks($scope.vm.dropTarget.tasks);
+                    if (ui.item.sortable.moved) {
+                        ui.item.sortable.moved.list_id = $scope.vm.dropTarget.id
+                        TaskFactory.reorderTasks($scope.vm.dropTarget.tasks);
+                    }
                 }
             }
         };
@@ -229,14 +232,14 @@
             if (vm.newListName === '') {
                 return;
             }
-
             // Add new List.
             var data = {};
             data.title = vm.newListName;
-            data.sprint_id = vm.board.id;
-            BoardFactory.save(data).then(function(response) {
+            data.board_id = vm.board.id;
+            ListFactory.save(data).then(function(response) {
                 vm.board.lists.push(response);
                 _registerWatch();
+                _reorderBoardList();
                 vm.newListName = '';
             });
         }
@@ -260,7 +263,7 @@
                 cancel: 'Cancel'
             });
             $mdDialog.show(confirm).then(function() {
-                BoardFactory.remove(list.id).then(function(response) {
+                ListFactory.remove(list.id).then(function(response) {
                     vm.board.lists.splice(vm.board.lists.indexOf(list), 1);
                 });
                 // vm.board.lists.splice(vm.board.lists.indexOf(list), 1);

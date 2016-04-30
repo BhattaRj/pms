@@ -23,7 +23,7 @@ class BoardsController extends Controller
     // Create board.
     public function store(Request $request)
     {
-    	$data	=	$request->input('data');
+    	$data	=	$request->input('data');        
     	return $this->boardRepo->createBoard($data);
     }
 

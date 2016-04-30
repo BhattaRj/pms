@@ -49,15 +49,23 @@ class BoardRepository
     public function updateBoard($data,$id)
     {
         $board  = $this->board->findOrFail($id);        
+
+        // If users are present sync with board.
+        if (isset($data['users'])) {
+            $this->syncUsers($data['users'], $board);
+        }
+
         $board->update($data);
+
         $result['data']     = $this->getBoardData($board);
         $result['success']  = true;
         return $result;        
     }
 
+    //  Returns board with related model data.
     public function getBoardData($board)
     {
-        $data = $board->load(['lists'=>function($query)
+        $data = $board->load(['users','lists'=>function($query)
                 {
                     $query->with(['tasks'=>function($query)
                     {
@@ -68,6 +76,7 @@ class BoardRepository
                 }]); 
         return $data;           
     }
+
 
     public function getBoardList($request)
     {
@@ -82,6 +91,16 @@ class BoardRepository
         $result['data']  = $query->skip($skip)->take($this->per_page)->get();
 
         return $result;        
+    }
+
+    // Sync users with board.
+    public function syncUsers($users,$board)
+    {
+        $userIds = [];
+        foreach ($users as $user) {
+            $userIds[] = $user['id'];
+        }        
+        $board->users()->sync($userIds);
     }
 
 }

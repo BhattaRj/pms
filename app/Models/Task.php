@@ -7,16 +7,16 @@ use Baum\Node;
 class Task extends Node
 {
     protected $table    = 'tasks';
-    protected $fillable = ['title', 'description', 'project_id', 'sprint_id', 'order', 'priority', 'task_type', 'story_point', 'board_id', 'author_id', 'reporter_id', 'assigne_id'];
+    protected $fillable = ['title', 'description', 'project_id', 'board_id', 'order', 'priority', 'task_type', 'story_point', 'list_id', 'author_id', 'reporter_id', 'assigne_id'];
 
     public function project()
     {
         return $this->belongsTo('App\Models\Project');
     }
 
-    public function board()
+    public function lst()
     {
-        return $this->belongsTo('App\Models\Board');
+        return $this->belongsTo('App\Models\ListModel');
     }
 
     public function boardlist()
