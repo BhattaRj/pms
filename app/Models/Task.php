@@ -29,6 +29,10 @@ class Task extends Node
         return $this->belongsTo('App\User', 'assigne_id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'task_user', 'task_id', 'user_id');
+    }
 
     public function taskList()
     {

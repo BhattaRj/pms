@@ -203,14 +203,14 @@
                     </md-menu-item>
 
                     <md-menu-item class="member" ng-repeat="member in vm.members  | filter: vm.filterMember">
-                        <md-button ng-click="vm.toggleInArray(member.id, vm.card.idMembers)" md-prevent-menu-close
+                        <md-button ng-click="vm.toggleInArray(member, vm.card.users)" md-prevent-menu-close
                                    aria-label="toggle member" translate translate-attr-aria-label="SB.TOGGLE_MEMBER">
                             <div layout="row" layout-align="space-between center">
                                 <div layout="row" layout-align="start center">
-                                    <img alt="{{ member.name }}" ng-src="{{ member.avatar }}" class="avatar"/>
+                                    <img alt="{{ member.name }}" ng-src="{{ member.image_url }}" class="avatar"/>
                                     <p class="member-name">{{ member.name }}</p>
                                 </div>
-                                <i class="icon-check s16" ng-if="vm.exists(member.id, vm.card.idMembers)"></i>
+                                <i class="icon-check s16" ng-if="vm.exists(member, vm.card.users)"></i>
                             </div>
                         </md-button>
                     </md-menu-item>
@@ -362,7 +362,7 @@
         <div class="sections">
 
             <!-- LABELS SECTION -->
-            <div ng-if="vm.card.idLabels[0] || vm.card.idMembers[0]" class="section" layout="row">
+            <div  class="section" layout="row">
 
                 <div ng-if="vm.card.idLabels[0]" flex class="labels">
                     <div class="section-header" layout="row" layout-align="start center">
@@ -391,13 +391,13 @@
                     </div>
                 </div>
 
-                <div ng-if="vm.card.idMembers[0]" flex class="members">
+                <div ng-if="vm.card.users[0]" flex class="members">
                     <div class="section-header" layout="row" layout-align="start center">
                         <i class="icon-account-multiple s18"></i>
                         <span class="section-title" translate="SB.MEMBERS">Members</span>
                     </div>
                     <div class="section-content">
-                        <md-chips class="member-chips" ng-model="vm.card.idMembers" md-autocomplete-snap
+                        <md-chips class="member-chips" ng-model="vm.card.users" md-autocomplete-snap
                                   md-require-match="true" md-transform-chip="$chip.id">
                             <md-autocomplete
                                     md-selected-item="vm.selectedMember"
@@ -408,10 +408,11 @@
                                 <span md-highlight-text="vm.searchText">{{member.name}}</span>
                             </md-autocomplete>
                             <md-chip-template class="member-chip">
-                                <img class="member-chip-avatar" ng-src="{{vm.board.members.getById($chip).avatar}}">
-                                <md-tooltip>{{vm.board.members.getById($chip).name}}</md-tooltip>
+                                <img class="member-chip-avatar" ng-src="{{ $chip.image_url }}">
+                                <!-- <pre>{{ $chip | json }}</pre> -->
+                                <md-tooltip>{{$chip.name}} </md-tooltip>
                             </md-chip-template>
-                            <button md-chip-remove class="md-primary">
+                            <button md-chip-remove class="md-primary"> 
                                 <md-icon md-font-icon="icon-close" class="s18"></md-icon>
                             </button>
                         </md-chips>

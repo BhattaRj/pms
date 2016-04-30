@@ -69,7 +69,7 @@ class BoardRepository
                 {
                     $query->with(['tasks'=>function($query)
                     {
-                        $query->orderBy('order');
+                        $query->with(['users'])->orderBy('order');
 
                     }])->orderBy('order');
 

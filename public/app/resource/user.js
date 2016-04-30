@@ -42,7 +42,7 @@ function UserFactory(User, BaseModelFactory, $q, $http) {
             method: 'GET',
             url: 'users_for_board/' + board_id,
         }).then(function successCallback(response) {
-            if (response.data.success) {                
+            if (response.data.success) {                                
                 fac.userForBoard = response.data.data;
                 deferred.resolve(response.data.data);
             } else {

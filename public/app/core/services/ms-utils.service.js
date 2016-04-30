@@ -255,7 +255,7 @@
          * @param array
          */
         function toggleInArray(item, array)
-        {
+        {            
             if ( array.indexOf(item) === -1 )
             {
                 array.push(item);

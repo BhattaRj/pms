@@ -19,7 +19,6 @@
 
         function init() {
             UserFactory.getUsersForBoard(vm.board.id).then(function(response){
-                debugger;
                 vm.users = UserFactory.userForBoard;                
             });                    
         }

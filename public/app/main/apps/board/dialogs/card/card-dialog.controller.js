@@ -11,9 +11,10 @@
         vm.board = BoardFactory.data;
         vm.card = card;
         vm.newLabelColor = 'red';
-        vm.members = vm.board.members;
+        vm.members = vm.board.users;
         vm.labels = vm.board.labels;
 
+        debugger;
         // Methods
         vm.palettes = fuseTheming.getRegisteredPalettes();
         vm.rgba = fuseGenerator.rgba;
