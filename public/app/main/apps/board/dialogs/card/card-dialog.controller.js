@@ -12,9 +12,8 @@
         vm.card = card;
         vm.newLabelColor = 'red';
         vm.members = vm.board.users;
-        vm.labels = vm.board.labels;
+        vm.labememberQuerySearchls = vm.board.labels;
 
-        debugger;
         // Methods
         vm.palettes = fuseTheming.getRegisteredPalettes();
         vm.rgba = fuseGenerator.rgba;
@@ -43,9 +42,30 @@
         vm.addNewComment = addNewComment;
 
         vm.updateCard = updateCard;
+        vm.toggleMembers=toggleMembers;
 
-        function updateCard(card) {
-            TaskFactory.save(card).then(function(response) {
+        /**
+         * Toggle in member (push or splice)
+         * @param item
+         * @param array
+         */
+        function toggleMembers(item, array)
+        {            
+            if ( array.indexOf(item) === -1 )
+            {
+                array.push(item);
+                vm.updateCard();                
+            }
+            else
+            {
+                array.splice(array.indexOf(item), 1);
+                vm.updateCard();
+            }
+        }
+
+
+        function updateCard() {
+            TaskFactory.save(vm.card).then(function(response) {
 
             });
         }

@@ -295,11 +295,14 @@
                 //     }
                 // });
 
-                // angular.forEach(vm.cardFilters.members, function(member) {
-                //     if (!msUtils.exists(member, card.idMembers)) {
-                //         throw false;
-                //     }
-                // });
+                angular.forEach(vm.cardFilters.members, function(member) {
+                    if(!card.users.getById(member.id)){
+                        throw false;
+                    }
+                    // if (!msUtils.exists(member, card.users)) {
+                    //     throw false;
+                    // }
+                });
 
 
             } catch (err) {

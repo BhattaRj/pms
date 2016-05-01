@@ -72,11 +72,11 @@
                                 <!-- / CARD CHECK ITEMS STATUS -->
                             </div>
                             <!-- CARD MEMBERS -->
-                            <div ng-if="vm.board.cards.getById(cardId).idMembers.length > 0" class="list-card-members" layout="row">
-                                <div class="list-card-member" ng-repeat="memberId in vm.board.cards.getById(cardId).idMembers">
-                                    <img class="list-card-member-avatar" ng-src="{{vm.board.members.getById(memberId).avatar}}">
+                            <div ng-if="card.users.length > 0" class="list-card-members" layout="row">
+                                <div class="list-card-member" ng-repeat="user in card.users">
+                                    <img class="list-card-member-avatar" ng-src="{{ user.image_url }}">
                                     <md-tooltip>
-                                        <div class="name">{{ vm.board.members.getById(memberId).name}}</div>
+                                        <div class="name">{{ user.name }}</div>
                                     </md-tooltip>
                                 </div>
                             </div>

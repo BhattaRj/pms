@@ -87,23 +87,13 @@ class Task extends Node
 
     public function createTask($data){
 
-        // if(!isset($data['sprint_id'])){            
+        $data['author_id']  = $this->user->currentUserId();
+        $task               = $this->create($data);
 
-        //     $project            = $this->project->findOrFail($data['project_id']);
+        $this->updateRowOrder($task, $request);
 
-        //     if($data['task_type']=='Bug'){
-
-        //         $data['sprint_id'] = $project->getTestingBoardId();     
-        //     }
-        //     $data['sprint_id'] = $project->getBacklogId(); 
-        // }
-        
-        // $data['board_id']  = $this->board->getDefaultBoardId();
-        $data['author_id'] = $this->user->currentUserId();
-
-        $result['data']     = $this->create($data);
-        $this->updateRowOrder($result['data'], $request);
-        $result['success'] = true;
+        $result['data']     = $task->load('users');
+        $result['success']  = true;
 
         return $result;
     }

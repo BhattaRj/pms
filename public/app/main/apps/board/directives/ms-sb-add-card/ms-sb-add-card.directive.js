@@ -25,9 +25,11 @@
             }            
             var data = {
                 title: vm.newCardName,
-                list_id: vm.list.id
+                list_id: vm.list.id,
             }
+
             TaskFactory.save(data).then(function(response) {
+            debugger;                
                 vm.list.tasks.push(response);
             });
 

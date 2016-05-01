@@ -34,7 +34,11 @@
          */
         function exists(item, list)
         {
-            return list.indexOf(item) > -1;
+            if(list){
+                return list.indexOf(item) > -1;    
+            }
+            return false;
+            
         }
 
         /**

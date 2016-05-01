@@ -55,17 +55,12 @@ class TaskRepository
 
 	public function createTask($input)	
 	{
-  //       if(!isset($input['board_id']))
-  //       {            
-  //           $project            = $this->project->findOrFail($input['project_id']);
-  //           $input['board_id'] = $project->getBacklogId();                                 
-  //       }       
-		// $input['list_id']  = $this->list->getDefaultListModelId(); 
-        $input['author_id'] = $this->user->currentUserId();
-             
-        $result['data']     = $this->task->create($input);		       
-        $this->updateRowOrder($result['data'] , $input);
-        $result['success'] = true;
+        $input['author_id'] = $this->user->currentUserId();             
+        $task               = $this->task->create($input);	
+        $this->updateRowOrder($task , $input);
+
+        $result['data']     = $task->load('users');
+        $result['success']  = true;
         return $result;		
 	}
 
@@ -90,6 +85,12 @@ class TaskRepository
     {
         $task = $this->task->findOrFail($id);
         $this->updateRowOrder($task, $input);
+
+        // If users are present sync with task.
+        if (isset($input['users'])) {
+            $this->syncUsers($input['users'], $task);
+        }
+
         $result['data']    = $task->update($input);
         $result['success'] = true;
         return $result;
@@ -101,4 +102,16 @@ class TaskRepository
         $input['list_id']  = $this->list->getDefaultTestingListModelId(); 
         return $task->update($input);        
     }
+
+    // Sync users with task.
+    public function syncUsers($users,$task)
+    {
+
+        $userIds = [];
+        foreach ($users as $user) {
+            $userIds[] = $user['id'];
+        }        
+        $task->users()->sync($userIds);
+    }
+
 }

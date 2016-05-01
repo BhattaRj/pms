@@ -54,16 +54,7 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->input('data');
-
-        // if($input['task_type'] == 'Test Case'){
-        //     return $this->taskRepository->createTestCase($input);
-        // }
-        
-        // if($input['task_type'] == 'Bug'){
-        //     return $this->taskRepository->createBug($input);
-        // }
-        
+        $input = $request->input('data');        
         return $this->taskRepository->createTask($input);
     }
 

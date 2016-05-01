@@ -4,14 +4,14 @@
     angular.module('app.board').controller('FiltersSidenavController', FiltersSidenavController);
 
     /** @ngInject */
-    function FiltersSidenavController(msUtils, BoardService, CardFilters) {
+    function FiltersSidenavController(msUtils, BoardFactory, CardFilters) {
         var vm = this;
 
         // Data
-        vm.board = BoardService.data;
+        vm.board = BoardFactory.data;
         vm.cardFilters = CardFilters;
         vm.labels = vm.board.labels;
-        vm.members = vm.board.members;
+        vm.members = vm.board.users;
         vm.selectedMenu = 'Settings';
 
         // Methods

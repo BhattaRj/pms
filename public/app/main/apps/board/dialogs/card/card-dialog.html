@@ -203,7 +203,7 @@
                     </md-menu-item>
 
                     <md-menu-item class="member" ng-repeat="member in vm.members  | filter: vm.filterMember">
-                        <md-button ng-click="vm.toggleInArray(member, vm.card.users)" md-prevent-menu-close
+                        <md-button ng-click="vm.toggleMembers(member, vm.card.users)" md-prevent-menu-close
                                    aria-label="toggle member" translate translate-attr-aria-label="SB.TOGGLE_MEMBER">
                             <div layout="row" layout-align="space-between center">
                                 <div layout="row" layout-align="start center">
@@ -313,7 +313,7 @@
                     <md-icon ng-if="vm.card.subscribed" class="card-subscribe s18" md-font-icon="icon-eye"></md-icon>
 
                     <div class="card-name">
-                        <span editable-text="vm.card.title" onaftersave="vm.updateCard(vm.card)">
+                        <span editable-text="vm.card.title" onaftersave="vm.updateCard()">
                             {{vm.card.title}}
                         </span>
                     </div>
@@ -353,7 +353,7 @@
         <div class="description">
             <md-input-container class="md-block">
                 <label translate="SB.DESCRIPTION">Description</label>
-                <textarea ng-model="vm.card.description" columns="1" md-maxlength="150" rows="5" ng-blur="vm.updateCard(vm.card)"></textarea>
+                <textarea ng-model="vm.card.description" columns="1" md-maxlength="150" rows="5" ng-blur="vm.updateCard()"></textarea>
             </md-input-container>
         </div>
         <!-- / DESCRIPTION -->
@@ -398,8 +398,8 @@
                     </div>
                     <div class="section-content">
                         <md-chips class="member-chips" ng-model="vm.card.users" md-autocomplete-snap
-                                  md-require-match="true" md-transform-chip="$chip.id">
-                            <md-autocomplete
+                                  md-require-match="true" md-transform-chip="$chip.id" ng-disable="true">
+<!--                             <md-autocomplete
                                     md-selected-item="vm.selectedMember"
                                     md-search-text="vm.searchText"
                                     md-items="member in vm.memberQuerySearch(vm.searchText)"
@@ -407,12 +407,11 @@
                                     placeholder="Search for a member">
                                 <span md-highlight-text="vm.searchText">{{member.name}}</span>
                             </md-autocomplete>
-                            <md-chip-template class="member-chip">
+ -->                        <md-chip-template class="member-chip">
                                 <img class="member-chip-avatar" ng-src="{{ $chip.image_url }}">
-                                <!-- <pre>{{ $chip | json }}</pre> -->
                                 <md-tooltip>{{$chip.name}} </md-tooltip>
                             </md-chip-template>
-                            <button md-chip-remove class="md-primary"> 
+                            <button md-chip-remove class="md-primary" ng-click="vm.updateCard()"> 
                                 <md-icon md-font-icon="icon-close" class="s18"></md-icon>
                             </button>
                         </md-chips>
