@@ -59,7 +59,7 @@ class TaskRepository
         $task               = $this->task->create($input);	
         $this->updateRowOrder($task , $input);
 
-        $result['data']     = $task->load(['users','labels']);
+        $result['data']     = $task->load(['users','labels','comments']);
         $result['success']  = true;
         return $result;		
 	}

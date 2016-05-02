@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Baum\Node;
+
 class Task extends Node
 {
+
     protected $table    = 'tasks';
     protected $fillable = ['title', 'description', 'project_id', 'board_id', 'order', 'priority', 'task_type', 'story_point', 'list_id', 'author_id', 'reporter_id', 'assigne_id'];
+
+    protected $morphClass = 'Task';
 
     public function project()
     {
@@ -37,6 +41,12 @@ class Task extends Node
     public function labels()
     {
         return $this->belongsToMany('App\Models\Label', 'task_label', 'task_id', 'label_id');
+    }
+
+
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment','commentable');
     }
 
     public function taskList()

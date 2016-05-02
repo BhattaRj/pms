@@ -4,7 +4,7 @@
     angular.module('app.board').controller('ScrumboardCardDialogController', ScrumboardCardDialogController);
 
     /** @ngInject */
-    function ScrumboardCardDialogController($document, $mdDialog, fuseTheming, fuseGenerator, msUtils, BoardFactory, card, TaskFactory) {
+    function ScrumboardCardDialogController($document, $mdDialog, fuseTheming, fuseGenerator, msUtils, BoardFactory, card, TaskFactory,CommentFactory) {
         var vm = this;
 
         // Data
@@ -41,6 +41,7 @@
         vm.createCheckList = createCheckList;
         /* Comment */
         vm.addNewComment = addNewComment;
+        
         vm.updateCard = updateCard;
         vm.toggleArray = toggleArray;
         
@@ -297,11 +298,18 @@
         function addNewComment(newCommentText) {
             var newComment = {
                 idMember: '36027j1930450d8bf7b10158',
-                message: newCommentText,
-                time: 'now'
+                message: newCommentText,                
+                commentable_id:card.id,
+                commentable_type:'Task'
             };
 
-            vm.card.comments.unshift(newComment);
+            CommentFactory.save(newComment).then(function(response){
+                vm.card.comments.unshift(response);
+
+            });
+
+
+            // vm.card.comments.unshift(newComment);
         }
 
         /**

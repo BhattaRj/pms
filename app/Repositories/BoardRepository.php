@@ -69,7 +69,11 @@ class BoardRepository extends BaseRepository
         {
             $query->with(['tasks'=>function($query)
             {
-                $query->with(['users','labels'])->orderBy('order');
+                $query->with(['users','labels','comments'=>function($query)
+                {
+                    $query->with('user');
+
+                }])->orderBy('order');
 
             }])->orderBy('order');
 

@@ -615,14 +615,16 @@
 
                         <div class="comment" layout="row" ng-repeat="comment in vm.card.comments">
                             <img class="comment-member-avatar"
-                                 ng-src="{{vm.board.members.getById(comment.idMember).avatar}}">
+                                 ng-src="{{ comment.user.image_url }}">
 
                             <div layout="column">
                                 <div class="comment-member-name">
-                                    {{vm.board.members.getById(comment.idMember).name}}
+                                    {{ comment.user.name}}
                                 </div>
                                 <div class="comment-bubble">{{comment.message}}</div>
-                                <div class="comment-time secondary-text">{{comment.time}}</div>
+                                <div class="comment-time secondary-text">
+                                  <span am-time-ago="comment.updated_at"></span>
+                                </div>
                             </div>
                         </div>
                     </div>

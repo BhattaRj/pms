@@ -28,8 +28,7 @@
                 list_id: vm.list.id,
             }
 
-            TaskFactory.save(data).then(function(response) {
-            debugger;                
+            TaskFactory.save(data).then(function(response) {                
                 vm.list.tasks.push(response);
             });
 

@@ -55,6 +55,8 @@
         <!-- <ms-theme-options></ms-theme-options> -->
 
         <script src="scripts/vendor.js"></script>
+        <script src="scripts/angular-moment.js"></script>
+
         <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
 
         <!-- inject:js -->
@@ -147,6 +149,7 @@
         <script src="app/resource/user.js"></script>
         <script src="app/resource/setting.js"></script>
         <script src="app/resource/label.js"></script>
+        <script src="app/resource/comment.js"></script>
 
         <script src="app/core/filters/tag.filter.js"></script>
         <script src="app/core/filters/basic.filter.js"></script>

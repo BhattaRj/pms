@@ -28,6 +28,7 @@ Route::post('reorder_list','ListsController@reorderList');
 
 Route::resource('setting','SettingsController');
 Route::resource('label','LabelsController');
+Route::resource('comment','CommentsController');
 
 Route::controller('auth/password', 'Auth\PasswordController', [
     'getEmail' => 'auth.password.email',
