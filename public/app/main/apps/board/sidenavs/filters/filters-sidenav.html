@@ -32,10 +32,10 @@
         <md-subheader class="md-no-sticky" translate="SB.FILTER_BY_LABELS">Filter by Labels</md-subheader>
 
         <md-list-item class="label" ng-repeat="label in vm.labels"
-                      ng-click="vm.toggleInArray(label.id, vm.cardFilters.labels)">
+                      ng-click="vm.toggleInArray(label, vm.cardFilters.labels)">
             <md-icon md-font-icon="icon-label" ng-class="label.color+'-fg'" class="label-icon"></md-icon>
             <p>{{label.name}}</p>
-            <i class="icon-check s16" ng-if="vm.exists(label.id, vm.cardFilters.labels)"></i>
+            <i class="icon-check s16" ng-if="vm.exists(label, vm.cardFilters.labels)"></i>
         </md-list-item>
         <!-- / FILTER BY LABELS -->
 

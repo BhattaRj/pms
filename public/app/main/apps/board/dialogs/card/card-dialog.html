@@ -59,31 +59,31 @@
                                 <md-menu-item class="label" ng-repeat="label in vm.labels | filter: vm.filterLabel">
                                     <md-button class="label-toggle-button" md-prevent-menu-close
                                                ng-class="'md-'+label.color+'-bg'"
-                                               ng-click="vm.toggleInArray(label.id, vm.card.idLabels)"
+                                               ng-click="vm.toggleArray(label, vm.card.labels)"
                                                aria-label="Toggle Label" translate
                                                translate-attr-aria-label="SB.TOGGLE_LABEL">
                                         <div layout="row" layout-align="space-between center">
                                             <span>{{label.name}}</span>
-                                            <i ng-if="vm.exists(label.id, vm.card.idLabels)" class="icon-check s16"></i>
+                                            <i ng-if="vm.card.labels.getById(label.id)" class="icon-check s16"></i>
                                         </div>
                                     </md-button>
-                                    <md-button class="md-icon-button label-edit-button" md-prevent-menu-close
+<!--                                     <md-button class="md-icon-button label-edit-button" md-prevent-menu-close
                                                ng-click="vm.editLabelId = label.id; vm.labelTabIndex = 2"
                                                aria-label="Edit Label" translate
                                                translate-attr-aria-label="SB.EDIT_LABEL">
                                         <md-icon md-font-icon="icon-pencil" class="s16"></md-icon>
-                                    </md-button>
+                                    </md-button> -->
                                 </md-menu-item>
 
                                 <md-menu-divider></md-menu-divider>
 
-                                <md-menu-item>
+<!--                                 <md-menu-item>
                                     <md-button class="add-label-button" md-prevent-menu-close
                                                ng-click="vm.labelTabIndex = 1">
                                         <md-icon md-font-icon="icon-plus-circle-outline"></md-icon>
                                         <span translate="SB.ADD_NEW_LABEL">Add new label</span>
                                     </md-button>
-                                </md-menu-item>
+                                </md-menu-item> -->
                             </md-tab-body>
                         </md-tab>
                         <!-- / SELECT LABEL -->
@@ -203,7 +203,7 @@
                     </md-menu-item>
 
                     <md-menu-item class="member" ng-repeat="member in vm.members  | filter: vm.filterMember">
-                        <md-button ng-click="vm.toggleMembers(member, vm.card.users)" md-prevent-menu-close
+                        <md-button ng-click="vm.toggleArray(member, vm.card.users)" md-prevent-menu-close
                                    aria-label="toggle member" translate translate-attr-aria-label="SB.TOGGLE_MEMBER">
                             <div layout="row" layout-align="space-between center">
                                 <div layout="row" layout-align="start center">
@@ -366,25 +366,25 @@
             <!-- LABELS SECTION -->
             <div  class="section" layout="row">
 
-                <div ng-if="vm.card.idLabels[0]" flex class="labels">
+                <div ng-if="vm.card.labels[0]" flex class="labels">
                     <div class="section-header" layout="row" layout-align="start center">
                         <i class="icon-label-outline s18"></i>
                         <span class="section-title" translate="SB.LABELS">Labels</span>
                     </div>
                     <div class="section-content">
-                        <md-chips class="label-chips" ng-model="vm.card.idLabels" md-autocomplete-snap
+                        <md-chips class="label-chips" ng-model="vm.card.labels" md-autocomplete-snap
                                   md-require-match="true" md-transform-chip="$chip.id" readonly="true">
-                            <md-autocomplete
+                            <!-- <md-autocomplete
                                     md-selected-item="vm.selectedLabel"
                                     md-search-text="vm.searchLabelText"
                                     md-items="label in vm.labelQuerySearch(vm.searchLabelText)"
                                     md-item-text="label.name"
                                     placeholder="Search for a label">
                                 <span md-highlight-text="vm.searchLabelText">{{label.name}}</span>
-                            </md-autocomplete>
+                            </md-autocomplete> -->
                             <md-chip-template class="label-chip"
-                                              ng-class="'md-'+vm.board.labels.getById($chip).color+'-bg'">
-                                <span>{{vm.board.labels.getById($chip).name}}</span>
+                                              ng-class="'md-'+ $chip.color +'-bg'">
+                                <span>{{$chip.name}}</span>
                             </md-chip-template>
                             <button md-chip-remove class="md-primary">
                                 <md-icon md-font-icon="icon-close" class="s18"></md-icon>
@@ -401,15 +401,15 @@
                     <div class="section-content">
                         <md-chips class="member-chips" ng-model="vm.card.users" md-autocomplete-snap
                                   md-require-match="true" md-transform-chip="$chip.id" readonly="true">
-<!--                             <md-autocomplete
+                            <!-- <md-autocomplete
                                     md-selected-item="vm.selectedMember"
                                     md-search-text="vm.searchText"
                                     md-items="member in vm.memberQuerySearch(vm.searchText)"
                                     md-item-text="member.name"
                                     placeholder="Search for a member">
                                 <span md-highlight-text="vm.searchText">{{member.name}}</span>
-                            </md-autocomplete>
- -->                        <md-chip-template class="member-chip">
+                            </md-autocomplete> -->
+                        <md-chip-template class="member-chip">
                                 <img class="member-chip-avatar" ng-src="{{ $chip.image_url }}">
                                 <md-tooltip>{{$chip.name}} </md-tooltip>
                             </md-chip-template>

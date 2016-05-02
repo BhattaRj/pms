@@ -146,6 +146,7 @@
         <script src="app/resource/task.js"></script>
         <script src="app/resource/user.js"></script>
         <script src="app/resource/setting.js"></script>
+        <script src="app/resource/label.js"></script>
 
         <script src="app/core/filters/tag.filter.js"></script>
         <script src="app/core/filters/basic.filter.js"></script>

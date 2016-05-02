@@ -3,10 +3,10 @@
 
     angular.module('app.board').controller('LabelsMenuController', LabelsMenuController);
 
-    function LabelsMenuController($document, $mdColorPalette, $mdDialog, fuseGenerator, msUtils, BoardService) {
+    function LabelsMenuController($document, $mdColorPalette, $mdDialog, fuseGenerator, msUtils, BoardFactory, LabelFactory) {
         var vm = this;
-        
-        vm.board = BoardService.data;
+
+        vm.board = BoardFactory.data;
         vm.palettes = $mdColorPalette;
         vm.rgba = fuseGenerator.rgba;
         vm.hue = 500;
@@ -16,19 +16,28 @@
         // Methods
         vm.addNewLabel = addNewLabel;
         vm.removeLabel = removeLabel;
-
+        vm.updateLabel = updateLabel;
         ////////
 
         /**
          * Add New Label
          */
         function addNewLabel() {
-            vm.board.labels.push({
-                id: msUtils.guidGenerator(),
+            var data = {
                 name: vm.newLabelName,
-                color: vm.newLabelColor
-            });
-            vm.newLabelName = '';
+                color: vm.newLabelColor,
+                board_id: vm.board.id
+            }
+            LabelFactory.save(data).then(function(response) {
+                vm.board.labels.push(response);
+                vm.newLabelName = '';
+            })
+        }
+
+
+        function updateLabel(lable) {
+            debugger;
+            LabelFactory.save(lable);
         }
 
         /**
@@ -51,14 +60,16 @@
             });
 
             $mdDialog.show(confirm).then(function() {
-                var arr = vm.board.labels;
-                arr.splice(arr.indexOf(arr.getById(labelId)), 1);
-
-                angular.forEach(vm.board.cards, function(card) {
-                    if (card.idLabels && card.idLabels.indexOf(labelId) > -1) {
-                        card.idLabels.splice(card.idLabels.indexOf(labelId), 1);
-                    }
+                LabelFactory.remove(labelId).then(function(response) {                    
+                    var arr = vm.board.labels;
+                    arr.splice(arr.indexOf(arr.getById(labelId)), 1);
                 });
+
+                // angular.forEach(vm.board.cards, functn(card) {
+                //     if (card.idLabels && card.idLabels.indexOf(labelId) > -1) {
+                //         card.idLabels.splice(card.idLabels.indexOf(labelId), 1);
+                //     }
+                // });
             }, function() {
                 // Canceled
             });

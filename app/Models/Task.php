@@ -34,6 +34,11 @@ class Task extends Node
         return $this->belongsToMany('App\User', 'task_user', 'task_id', 'user_id');
     }
 
+    public function labels()
+    {
+        return $this->belongsToMany('App\Models\Label', 'task_label', 'task_id', 'label_id');
+    }
+
     public function taskList()
     {
         return $this->select('title', 'id', 'depth')

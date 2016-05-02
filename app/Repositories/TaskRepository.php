@@ -59,7 +59,7 @@ class TaskRepository
         $task               = $this->task->create($input);	
         $this->updateRowOrder($task , $input);
 
-        $result['data']     = $task->load('users');
+        $result['data']     = $task->load(['users','labels']);
         $result['success']  = true;
         return $result;		
 	}
@@ -91,6 +91,11 @@ class TaskRepository
             $this->syncUsers($input['users'], $task);
         }
 
+        // If labels are present sync with task.
+        if (isset($input['labels'])) {
+            $this->syncLabels($input['labels'], $task);
+        }
+
         $result['data']    = $task->update($input);
         $result['success'] = true;
         return $result;
@@ -106,12 +111,22 @@ class TaskRepository
     // Sync users with task.
     public function syncUsers($users,$task)
     {
-
         $userIds = [];
         foreach ($users as $user) {
             $userIds[] = $user['id'];
         }        
         $task->users()->sync($userIds);
     }
+
+    // Sync users with labels.
+    public function syncLabels($labels,$task)
+    {
+        $labelsId = [];
+        foreach ($labels as $label) {
+            $labelsId[] = $label['id'];
+        }        
+        $task->labels()->sync($labelsId);
+    }
+
 
 }

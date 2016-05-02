@@ -283,11 +283,14 @@
                     throw false;
                 }
 
-                // angular.forEach(vm.cardFilters.labels, function(label) {
-                //     if (!msUtils.exists(label, card.idLabels)) {
-                //         throw false;
-                //     }
-                // });
+                angular.forEach(vm.cardFilters.labels, function(label) {
+                    if(!card.labels.getById(label.id)){
+                        throw false;
+                    }
+                    // if (!msUtils.exists(label, card.idLabels)) {
+                    //     throw false;
+                    // }
+                });
 
                 angular.forEach(vm.cardFilters.members, function(member) {
                     if(!card.users.getById(member.id)){

@@ -43,10 +43,10 @@
                             </div>
                             <!-- /CARD SORT HANDLE -->
                             <!-- CARD LABELS -->
-                            <div ng-if="vm.board.cards.getById(cardId).idLabels.length > 0" class="list-card-labels" layout="row" layout-wrap>
-                                <span class="list-card-label" ng-class="'md-'+vm.board.labels.getById(labelId).color+'-bg'" ng-repeat="labelId in vm.board.cards.getById(cardId).idLabels">
+                            <div ng-if="card.labels.length > 0" class="list-card-labels" layout="row" layout-wrap>
+                                <span class="list-card-label" ng-class="'md-'+label.color+'-bg'" ng-repeat="label in card.labels">
                                     <md-tooltip>
-                                        {{vm.board.labels.getById(labelId).name}}
+                                        {{ label.name }}
                                     </md-tooltip>
                                 </span>
                             </div>

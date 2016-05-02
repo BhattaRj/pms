@@ -12,6 +12,7 @@
         vm.card = card;
         vm.newLabelColor = 'red';
         vm.members = vm.board.users;
+        vm.labels = vm.board.labels;
         vm.labememberQuerySearchls = vm.board.labels;
 
         // Methods
@@ -40,19 +41,18 @@
         vm.createCheckList = createCheckList;
         /* Comment */
         vm.addNewComment = addNewComment;
-
         vm.updateCard = updateCard;
-        vm.toggleMembers = toggleMembers;
-
+        vm.toggleArray = toggleArray;
+        
         /**
          * Toggle in member (push or splice)
          * @param item
          * @param array
          */
-        function toggleMembers(item, array) {
+        function toggleArray(item, array) {
 
             if (array.getById(item.id)) {
-                array.splice(array.indexOf(array.getById(item.id)), 1);                
+                array.splice(array.indexOf(array.getById(item.id)), 1);
                 vm.updateCard();
 
             } else {

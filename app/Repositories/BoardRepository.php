@@ -65,11 +65,11 @@ class BoardRepository extends BaseRepository
     //  Returns board with related model data.
     public function getBoardData($board)
     {
-        $data = $board->load(['users','lists'=>function($query)
+        $data = $board->load(['users','labels','lists'=>function($query)
         {
             $query->with(['tasks'=>function($query)
             {
-                $query->with(['users'])->orderBy('order');
+                $query->with(['users','labels'])->orderBy('order');
 
             }])->orderBy('order');
 
