@@ -12,13 +12,11 @@
         vm.board = BoardFactory.data;
         vm.boardSelectorVisible = false;
 
-
         // Methods
         vm.toggleSidenav = toggleSidenav;
         vm.updateBoardUri = updateBoardUri;
         vm.clearFilters = CardFilters.clear;
         vm.filteringIsOn = CardFilters.isOn;
-
 
         /**
          * Update Board Title
@@ -28,7 +26,7 @@
             BoardFactory.save(data).then(function(response) {                
             });
         }
-
+        
         /**
          * Toggle sidenav         
          * @param sidenavId

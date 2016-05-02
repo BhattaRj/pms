@@ -13,16 +13,18 @@ function Board(ResourseFactory) {
 function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
     var fac = {},
         res = Board;
+    fac.data = {};
+    fac.dataList = [];        
+    fac.project = {};
+
     fac.getDataList = getDataList;
     fac.getDataItem = getDataItem;
     fac.save = save;
     fac.remove = remove;
     fac.activeSprint = activeSprint;
     fac.testingSprint = testingSprint;
-    fac.data = {};
-    fac.dataList = [];
     fac.getBoardList = getBoardList;
-
+    
     function getBoardList(param) {
 
         var queryString = CommonFactory.makeQueryString(param),
@@ -31,6 +33,7 @@ function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
 
         $http.get(url).then(function(response) {
             fac.dataList = response.data.data;
+            fac.project = response.data.project;
             deferred.resolve(response.data.data);
         });
 

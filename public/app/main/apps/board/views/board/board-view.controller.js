@@ -1,12 +1,6 @@
 (function() {
     'use strict';
 
-    /**
-     * Maping of model.
-     * Backend  Frontend
-     * Board  -- List
-     * Sprint  -- Board
-     */
     angular.module('app.board').controller('BoardViewController', BoardViewController);
 
     function BoardViewController($scope, $document, $window, $timeout, $mdDialog, msUtils, CardFilters, DialogService, BoardFactory, ListFactory, TaskFactory) {
@@ -177,7 +171,7 @@
         vm.updateListTitle = updateListTitle;
 
         function updateListTitle(list) {
-            BoardFactory.save(list).then(function(response) {});
+            ListFactory.save(list).then(function(response) {});
         }
 
         init();

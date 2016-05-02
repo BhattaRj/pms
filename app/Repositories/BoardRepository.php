@@ -2,16 +2,20 @@
 namespace App\Repositories;
 
 use App\Models\Board;
+use App\Models\Project;
+use Auth;
 
 class BoardRepository
 {
     protected $board;
     protected $per_page = 100;
     protected $current_page = 1;
-    
-    public function __construct(Board $board)
+    protected $project;
+
+    public function __construct(Board $board, Project $project)
     {
         $this->board   = $board;
+        $this->project = $project;
     }
 
     /**
@@ -49,14 +53,11 @@ class BoardRepository
     public function updateBoard($data,$id)
     {
         $board  = $this->board->findOrFail($id);        
-
         // If users are present sync with board.
         if (isset($data['users'])) {
             $this->syncUsers($data['users'], $board);
         }
-
         $board->update($data);
-
         $result['data']     = $this->getBoardData($board);
         $result['success']  = true;
         return $result;        
@@ -66,14 +67,16 @@ class BoardRepository
     public function getBoardData($board)
     {
         $data = $board->load(['users','lists'=>function($query)
-                {
-                    $query->with(['tasks'=>function($query)
-                    {
-                        $query->with(['users'])->orderBy('order');
+        {
+            $query->with(['tasks'=>function($query)
+            {
+                $query->with(['users'])->orderBy('order');
 
-                    }])->orderBy('order');
+            }])->orderBy('order');
 
-                }]); 
+        }]); 
+        $data['settings'] = $board->settings()->where('user_id', Auth::user()->id)->first();
+
         return $data;           
     }
 
@@ -84,6 +87,7 @@ class BoardRepository
 
         if ($request->has('project_id')) {            
             $query = $query->where('project_id', $request->input('project_id'));
+            $result['project'] = $this->project->findOrFail($request->input('project_id'));
         }
 
         $skip            = ($this->current_page - 1) * $this->per_page;
@@ -102,5 +106,4 @@ class BoardRepository
         }        
         $board->users()->sync($userIds);
     }
-
 }

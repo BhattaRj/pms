@@ -8,7 +8,7 @@
         var vm = this;
 
         // Data
-        vm.board = BoardFactory.data;
+        vm.board = BoardFactory.data;        
         vm.card = card;
         vm.newLabelColor = 'red';
         vm.members = vm.board.users;

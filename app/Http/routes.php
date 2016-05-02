@@ -23,10 +23,10 @@ Route::get('active_board', 'BoardsController@getActivateSprint');
 Route::get('testing_sprint', 'BoardsController@getTestingSprint');
 Route::get('board_list', 'BoardsController@getBoardList');
 
-
-
 Route::resource('list', 'ListsController');
 Route::post('reorder_list','ListsController@reorderList');
+
+Route::resource('setting','SettingsController');
 
 Route::controller('auth/password', 'Auth\PasswordController', [
     'getEmail' => 'auth.password.email',

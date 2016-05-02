@@ -3,10 +3,12 @@
 
     angular.module('app.board').controller('SettingsSidenavController', SettingsSidenavController);
 
-    function SettingsSidenavController($mdColorPalette, BoardService) {
+    function SettingsSidenavController($mdColorPalette, BoardFactory) {
         var vm = this;        
-        vm.board = BoardService.data;
+
+        vm.board = BoardFactory.data;
         vm.palettes = $mdColorPalette;
         vm.selectedMenu = 'Settings';
     }
+    
 })();

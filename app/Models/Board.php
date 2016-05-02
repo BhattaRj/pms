@@ -19,6 +19,11 @@ class Board extends Model
         return $this->belongsToMany('App\Models\ListModel', 'board_list', 'board_id', 'list_id');
     }
 
+    public function settings()
+    {       
+        return $this->hasMany('App\Models\Setting');
+    }
+
     public function users()
     {
         return $this->belongsToMany('App\User', 'board_user', 'board_id', 'user_id');

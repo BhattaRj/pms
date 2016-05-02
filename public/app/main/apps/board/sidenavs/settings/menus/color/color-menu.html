@@ -43,8 +43,8 @@
     <md-list>
 
         <!-- COLORS -->
-        <md-list-item class="color" ng-repeat="(paletteName, palette) in vm.palettes"
-                      ng-click="vm.board.settings.color = paletteName"
+        <md-list-item class="color" ng-repeat="(paletteName, palette) in vm.palettes"                      
+                      ng-click="vm.updateColor(paletteName)"
                       ng-class="'md-'+paletteName+'-bg'" aria-label="color select">
             <p flex>{{paletteName}}</p>
             <i class="icon-check s16" ng-if="paletteName === vm.board.settings.color"></i>
