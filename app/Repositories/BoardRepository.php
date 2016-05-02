@@ -5,11 +5,10 @@ use App\Models\Board;
 use App\Models\Project;
 use Auth;
 
-class BoardRepository
+class BoardRepository extends BaseRepository
 {
     protected $board;
-    protected $per_page = 100;
-    protected $current_page = 1;
+
     protected $project;
 
     public function __construct(Board $board, Project $project)

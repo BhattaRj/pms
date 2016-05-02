@@ -24,7 +24,7 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {    
-        return $ths->userRepo->saveUser($request);
+        return $this->userRepo->saveUser($request);
     }
 
     public function update(Request $request, $id)

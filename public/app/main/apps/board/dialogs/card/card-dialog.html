@@ -210,7 +210,9 @@
                                     <img alt="{{ member.name }}" ng-src="{{ member.image_url }}" class="avatar"/>
                                     <p class="member-name">{{ member.name }}</p>
                                 </div>
-                                <i class="icon-check s16" ng-if="vm.exists(member, vm.card.users)"></i>
+                                <!-- <i class="icon-check s16" ng-if="vm.exists(member, vm.card.users)"></i> -->
+                                <i class="icon-check s16" ng-if="vm.card.users.getById(member.id)"></i>
+                                
                             </div>
                         </md-button>
                     </md-menu-item>
@@ -371,7 +373,7 @@
                     </div>
                     <div class="section-content">
                         <md-chips class="label-chips" ng-model="vm.card.idLabels" md-autocomplete-snap
-                                  md-require-match="true" md-transform-chip="$chip.id">
+                                  md-require-match="true" md-transform-chip="$chip.id" readonly="true">
                             <md-autocomplete
                                     md-selected-item="vm.selectedLabel"
                                     md-search-text="vm.searchLabelText"
@@ -398,7 +400,7 @@
                     </div>
                     <div class="section-content">
                         <md-chips class="member-chips" ng-model="vm.card.users" md-autocomplete-snap
-                                  md-require-match="true" md-transform-chip="$chip.id" ng-disable="true">
+                                  md-require-match="true" md-transform-chip="$chip.id" readonly="true">
 <!--                             <md-autocomplete
                                     md-selected-item="vm.selectedMember"
                                     md-search-text="vm.searchText"

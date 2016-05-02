@@ -3,7 +3,7 @@ namespace App\Repositories;
 use App\User;
 use App\Models\Board;
 
-class UserRepository
+class UserRepository extends BaseRepository
 {	
 	protected $user;		
 	protected $board;

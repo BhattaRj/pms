@@ -8,7 +8,7 @@
         var vm = this;
 
         // Data
-        vm.board = BoardFactory.data;        
+        vm.board = BoardFactory.data;
         vm.card = card;
         vm.newLabelColor = 'red';
         vm.members = vm.board.users;
@@ -42,27 +42,31 @@
         vm.addNewComment = addNewComment;
 
         vm.updateCard = updateCard;
-        vm.toggleMembers=toggleMembers;
+        vm.toggleMembers = toggleMembers;
 
         /**
          * Toggle in member (push or splice)
          * @param item
          * @param array
          */
-        function toggleMembers(item, array)
-        {            
-            if ( array.indexOf(item) === -1 )
-            {
+        function toggleMembers(item, array) {
+
+            if (array.getById(item.id)) {
+                array.splice(array.indexOf(array.getById(item.id)), 1);                
+                vm.updateCard();
+
+            } else {
                 array.push(item);
-                vm.updateCard();                
-            }
-            else
-            {
-                array.splice(array.indexOf(item), 1);
                 vm.updateCard();
             }
+            // if (array.indexOf(item) === -1) {
+            //     array.push(item);
+            //     vm.updateCard();
+            // } else {
+            //     array.splice(array.indexOf(item), 1);
+            //     vm.updateCard();
+            // }
         }
-
 
         function updateCard() {
             TaskFactory.save(vm.card).then(function(response) {
@@ -91,8 +95,7 @@
         }
 
         /**
-         * Remove card
-         *
+         * Remove card         
          * @param ev
          */
         function removeCard(ev) {
@@ -119,8 +122,7 @@
         }
 
         /**
-         * Toggle cover image
-         *
+         * Toggle cover image         
          * @param attachmentId
          */
         function toggleCoverImage(attachmentId) {
@@ -132,8 +134,7 @@
         }
 
         /**
-         * Remove attachment
-         *
+         * Remove attachment         
          * @param item
          */
         function removeAttachment(item) {
@@ -144,8 +145,7 @@
         }
 
         /**
-         * Add label chips
-         *
+         * Add label chips         
          * @param query
          * @returns {filterFn}
          */
@@ -154,8 +154,7 @@
         }
 
         /**
-         * Label filter
-         *
+         * Label filter         
          * @param label
          * @returns {boolean}
          */
@@ -197,8 +196,7 @@
         }
 
         /**
-         * Add member chips
-         *
+         * Add member chips         
          * @param query
          * @returns {Array}
          */
@@ -207,8 +205,7 @@
         }
 
         /**
-         * Member filter
-         *
+         * Member filter         
          * @param member
          * @returns {boolean}
          */
@@ -248,8 +245,7 @@
         }
 
         /**
-         * Add checklist item
-         *
+         * Add checklist item         
          * @param text
          * @param checkList
          */
@@ -269,8 +265,7 @@
         }
 
         /**
-         * Remove checklist
-         *
+         * Remove checklist         
          * @param item
          */
         function removeChecklist(item) {
@@ -296,8 +291,7 @@
         }
 
         /**
-         * Add new comment
-         *
+         * Add new comment         
          * @param newCommentText
          */
         function addNewComment(newCommentText) {
@@ -312,7 +306,6 @@
 
         /**
          * Filter for chips
-         *
          * @param query
          * @returns {filterFn}
          */
