@@ -51,7 +51,8 @@ class BoardRepository extends BaseRepository
      */
     public function updateBoard($data,$id)
     {
-        $board  = $this->board->findOrFail($id);        
+        $board  = $this->board->findOrFail($id);  
+
         // If users are present sync with board.
         if (isset($data['users'])) {
             $this->syncUsers($data['users'], $board);
@@ -78,6 +79,7 @@ class BoardRepository extends BaseRepository
             }])->orderBy('order');
 
         }]); 
+        
         $data['settings'] = $board->settings()->where('user_id', Auth::user()->id)->first();
 
         return $data;           

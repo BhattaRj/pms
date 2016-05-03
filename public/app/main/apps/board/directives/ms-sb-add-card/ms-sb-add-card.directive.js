@@ -19,16 +19,17 @@
         /**
          * Add New Card
          */
-        function addNewCard() {            
+        function addNewCard() {
+            vm.board = BoardFactory.data;
             if (vm.newCardName === '') {
                 return;
-            }            
+            }
             var data = {
                 title: vm.newCardName,
                 list_id: vm.list.id,
             }
 
-            TaskFactory.save(data).then(function(response) {                
+            TaskFactory.save(data).then(function(response) {
                 vm.list.tasks.push(response);
             });
 

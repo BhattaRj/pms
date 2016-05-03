@@ -23,8 +23,7 @@
          */
         function updateBoardUri() {
             var data = { id: vm.board.id, title: vm.board.title };
-            BoardFactory.save(data).then(function(response) {                
-            });
+            BoardFactory.update(data);            
         }
         
         /**

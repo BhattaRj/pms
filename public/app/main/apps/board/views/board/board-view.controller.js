@@ -171,7 +171,7 @@
         vm.updateListTitle = updateListTitle;
 
         function updateListTitle(list) {
-            ListFactory.save(list).then(function(response) {});
+            ListFactory.save(list);
         }
 
         init();

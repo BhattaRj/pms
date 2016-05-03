@@ -52,7 +52,7 @@
                 this.push(user);
             }, vm.board.users);
 
-            BoardFactory.save(vm.board).then(function(response) {
+            BoardFactory.update(vm.board).then(function(response) {
                 angular.forEach(vm.selectedUser, function(user) {
                     this.splice(this.indexOf(user), 1);
                 }, vm.users);
@@ -81,7 +81,7 @@
             $mdDialog.show(confirm).then(function() {
                 var arr = vm.board.users;
                 arr.splice(arr.indexOf(user), 1);                
-                BoardFactory.save(vm.board).then(function(response) {
+                BoardFactory.update(vm.board).then(function(response) {
                     vm.users.push(user);
                     vm.selectedUser = [];
                 });

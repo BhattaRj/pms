@@ -78,7 +78,6 @@
             },
             resolve: {
                 BoardData: function($stateParams, BoardFactory) {
-                    debugger;
                     var data = { project_id: $stateParams.id, title: 'Untitled Board' };
                     return BoardFactory.save(data);
                 }

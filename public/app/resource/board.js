@@ -14,7 +14,7 @@ function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
     var fac = {},
         res = Board;
     fac.data = {};
-    fac.dataList = [];        
+    fac.dataList = [];
     fac.project = {};
 
     fac.getDataList = getDataList;
@@ -24,7 +24,8 @@ function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
     fac.activeSprint = activeSprint;
     fac.testingSprint = testingSprint;
     fac.getBoardList = getBoardList;
-    
+    fac.update = update;
+
     function getBoardList(param) {
 
         var queryString = CommonFactory.makeQueryString(param),
@@ -54,19 +55,35 @@ function BoardFactory(Board, BaseModelFactory, $q, $http, CommonFactory) {
         return BaseModelFactory.getDataList(res, param);
     }
 
+
+    function update(data) {
+        var deferred = $q.defer();
+        res.update({
+            id: data.id,
+            data: data
+        }, function(response) {
+            if (response.success) {
+                if (fac.dataList.getById(response.data.id)) {
+                    fac.dataList.getById(response.data.id).title = response.data.title;
+                }
+                deferred.resolve(response.data);
+                console.log('data updated successfully.')
+            }
+        }, function(error) {
+            if (422 == error.status) {
+                console.log('validation error occoured!!');
+            }
+        });
+
+        return deferred.promise;
+    }
+
     function save(data) {
         var deferred = $q.defer();
         return BaseModelFactory.save(res, data).then(function(response) {
             fac.data = response;
-
-            // Update Datalist.
-            if (fac.dataList.getById(response.id)) {
-                fac.dataList.getById(response.id).title = fac.data.title;
-            } else {
-                fac.dataList.push({ id: String(response.id), title: response.title });
-            }
+            fac.dataList.push({ id: String(response.id), title: response.title });
             deferred.resolve(response);
-
         }, function(response) {
             deferred.reject(fac.data);
         });
