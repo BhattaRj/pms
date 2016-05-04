@@ -1,13 +1,20 @@
 <md-dialog class="event-form-dialog" aria-label="New Message">
+
     <form name="Form" class="md-inline-form" novalidate>
+
         <md-toolbar class="md-accent md-hue-2">
+
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+
                 <span class="title">{{vm.dialogTitle}}</span>
+                
                 <md-button class="md-icon-button" aria-label="Close dialog" translate translate-attr-aria-label="CALENDAR.CLOSE_DIALOG" ng-click="cancel()" modal-cancel-buttton>
                     <md-icon md-font-icon="icon-close"></md-icon>
                 </md-button>
             </div>
+
         </md-toolbar>
+
         <md-dialog-content ms-scroll>
             <div layout="column" layout-gt-sm="row">
 

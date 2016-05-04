@@ -106,7 +106,7 @@
         <script src="app/main/apps/board/sidenavs/filters/filters-sidenav.controller.js"></script>
 
 
-        <script src="app/main/apps/board/wbs-board/wbs-board.controller.js"></script>
+        <script src="app/main/apps/wbs-board/wbs-board.controller.js"></script>
 
 
         <!--  Core Module. -->

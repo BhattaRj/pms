@@ -1,0 +1,101 @@
+<md-dialog class="event-form-dialog" aria-label="New Message">
+
+    <form name="Form" class="md-inline-form" novalidate>
+
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+
+                <span class="title" ng-show="vm.dataModel.task_type">{{ vm.dataModel.task_type }}</span>
+                <span class="title" ng-hide="vm.dataModel.task_type">Add</span>
+
+                <md-button class="md-icon-button" aria-label="Close dialog" translate translate-attr-aria-label="CALENDAR.CLOSE_DIALOG" ng-click="cancel()" modal-cancel-buttton>
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content ms-scroll>
+
+            <div layout="column" layout-gt-sm="row">
+                <md-input-container flex>
+                    <label>Title</label>
+                    <input type="text" name="title" ng-model="vm.dataModel.title" required md-maxlength="200">
+                    <div ng-messages="Form.title.$error" role="alert">
+                        <div ng-message="required"><span>Title field is required.</span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Order</label>
+                    <md-select ng-model="vm.dataModel.order">
+                        <md-option value="before">Before</md-option>
+                        <md-option value="after">After</md-option>
+                        <md-option value="childOf">Child of</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label></label>
+                    <md-select ng-model="vm.dataModel.ordertask" aria-label="Select Order">
+                        <md-option ng-repeat="issue in vm.issues" value="{{ issue.id }}">
+                            <span ng-bind-html="[[ makePadding(issue.title,issue.depth) ]]" padded-title></span>
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+            </div>
+
+            <div layout="column" layout-gt-xs="row">
+
+                <md-input-container flex>
+
+                    <label>Priority</label>
+                    <md-select ng-model="vm.dataModel.priority" name="priority" required>
+                        <md-option value="Highest">Highest</md-option>
+                        <md-option value="High">High</md-option>
+                        <md-option value="Low">Low</md-option>
+                        <md-option value="Lowest">Lowest</md-option>
+                    </md-select>
+
+                    <div ng-messages="Form.priority.$error" role="alert" multiple>
+                        <div ng-message="required"><span>You must supply a priority.</span></div>
+                    </div>
+
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Type</label>
+                    <md-select ng-model="vm.dataModel.task_type" name="task_type" required>
+                        <md-option value="User Story">User Story</md-option>
+                        <md-option value="Epic">Epic</md-option>
+                        <md-option value="Task">Task</md-option>
+                        <md-option value="Test Case">Test Case</md-option>
+                    </md-select>
+
+                    <div ng-messages="Form.task_type.$error" role="alert" multiple>
+                        <div ng-message="required"><span>You must supply a type.</span></div>
+                    </div>                    
+                </md-input-container>
+
+            </div>
+
+            <md-input-container flex class="md-block textarea-container">
+                <label>Description</label>
+                <textarea ng-model="vm.dataModel.description" md-maxlength="250"></textarea>
+            </md-input-container>
+
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <md-button class="save-button md-accent md-raised" aria-label="SAVE" ng-click="vm.save(vm.dataModel)" can-save-form ng-disabled="!canSave(Form)">
+                <span ng-if="dataSaved">Save</span>
+                <span ng-if="!dataSaved">Saving...</span>
+            </md-button>
+            <md-button ng-click="cancel()" modal-cancel-buttton class="save-button md-warn md-raised" aria-label="SAVE">CANCEL</md-button>
+        </md-dialog-actions>
+
+    </form>
+</md-dialog>

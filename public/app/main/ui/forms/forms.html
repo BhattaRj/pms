@@ -305,7 +305,9 @@
                     <div class="form-title">Optional form title</div>
 
                     <div layout="column" layout-gt-sm="row">
+
                         <md-input-container flex>
+
                             <input type="text" name="firstname" ng-model="vm.basicForm.firstname"
                                    placeholder="Firstname"
                                    required>
@@ -348,6 +350,7 @@
                             <label>Postal Code</label>
                             <input name="postalcode" ng-model="vm.basicForm.postalCode" placeholder="12345"
                                    required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+
                             <div ng-messages="basicForm.postalcode.$error" role="alert" multiple>
                                 <div ng-message="required"><span>You must supply a postal code.</span></div>
                                 <div ng-message="pattern"><span>That doesn't look like a valid postal code.</span></div>
@@ -355,6 +358,7 @@
                                     <span>Postal code can't be longer than 5 characters.</span>
                                 </div>
                             </div>
+                            
                         </md-input-container>
                     </div>
 

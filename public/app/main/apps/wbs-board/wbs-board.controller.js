@@ -26,8 +26,6 @@
             $mdSidenav(sidenavId).toggle();
         }
 
-
-
         vm.getData = getData;
         vm.remove = remove;
         vm.create = create;
@@ -41,7 +39,7 @@
             vm.getData(vm.param);
         };
 
-        //Retrive all dataList.         
+        // Retrive all dataList.         
         function getData(param) {
             vm.dataLoaded = false;
             TaskFactory.getStories(param).then(function(response) {
@@ -64,7 +62,7 @@
 
         // Create form for create and Save.
         function create($event, id) {
-            var templateUrl = '/app/main/apps/board/wbs-board/form.html',
+            var templateUrl = '/app/main/apps/wbs-board/form.html',
                 contrl = 'SaveIssueController as vm',
                 data = {
                     id: id
@@ -86,9 +84,7 @@
 
         if (data.id) {
             getIssue(data.id);
-            vm.title = "Edit Issue";
         } else {
-            vm.title = "Add Issue";
             vm.dataModel = {};
             vm.dataModel.project_id = $state.params.id
         }
