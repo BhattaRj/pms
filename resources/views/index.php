@@ -17,9 +17,9 @@
         <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700italic,700,900,900italic'
               rel='stylesheet' type='text/css'>
 
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<!--         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+        <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css"> -->
     </head>
 
     <!--[if lt IE 10]>

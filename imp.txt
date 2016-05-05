@@ -11,3 +11,25 @@ madera16
 projectmanagement.dataenterprises.net
 
 sage@accountancy-group.com/@Madera13@
+
+
+
+Hierarchy for Epic-->User Story...                       |          3 |     NULL |
+| Admin must be able to delete Boards                      |          3 |     NULL |
+| List connection to each board                            |          3 |     NULL |
+| As a scrum master i want to add users in Board           |       NULL |       31 |
+| Code Optimization for board and list module              |       NULL |       33 |
+| As a common users i want to filter with users            |       NULL |       31 |
+| Add Dialog Box for task                                  |       NULL |       33 |
+| As a common user i want to remove card                   |       NULL |       33 |
+| Add type ahead in WBS board child of                     |       NULL |       31 |
+| Change page order into order in wbs board                |       NULL |       31 |
+| Made hierarchy of Task Types                             |       NULL |       31 |
+| only show Show child task types in when adding new child |       NULL |       31 |
+| Sort card by story point                                 |       NULL |       31 |
+| Implement RBAC                                           |       NULL |       31 |
+| Add setting to define feilds in board.                   |       NULL |       31 |
+| Add filters in wbs board                                 |       NULL |       31 |
+| Setup project in laravel                                 |       NULL |       38 |
+| Make registration for user                               |       NULL |       38 |
+| Make login form and login process            
