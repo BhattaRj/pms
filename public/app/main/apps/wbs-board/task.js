@@ -7,24 +7,18 @@
     function TaskController($scope, $http, TaskFactory) {
 
         $scope.data = [];
+        init();
 
-        $scope.title = 'janak';
-
-        $http({
-            method: 'GET',
-            url: '/test_data',
-
-        }).then(function successCallback(response) {
-
-
-            $scope.data = response.data.data;
-
-        }, function errorCallback(response) {
-
-            console.log('error occoured..!!!' + response)
-
-        });
-
+        function init() {
+            $http({
+                method: 'GET',
+                url: '/test_data',
+            }).then(function successCallback(response) {
+                $scope.data = response.data.data;                
+            }, function errorCallback(response) {
+                console.log('error occoured..!!!' + response)
+            });
+        }
 
         $scope.parseId = function(val) {
             val.id = parseInt(val.id);
@@ -45,15 +39,12 @@
 
 
         $scope.newSubItem = function(scope) {
-
             var nodeData = scope.$modelValue;
-
             nodeData.children.push({
                 id: nodeData.id * 10 + nodeData.children.length,
                 title: nodeData.title + '.' + (nodeData.children.length + 1),
                 children: []
             });
-
         };
 
         $scope.collapseAll = function() {
