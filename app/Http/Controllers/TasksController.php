@@ -95,34 +95,14 @@ class TasksController extends Controller
         return $result;
     }
 
+
     /** Return tasks heirarchically for stroy list. */
     public function getStories(Request $request)
-    {                
-
-        $query = $this->task->with(['boardlist','assigne'])->orderBy('lft', 'asc');
-
-        if ($request->has('project_id')) {            
-            $query = $query->where('project_id', $request->input('project_id'));
-        }
-
-        if ($request->has('task_type')) {            
-            $query = $query->where('task_type', $request->input('task_type'));
-        }
-
-        if ($request->has('priority')) {            
-            $query = $query->where('priority', $request->input('priority'));
-        }
-                                
-        if ($request->has('currentPage')) {
-            $this->current_page = $request->input('currentPage');
-        }
-
-        $skip            = ($this->current_page - 1) * $this->per_page;
-        $result['total'] = $query->get()->count();
-        $result['data']  = $query->skip($skip)->take($this->per_page)->get();
-
-        return $result;
+    {         
+        return $this->taskRepository->getStories($request);
     }
+
+
 
     public function taskList()
     {

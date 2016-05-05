@@ -3,6 +3,15 @@
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 
+Route::get('test_data',function(){
+	return \App\Models\Task::where('project_id',5)->get()->toHierarchy();	
+	return $result;
+});
+
+Route::get('test',function(){	
+	return view('test');	
+});
+
 
 Route::resource('project', 'ProjectsController');
 Route::get('recent_project', 'ProjectsController@recentProject');

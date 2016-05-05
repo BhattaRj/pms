@@ -76,7 +76,7 @@ class ProjectsController extends Controller
 
     public function show($id)
     {
-        $result['data']    = $this->project->findOrFail($id)->load(['users']);
+        $result['data']    = $this->project->findOrFail($id)->load(['users','taskTypes']);
         $result['success'] = true;
         return $result;
     }

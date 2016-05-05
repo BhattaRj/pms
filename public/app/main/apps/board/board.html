@@ -74,15 +74,20 @@
     <md-backdrop class="board-selector-backdrop md-dialog-backdrop md-opaque" ng-show="vm.boardSelectorVisible" ng-click="vm.boardSelectorVisible = false" aria-hidden="true">
     </md-backdrop>
     <!-- / BOARD SELECTION -->
+    
     <!-- CONTENT -->
     <md-content class="content" flex layout="column" ui-view="scrumboardContent"></md-content>
     <!-- / CONTENT -->
+
     <!-- SETTINGS SIDENAV -->
     <md-sidenav class="settings-sidenav md-sidenav-right" md-component-id="settings-sidenav" ng-include="'app/main/apps/board/sidenavs/settings/settings-sidenav.html'" ng-controller="SettingsSidenavController as vm" ms-sidenav-helper>
     </md-sidenav>
     <!-- / SETTINGS SIDENAV -->
+
     <!-- FILTERS SIDENAV -->
     <md-sidenav class="filters-sidenav md-sidenav-right" md-component-id="filters-sidenav" ng-include="'app/main/apps/board/sidenavs/filters/filters-sidenav.html'" ng-controller="FiltersSidenavController as vm" ms-sidenav-helper>
     </md-sidenav>
     <!-- / FILTERS SIDENAV -->
+
+
 </div>

@@ -129,4 +129,19 @@ class TaskRepository
     }
 
 
+    // Returns tasks for wbs board.
+    public function getStories($request)
+    {
+
+        $query = $this->task->with(['boardlist','assigne'])->orderBy('lft', 'asc');
+
+        if ($request->has('project_id')) {            
+            $query = $query->where('project_id', $request->input('project_id'));
+        }
+
+        $result['total'] = $query->get()->count();
+        $result['data']  = $query->get()->toHierarchy();
+
+        return $result;
+    }
 }

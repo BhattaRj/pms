@@ -25,6 +25,7 @@
             'xeditable',
             'moment-picker',
             'ngFileUpload',
-            'angularMoment',            
+            'angularMoment', 
+            'ui.tree',           
         ]);
 })();

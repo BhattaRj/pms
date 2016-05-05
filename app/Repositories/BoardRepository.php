@@ -92,7 +92,7 @@ class BoardRepository extends BaseRepository
 
         if ($request->has('project_id')) {            
             $query = $query->where('project_id', $request->input('project_id'));
-            $result['project'] = $this->project->findOrFail($request->input('project_id'));
+            $result['project'] = $this->project->findOrFail($request->input('project_id'))->load(['taskTypes']);
         }
 
         $skip            = ($this->current_page - 1) * $this->per_page;
