@@ -1,0 +1,54 @@
+<!-- Nested node template -->
+<div ng-controller="TaskController">
+
+    <script type="text/ng-template" id="nodes_renderer.html">
+
+        <div ui-tree-handle class="tree-node tree-node-content" class="md-whiteframe-z1">
+
+            <md-button class="md-icon-button md-accent" aria-label="Favorite" data-nodrag ng-click="toggle(this)" ng-if="node.children && node.children.length > 0">
+                <md-icon md-font-icon="icon-chevron-down" ng-if="!collapsed"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" ng-if="collapsed"></md-icon>
+            </md-button>
+
+            {{ node.title }}
+
+            <md-button class="md-icon-button md-accent pull-right" aria-label="Favorite" data-nodrag ng-click="newSubItem(this)">
+                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+            </md-button>
+
+<!--             <md-button class="md-icon-button md-warn pull-right" aria-label="Favorite" data-nodrag ng-click="remove(this)">
+                <md-icon md-font-icon="icon-cancel"></md-icon>
+            </md-button>                 -->
+        </div>
+
+        <ol ui-tree-nodes="" ng-model="node.children" ng-if="!collapsed">
+            <li ng-repeat="node in node.children" ng-init="parseId(node)" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+        </ol>
+
+    </script>
+
+    <div layout="row">
+        <md-button class="md-primary md-raised" ng-click="expandAll()">Expand all</md-button>
+        <md-button class="md-primary md-raised" ng-click="collapseAll()">Collapse all</md-button>
+        <md-button class="md-accent md-raised" ng-click="save(data)">Save</md-button>        
+    </div>
+
+    <div layout="row">
+
+        <div flex="10">
+            
+        </div>
+
+        <div flex>
+            <div ui-tree id="tree-root">
+                <ol ui-tree-nodes ng-model="data">
+                    <li ng-repeat="node in data" ng-init="parseId(node)" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                </ol>
+            </div>                
+        </div>
+        <div flex="10">
+            
+        </div>
+    </div>
+
+</div>

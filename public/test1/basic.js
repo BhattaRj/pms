@@ -6,8 +6,8 @@
         $http({
             method: 'GET',
             url: '/test_data',
-        }).then(function successCallback(response) {
-            $scope.data = response.data;
+        }).then(function successCallback(response) {            
+            $scope.data = response.data.data;
         }, function errorCallback(response) {
             console.log('error occoured..!!!' + response)
         });

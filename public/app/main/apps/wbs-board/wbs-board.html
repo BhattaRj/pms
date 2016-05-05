@@ -89,92 +89,10 @@
 
     <!-- CONTENT -->
     <md-content class="content" flex layout="column" ms-scroll>
-
-
-
-        <div ui-tree>
-          <ol ui-tree-nodes="" ng-model="vm.tasks">
-            <li ng-repeat="item in vm.tasks" ui-tree-node>
-              <div ui-tree-handle>
-                {{item.title}}
-              </div>
-              <ol ui-tree-nodes="" ng-model="item.children">
-                <li ng-repeat="subItem in item.children" ui-tree-node>
-                  <div ui-tree-handle>
-                    {{subItem.title}}
-                  </div>
-                </li>
-              </ol>
-            </li>
-          </ol>
-        </div>
-
-
-
-
-        <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">    
-            <!-- CONTENT -->
-            <!-- <div class="content" ms-scroll>
-                <div class="simple-table-container md-whiteframe-4dp">
-                    <table class="simple" ms-responsive-table>
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Priority</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <tr ng-repeat="dataModel in vm.tasks">
-                                <td class="name">
-                                    <span ng-bind-html="[[ makePadding(dataModel.title,dataModel.depth) ]]" padded-title>
-                                    <md-tooltip>
-                                        Status : {{ dataModel.board.title }}<br>
-                                        Assigne : {{ dataModel.assigne.name }}                                                    
-                                    </md-tooltip>
-                                </td>
-
-                                <td class="position">
-                                    {{ dataModel.task_type }}
-                                </td>
-                                <td class="position">
-                                    {{ dataModel.priority }}
-                                </td>
-                                <td class="position">{{ dataModel.board.title }}</td>
-
-                                <td class="office">
-                                    <i class="mdi mdi-bell"></i>
-                                    <md-button class="md-icon-button md-primary" aria-label="Custom Icon Button" ng-click="vm.create($event, dataModel.id)">
-                                        <i class="icon icon-table-edit"></i>
-                                    </md-button>
-                                    <md-button class="md-icon-button md-warn" aria-label="Custom Icon Button" ng-click="vm.remove(dataModel.id,$index,$event)">
-                                        <i class="icon icon-close"></i>
-                                    </md-button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div> -->
-
-        </div>
-
-            <!-- / CONTENT -->
-            <div layout="row">
-                <md-button class="add-event-button md-warn md-fab md-fab-bottom-right" ng-click="vm.create($event)" aria-label="Add event">
-                    <md-icon md-font-icon="icon-plus"></md-icon>
-                </md-button>
-            </div>
-
+        <div ng-include="'app/main/apps/wbs-board/task.html'"></div>            
     </md-content>
     <!-- / CONTENT -->
+
 
     <!-- FILTERS SIDENAV -->
     <md-sidenav class="filters-sidenav md-sidenav-right" md-component-id="filters-sidenav" ng-include="'app/main/apps/scrumboard/sidenavs/filters/filters-sidenav.html'" ng-controller="FiltersSidenavController as vm" ms-sidenav-helper>
@@ -182,11 +100,9 @@
     <!-- / FILTERS SIDENAV -->
 
 
-
     <!-- SETTINGS SIDENAV -->
     <md-sidenav class="settings-sidenav md-sidenav-right" md-component-id="settings-sidenav" ng-include="'app/main/apps/board/sidenavs/settings/settings-sidenav.html'" ng-controller="SettingsSidenavController as vm" ms-sidenav-helper>
     </md-sidenav>
     <!-- / SETTINGS SIDENAV -->
-
 
 </div>

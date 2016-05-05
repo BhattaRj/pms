@@ -26,6 +26,9 @@
             'moment-picker',
             'ngFileUpload',
             'angularMoment', 
-            'ui.tree',           
+            'ui.tree',    
+            'ui.tree', 
+            'ui.bootstrap'
+            
         ]);
 })();

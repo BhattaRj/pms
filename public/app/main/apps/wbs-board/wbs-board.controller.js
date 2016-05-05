@@ -100,9 +100,9 @@
                 vm.issues = data;
             });
 
-            ProjectFactory.getDataItem($state.params.id).then(function(response) {
-                vm.users = response.users;
-            });
+            // ProjectFactory.getDataItem($state.params.id).then(function(response) {
+            //     vm.users = response.users;
+            // });
         }
 
         function save(data) {

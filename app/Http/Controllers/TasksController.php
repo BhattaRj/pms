@@ -54,8 +54,13 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->input('data');        
-        return $this->taskRepository->createTask($input);
+        $data = $request->input('data');
+
+        Task::buildTree($data);
+
+        // dd($request->all());
+        // $input = $request->input('data');        
+        // return $this->taskRepository->createTask($input);
     }
 
     public function update(Request $request, $id)

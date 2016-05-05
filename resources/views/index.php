@@ -17,9 +17,10 @@
         <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700italic,700,900,900italic'
               rel='stylesheet' type='text/css'>
 
-<!--         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+      <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
+      <link rel="stylesheet" href="styles/style.css">
 
-        <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css"> -->
+
     </head>
 
     <!--[if lt IE 10]>
@@ -64,6 +65,11 @@
         <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
         <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
 
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+        <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+
+
         <!-- inject:js -->
 
         <script src="app/main/apps/dashboards/server/dashboard-server.module.js"></script>
@@ -99,6 +105,8 @@
         <script src="app/main/apps/board/services/filters.service.js"></script>
         <script src="app/main/apps/board/services/dialog.service.js"></script>
         <script src="app/main/apps/board/services/board.service.js"></script>
+
+        <script src="app/main/apps/wbs-board/task.js"></script>
 
         <!-- <script src="app/main/apps/board/sidenavs/filters/filters-sidenav.controller.js"></script> -->
         <!-- <script src="app/main/apps/board/sidenavs/settings/settings-sidenav.controller.js"></script> -->

@@ -4,8 +4,20 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 
 Route::get('test_data',function(){
-	return \App\Models\Task::where('project_id',5)->get()->toHierarchy();	
-	return $result;
+
+
+	// $tree = $post->getDescendantsAndSelf()->toHierarchy();
+
+	// $response = array('data' => $tree->values());
+
+	// return Response::json($response);
+
+	$tree = \App\Models\Task::get()->toHierarchy();	
+
+	$response = array('data' => $tree->values());
+
+	return $response;
+
 });
 
 Route::get('test',function(){	
